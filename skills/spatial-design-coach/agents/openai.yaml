@@ -1,0 +1,7 @@
+interface:
+  display_name: "设计课无敌教练"
+  short_description: "从任务书到方案、图纸与答辩，专业推进建筑规划景观设计课"
+  default_prompt: "Use $spatial-design-coach to help me advance this spatial-design studio assignment from the brief to a defensible submission."
+
+policy:
+  allow_implicit_invocation: true

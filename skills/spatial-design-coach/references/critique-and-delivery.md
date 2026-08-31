@@ -1,0 +1,159 @@
+# Critique and Delivery
+
+Read this reference when reviewing student work, prioritizing revisions, rescuing a deadline, organizing deliverables, or preparing a presentation or defense.
+
+## Review the artifact, not the aspiration
+
+Inspect the student's current brief, drawings, model views, diagrams, captions, speech, or tutor feedback before judging. Separate what the work visibly demonstrates from what the student says it intends.
+
+If an artifact cannot be inspected, do not invent its content. Ask for the smallest decisive item: often one plan plus one section at a stated scale, the current board at delivery size, or a two-minute project explanation.
+
+Locate one dominant conflict using these dimensions:
+
+- **Brief:** required users, program, boundary, scale, deliverables, and constraints.
+- **Proposition:** a situated, spatial, contestable claim rather than a slogan.
+- **Mechanism:** visible organization, dimension, section, sequence, edge, and time.
+- **Integration:** continuity across scale, discipline, flows, and project state.
+- **People and consequence:** access, benefit, burden, displacement, everyday use, and care.
+- **Evidence:** traceable sources, observations, tests, uncertainty, and counterevidence.
+- **Feasibility:** structure, environment, operation, phasing, maintenance, and professional checks proportional to studio level.
+- **Communication:** correct drawings, hierarchy, legibility, consistency, and a narrative that the evidence can support.
+
+Do not average these into a single score. A fatal brief conflict cannot be compensated by attractive graphics.
+
+## Write actionable critique
+
+For each of no more than three prioritized findings, use this internal logic:
+
+```text
+Issue → visible evidence → design consequence → next action → pass condition
+```
+
+Classify priority by consequence:
+
+- **Blocker:** prevents brief compliance, coherent authorship, safe claim, or complete submission.
+- **Structural:** weakens the central proposition or several downstream drawings.
+- **Local:** matters, but can be repaired without reorganizing the project.
+- **Presentation:** the project decision exists but is not legible or consistent.
+
+Phrase critique precisely. Replace “make it more interesting” with the relationship, scale, sequence, performance, or representation that is missing. Replace “add detail” with the question the detail must answer.
+
+In growth mode, ask the student to propose the first repair, then tighten it. In rescue mode, prescribe an ordered path and make the remaining decisions explicit.
+
+## Run a review cycle
+
+1. Ask the student to explain the work without reading board titles.
+2. Point to one claim the artifact proves and one it does not yet prove.
+3. Identify the dominant conflict and its downstream consequences.
+4. Choose the cheapest artifact that can test the repair.
+5. Define a pass condition before production.
+6. On return, compare the new artifact against that condition rather than moving the goalposts.
+
+Useful pass conditions are observable: “both public routes remain continuous at 1:500 and are resolved in the section,” not “circulation feels better.”
+
+## Rescue a submission within 72 hours
+
+Start with a deliverable ledger:
+
+| Required item | Current state | Source file or model | Blocking dependency | Minimum complete state |
+| --- | --- | --- | --- | --- |
+
+Then triage in this order:
+
+1. **Compliance and completeness:** missing required items, wrong scale, broken files, or unsupported claims.
+2. **One coherent project state:** align boundary, north, grids, levels, program names, dimensions, colors, quantities, and design revisions.
+3. **Central argument:** make problem, proposition, spatial mechanism, and trade-off visible in the strongest plan and section.
+4. **Reading order:** ensure the board and speech reveal that argument before secondary material.
+5. **Polish:** refine typography, captions, line weight, image balance, and export only after the set is coherent.
+
+Freeze non-fatal formal changes. Prefer updating a shared base drawing or model before manually repairing many downstream images. Cut duplicate diagrams, decorative text, and outputs that make no unique claim. Preserve enough time for export inspection and oral rehearsal.
+
+Do not promise a “perfect” rescue. State what will be complete, what will remain weak, and how to answer honestly if challenged.
+
+## Build the delivery narrative
+
+Use this logic, adapting length to the assignment:
+
+```text
+problem → evidence → proposition → strategy → spatial experience and systems
+→ tested performance → trade-off → likely impact
+```
+
+This is an argument, not a compulsory board layout. The sequence should answer:
+
+1. Why is intervention necessary here?
+2. What exactly is the project claiming?
+3. Through which spatial mechanisms does it act?
+4. How is the claim experienced and operated across scales and time?
+5. What evidence supports it, what does it cost, and what remains uncertain?
+
+## Give every artifact a job
+
+| Artifact | Primary question it can answer |
+| --- | --- |
+| Site or regional map | What larger system and boundary make the problem specific? |
+| Analysis diagram | Which evidenced condition changes a design decision? |
+| Proposition diagram | What relationship or mechanism organizes the response? |
+| Master plan or site plan | How do systems, access, publicness, program, ecology, and edges fit together? |
+| Plan | How are use, dimension, adjacency, circulation, structure, and threshold resolved? |
+| Section | How do body, terrain, water, light, climate, structure, and vertical relations meet? |
+| Sequence, model, or perspective | What is it like to approach, enter, occupy, and leave? |
+| Performance or scenario test | Under which condition does the mechanism work or fail? |
+| Detail or material study | How does the proposition survive construction and touch? |
+| Phasing or seasonal drawing | How does the project establish, change, maintain, or adapt? |
+
+Do not make one image prove everything. Do not repeat the same fact across several diagrams merely to fill a board.
+
+## Audit boards and files
+
+- Read at final physical size or realistic screen scale, not only while zoomed in.
+- Establish three reading distances: project claim, spatial structure, then evidence and detail.
+- Use titles as claims and captions as evidence or consequence, not labels such as “analysis 01.”
+- Keep north, scale, boundary, levels, names, numbers, colors, and design state consistent.
+- Show scale bars, legends, units, data and image sources, and status of assumptions where relevant.
+- Keep essential text concise enough to be spoken; remove paragraphs that compensate for absent drawings.
+- Inspect raster resolution, line weights, transparency, fonts, clipping, links, page size, color mode, and final export.
+- Distinguish existing, removed, proposed, temporary, and future conditions.
+- Verify that rendered atmosphere agrees with plan, section, access, material, season, and project state.
+
+## Prepare the oral presentation
+
+Draft one sentence for each narrative link, then expand only where evidence requires it. Time the speech aloud. The opening should name the situated problem and proposition; the ending should state the project's consequence and honest limit, not repeat the title.
+
+For each major drawing, prepare:
+
+- the claim it supports;
+- the visible evidence to point at;
+- the decision or trade-off it records;
+- the likely challenge it cannot answer alone.
+
+Avoid describing every element. Guide attention to the few relationships that carry the proposition.
+
+## Rehearse the defense
+
+Test the project from several roles:
+
+- **Studio critic:** Is the proposition specific, spatial, and visible?
+- **User or affected resident:** Who benefits, who struggles, and what happens in daily use?
+- **Planning or public-interest reviewer:** What lies outside the site, who decides, and what is the distributive effect?
+- **Technical reviewer:** What supports the structural, environmental, operational, or dimensional claim?
+- **Skeptic:** Which alternative was rejected, and what evidence could make you change course?
+
+Answer with:
+
+```text
+claim → evidence visible here → limitation or uncertainty → reasoned response or next verification
+```
+
+Do not bluff. “That requires verification by X; the current design reserves Y so the decision remains possible” is stronger than invented certainty.
+
+## Close the assignment
+
+After submission or review, extract one reusable method:
+
+- the cue that revealed the real problem;
+- the representation that changed the decision;
+- the trade-off the student learned to name;
+- one move to repeat and one failure to catch earlier next time.
+
+Humor may lower anxiety, but never aim it at the student. Aim it at the design problem, then give the repair: “The perspective is a charming witness, but it cannot provide an alibi for the missing section—bring a section through the threshold and water path.”

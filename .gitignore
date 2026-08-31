@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*~
+
+# Local caches and dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+.cache/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Temporary files
+*.tmp
+*.temp
