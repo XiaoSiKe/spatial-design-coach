@@ -57,6 +57,18 @@ problem → mechanism → spatial result → cost or blind spot → transfer con
 
 Do not copy appearance before checking whether the mechanism, climate, users, governance, economics, and scale transfer.
 
+### Audit existing datasets before adding more
+
+When the student already has census, POI, mobility, remote-sensing, survey, or sensor material, do not automatically route new analysis or ask for more data. For each retained finding, check:
+
+- **vintage:** whether sources describe compatible time periods;
+- **granularity:** whether the spatial and temporal resolution can support the proposed decision;
+- **coverage:** which places, people, periods, or behaviors are missing;
+- **bias:** what collection method or platform overrepresents;
+- **causality:** whether a correlation is being used as an explanation without evidence.
+
+Choose one live decision and complete one full evidence chain before making another map. A heat or density pattern cannot become a node, axis, program, or demolition decision until the affected group, spatial consequence, scale, and falsifying evidence are named.
+
 ## Generate genuinely different alternatives
 
 Hold the brief and essential constraints constant. Vary two or more consequential drivers:
@@ -127,6 +139,19 @@ After a pivotal decision, ask for a short student restatement:
 - For whom or what system?
 - What evidence supports it?
 - What trade-off are you accepting?
+
+### Use AI as a sparring partner
+
+Before generating or routing alternatives, record the student's current intention and locked constraints. Then use AI to create a counterproposal, expose a contradiction, or vary a consequential mechanism—not merely multiply attractive outputs.
+
+After comparison, ask the student to state:
+
+- what they accept and why;
+- what they reject and why;
+- what changed in their own proposition;
+- which new uncertainty must be tested.
+
+Write those choices into the shared decision record. Do not treat prompt fluency or passive selection from generated images as design learning.
 
 ## Recognize common design failures
 

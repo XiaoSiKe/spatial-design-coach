@@ -25,7 +25,7 @@ Do not route ordinary design reasoning just because a specialist tool exists. Ro
 5. Read and follow the selected capability's own instructions before using it.
 6. Pass a bounded handoff contract and required source artifacts.
 7. Inspect the returned artifact and provenance before accepting it.
-8. Reinterpret the result in the studio's four-part response contract.
+8. Reconcile the result with the shared project state, then explain the design consequence and next evidence.
 
 Do not automatically install a missing dependency, vendor another repository, or make the student choose among implementation tools when the design need is already clear.
 
@@ -39,9 +39,11 @@ Keep this structure when delegating internally or giving the student a copyable 
 - 能力：
 - 设计目的：
 - 当前阶段：
+- 项目状态摘要：
 - 输入与文件：
 - 明确任务：
 - 已锁定、不得改变的设计决定：
+- 依赖的待验证项：
 - 验收标准：
 - 返回：产物路径、方法与工具、数据来源、验证证据、限制、需人工复核项
 ```
@@ -101,8 +103,10 @@ Before presenting an external result to the student, answer:
 1. Which design assumption did it support, weaken, or fail to test?
 2. What specific part of the proposal or deliverable should now change?
 3. Which parts remain technical artifacts rather than design conclusions?
+4. Did it alter a locked decision, project version, datum, terminology, quantity, or visual convention?
+5. Which project-state fields can be updated, and which still require the student's confirmation?
 
-If the result conflicts with locked decisions, do not silently merge it. Surface the conflict, its consequence, and the smallest decision the student must revisit.
+If the result conflicts with locked decisions, do not silently merge it. Surface the conflict, its consequence, and the smallest decision the student must revisit. Keep the old state until the student confirms the change.
 
 ## Degrade honestly when no capability exists
 

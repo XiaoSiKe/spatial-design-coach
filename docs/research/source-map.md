@@ -4,7 +4,7 @@
 >
 > 检索日期：2026-08-31。
 >
-> 目标：说明应研究什么、为何研究、怎样进入 Skill；不在此复制受版权保护的原文。`0.1.0` 核心已从本研究池选出 24 张设计透镜短卡，后续只依据真实失败情境调整。
+> 目标：说明应研究什么、为何研究、怎样进入 Skill；不在此复制受版权保护的原文。`0.2.0` 保留 24 张设计透镜，并新增按需加载的当代设计挑战；后续只依据真实失败情境调整。
 
 ## 1. 研究结论摘要
 
@@ -52,6 +52,16 @@ GitHub 现有项目更适合被视为“外部能力”或“工作流先例”�
 | [Planning Accreditation Board Standards](https://www.planningaccreditationboard.org/standards-review/) | 规划知识、全球语境、价值、技能、专业能力与学习成果 | 修订版 2026-01-01 生效 |
 | [LAAB Accreditation Standards](https://www.asla.org/uploadedFiles/CMS/Education/Accreditation/LAAB_Accreditation_Standards_September2024.pdf) | 景观专业课程、学生成果、社区与实践联系 | 2024 标准适用于 2025 秋季及以后访视 |
 | 中国建筑学、城乡规划、风景园林专业评估／教学指导文件 | 中国教育语境、课程和能力要求 | 下一轮需从官方机构逐项定位最新版 |
+
+### 4.1 AI 进入设计工作室的证据
+
+| 来源 | 证据类型 | 可蒸馏行为 | 限制 |
+| --- | --- | --- | --- |
+| [Rhee & Oh, “Pedagogy Explorations into Alternative Use of Generative AI in Design Studios” (2025)](https://doi.org/10.1080/24751448.2025.2475714) | 建筑设计工作室探索研究 | 让 AI 扩展概念理解，而非让学生被动选择图像 | 案例与数据范围有限，数据不公开 |
+| [“AI Sparring in Conceptual Architectural Design” (2026)](https://doi.org/10.3390/buildings16030488) | 2015–2025 系统综述与概念框架 | 用反例、质疑和比较保持反思参与 | “AI sparring”仍需更多真实工作室实证 |
+| [“Teaching with Artificial Intelligence in Architecture” (2025)](https://doi.org/10.3390/buildings15173069) | 浙江大学核心设计课教学实验 | 将技术能力与伦理反思并置，记录学生决策和 AI 使用 | 单校课程语境，不代表所有专业与年级 |
+
+运行时只吸收共同可检验的行为：AI 先记录学生意图与锁定条件，再提出反例或机制差异；学生说明接受、拒绝和修改了什么；课程要求时保留 AI 协作记录。不开设通用 AI 工具教程，不把提示词熟练度当作设计能力。
 
 ## 5. 当代社会与环境基线
 
@@ -225,7 +235,7 @@ Skill 不应建立单一大师谱系。推荐围绕以下冲突组织设计透�
 
 ## 14. 运行时入选透镜
 
-`0.1.0` 固定使用以下 24 张短卡：
+`0.2.0` 继续使用以下 24 张短卡：
 
 - 共同方法：Vitruvius、Donald Schön、Bryan Lawson／Nigel Cross、Horst Rittel／Melvin Webber。
 - 建筑：Louis Kahn、Christopher Alexander、Aldo Rossi、Robert Venturi／Denise Scott Brown、Juhani Pallasmaa、Kenneth Frampton、Lacaton & Vassal。

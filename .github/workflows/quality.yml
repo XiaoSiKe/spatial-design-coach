@@ -1,0 +1,39 @@
+name: quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate repository
+        run: python3 scripts/validate_repo.py
+      - name: Validate Agent Skill
+        run: npx --yes skills-ref validate skills/spatial-design-coach
+      - name: Verify local discovery
+        run: |
+          npx --yes skills add . --list | tee /tmp/skills-list.txt
+          grep -q "spatial-design-coach" /tmp/skills-list.txt
+      - name: Check Git whitespace
+        run: |
+          if [ -n "$GITHUB_BASE_REF" ]; then
+            git diff --check "origin/$GITHUB_BASE_REF...HEAD"
+          else
+            git diff --check HEAD^ HEAD
+          fi
