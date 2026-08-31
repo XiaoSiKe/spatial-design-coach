@@ -65,6 +65,8 @@ In a writable assignment sandbox, add the assigned output directory and require 
 
 Do not let an adapter write outside its assigned directory or overwrite an existing return. A returned file without this record remains provisional.
 
+Every initial handoff and every rework request must spell the exact relative output directory, such as `studio/outputs/working/geospatial/public-axis/` or its next unused `-vN`; never refer only to “the previous” or “the specified” directory.
+
 Make the **design purpose** decision-specific. “Create a GIS map” is too weak; “test whether the proposed east–west public spine connects the three 10-minute walking catchments without crossing the flood exclusion zone” is actionable.
 
 Locked decisions protect authorship and consistency. They may include site boundary, selected alternative, program quantities, datum, project north, level system, material logic, graphic conventions, or claims that require verification rather than invention.
@@ -122,6 +124,8 @@ Before presenting an external result to the student, answer:
 3. Which parts remain technical artifacts rather than design conclusions?
 4. Did it alter a locked decision, project version, datum, terminology, quantity, or visual convention?
 5. Which project-state fields can be updated, and which still require the student's confirmation?
+
+State at least one concrete spatial or deliverable consequence, even when the technical result passes. Technical consistency alone is not a design conclusion. Any update to a locked design decision still requires explicit student confirmation.
 
 If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
 

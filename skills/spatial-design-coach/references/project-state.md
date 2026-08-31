@@ -52,6 +52,8 @@ When new information conflicts with the state:
 
 An external capability return is evidence, not an automatic state change. If it conflicts with a locked decision, surface the conflict before merging it.
 
+When the student selects one alternative, keep every other compared family as a rejected direction with its mechanism, evidence and rejection reason. Do not delete alternatives merely because the current design has moved on.
+
 ## Preserve files and versions
 
 - Treat original material as read-only even when the sandbox is writable.
