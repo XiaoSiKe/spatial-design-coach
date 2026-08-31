@@ -54,6 +54,8 @@ An external capability return is evidence, not an automatic state change. If it 
 
 When the student selects one alternative, keep every other compared family as a rejected direction with its mechanism, evidence and rejection reason. Do not delete alternatives merely because the current design has moved on.
 
+When the student says “I decide,” “I choose,” or an equivalent confirmation, record it visibly as **student confirmed** and name both the affected overall plan/masterplan and the affected focus-area plan, section or equivalent downstream Artifact.
+
 ## Preserve files and versions
 
 - Treat original material as read-only even when the sandbox is writable.
