@@ -27,6 +27,18 @@ def read(path: Path) -> str:
         return ""
 
 
+def first_blockquote_after(text: str, marker: str) -> str:
+    if marker not in text:
+        return ""
+    quoted: list[str] = []
+    for line in text.split(marker, 1)[1].splitlines():
+        if line.startswith("> "):
+            quoted.append(line[2:])
+        elif quoted:
+            break
+    return "\n".join(quoted)
+
+
 def check_text_files() -> None:
     for path in sorted(ROOT.rglob("*")):
         if not path.is_file() or ".git" in path.parts or path.suffix not in {".md", ".json", ".yaml", ".yml", ".py", ".svg"}:
@@ -260,6 +272,37 @@ def check_doc_governance() -> None:
         fail("prior-art repositories missing from provenance: " + ", ".join(missing))
 
 
+def check_behavior_contracts() -> None:
+    skill_text = read(SKILL_DIR / "SKILL.md")
+    voice_text = read(ROOT / "docs" / "product" / "voice.md")
+    yaml_text = read(SKILL_DIR / "agents" / "openai.yaml")
+    skill_greeting = first_blockquote_after(
+        skill_text,
+        "If the user only greets you, reply:",
+    )
+    voice_greeting = first_blockquote_after(
+        voice_text,
+        "### 学生只说“你好”",
+    )
+    if not skill_greeting or skill_greeting != voice_greeting:
+        fail("greeting differs between SKILL.md and docs/product/voice.md")
+
+    voice_short = re.search(r'^short_description: "([^"]*)"$', voice_text, re.MULTILINE)
+    yaml_short = re.search(r'^  short_description: "([^"]*)"$', yaml_text, re.MULTILINE)
+    if not voice_short or not yaml_short or voice_short.group(1) != yaml_short.group(1):
+        fail("short description differs between docs/product/voice.md and openai.yaml")
+
+    config = json.loads(read(ROOT / "tests" / "evals" / "config.json") or "{}")
+    high_risk_count = len(config.get("high_risk_case_ids", []))
+    expected = f"{high_risk_count} 个高风险"
+    for relative in (
+        Path("docs/testing/acceptance-scenarios.md"),
+        Path("tests/evals/README.md"),
+    ):
+        if expected not in read(ROOT / relative):
+            fail(f"documented high-risk eval count is stale: {relative}")
+
+
 def main() -> int:
     check_text_files()
     markdown_structure_and_links()
@@ -268,6 +311,7 @@ def main() -> int:
     check_cases()
     check_journeys_and_fixtures()
     check_doc_governance()
+    check_behavior_contracts()
     if ERRORS:
         for item in ERRORS:
             print(f"ERROR: {item}")

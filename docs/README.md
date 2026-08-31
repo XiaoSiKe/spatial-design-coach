@@ -7,7 +7,7 @@
 - Skill slug：`spatial-design-coach`
 - 中文显示名：设计课无敌教练
 - 英文显示名：Spatial Design Coach
-- 版本：`0.3.0`
+- 版本：`0.4.0`
 - 许可证：MIT
 - 服务对象：建筑学、城乡规划、风景园林及相关空间设计学习者
 
@@ -29,14 +29,19 @@
 
 项目共同术语以根目录 [CONTEXT.md](../CONTEXT.md) 为准。
 
-## 内容归属
+## 运行时与文档关系
 
-- 会改变每次辅导行为的规则放在运行时 `SKILL.md`、八个 `references/`、沙盒初始化脚本或项目模板中。
-- 项目状态只由 `references/project-state.md` 定义；其他 reference 不维护平行状态。
-- 产品事实只在 [产品需求](./product/prd.md) 维护，架构取舍只在 ADR 解释。
-- 文献、仓库、许可和来源更新只放在 `research/`。
-- 历史访谈只保留在 `archive/`，不得作为当前实现要求。
-- GIS、空间分析、CAD、建模、图像和演示能力由外部 Skill／MCP 完成，不复制到本仓库。
+| 改动类型 | 权威实现 | 必须同步 |
+|---|---|---|
+| 名称、简介、欢迎语 | [`product/voice.md`](./product/voice.md) | `agents/openai.yaml`、Plugin manifest、`SKILL.md` 欢迎语、SDC-001 |
+| 辅导入口与路由 | [`SKILL.md`](../skills/spatial-design-coach/SKILL.md) | 对应 runtime reference 和行为 case／journey |
+| 项目状态与决定 | [`project-state.md`](../skills/spatial-design-coach/references/project-state.md) | 项目模板、ADR-0002／0003、状态 journey |
+| 阶段、推理与交付 | `studio-workflow.md`、`design-reasoning.md`、`studio-standard.md`、`critique-and-delivery.md` | 产品需求与对应行为评测 |
+| 理论与当代议题 | `design-lenses.md`、`contemporary-challenges.md` | 来源地图与 provenance；只在真实缺口出现时扩展 |
+| 外部专业能力 | [`capability-routing.md`](../skills/spatial-design-coach/references/capability-routing.md) | ADR-0001 与 Adapter case／journey |
+| 发布与测试 | `tests/evals/`、`scripts/`、CI | [验收情境](./testing/acceptance-scenarios.md) 与版本元数据 |
+
+产品事实只在 [产品需求](./product/prd.md) 维护，架构取舍只在 ADR 解释，项目共同术语以根目录 [CONTEXT.md](../CONTEXT.md) 为准。历史访谈仅供追溯，不是当前要求。GIS、CAD、建模、图像和演示实现保持为外部 Skill／MCP，不复制进核心。
 
 ## 维护规则
 
@@ -44,3 +49,4 @@
 2. 新增理论或开源先例时，先在来源记录中确认出处、版本与许可。
 3. 不用版本后缀创建重复文档；发布版本由 Git tag 管理。
 4. 不把受版权保护的正文、第三方提示词或外部 Skill 镜像纳入核心。
+5. 运行 `python3 scripts/validate_repo.py`，确认元数据、欢迎语、评测数量和文档链接没有漂移。

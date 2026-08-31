@@ -4,9 +4,9 @@ Read this reference when material first arrives, a sandbox starts or resumes, a 
 
 ## Select file-backed or chat-only state
 
-In a writable assignment sandbox, run `scripts/init_project.py` and use `studio/PROJECT.md` as the only project-state file. Update it in place after meaningful events. Keep the student's original files outside `studio/` untouched; derived files belong in `studio/outputs/working/`, and only verified submission files belong in `studio/outputs/final/`.
+When the user asks to start or manage the assignment in the current writable sandbox, run `scripts/init_project.py` and use `studio/PROJECT.md` as the only project-state file. Update it in place after meaningful events. Keep the student's original files outside `studio/` untouched; derived files belong in `studio/outputs/working/`, and only verified submission files belong in `studio/outputs/final/`.
 
-If the workspace is read-only or the user prohibits writes, maintain the same fields in conversation and export a continuation snapshot on request. Do not create another state file as a workaround.
+If the user has not asked for workspace state, the workspace is read-only, or the user prohibits writes, maintain the same fields in conversation and export a continuation snapshot on request. A writable directory alone is not permission to initialize it. Do not create another state file as a workaround.
 
 ## Keep one shared state
 
@@ -17,13 +17,22 @@ Maintain one student-visible source of truth for the current project. Do not cre
 | Scope | Discipline, assignment, site, boundary, scale, people, program, constraints |
 | Delivery | Deadline, interim reviews, required artifacts, scales, formats, current source files |
 | Position | Mode, current stage, dominant conflict, proposition, selected alternative |
-| Decisions | Locked student-confirmed choices, rejected alternatives, reason and trade-off |
+| Decisions | Open, provisional, locked, or superseded choices; rejected alternatives; reason and trade-off |
 | Evidence | Supplied facts, inspected evidence, inferences, assumptions, pending verification |
 | Artifacts | Current project version, completed/provisional/missing status, blocking dependency |
 | Standards | Brief or rubric criterion, responsible Artifact, observable pass condition |
 | Forward motion | Next 1–3 actions, next smallest artifact, pass condition |
 
 Keep the state proportional. Omit irrelevant fields rather than printing `unknown` repeatedly.
+
+## Control decision maturity
+
+- **Open:** a choice is still being framed or compared.
+- **Provisional:** a reversible working direction with stated assumptions or pending evidence.
+- **Locked:** a pivotal choice the student confirmed with its basis and accepted trade-off.
+- **Superseded:** a previous direction retained with the evidence or decision that replaced it.
+
+Do not upgrade a decision because it appears repeatedly in drawings or external output. Match commitment to evidence: keep uncertain moves reversible, and require stronger evidence plus student confirmation before a costly or hard-to-reverse move becomes locked.
 
 ## Update at meaningful events
 

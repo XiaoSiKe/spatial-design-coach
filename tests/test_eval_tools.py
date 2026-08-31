@@ -20,9 +20,15 @@ def load_module(name: str, path: Path):
 
 RUN_EVALS = load_module("run_evals", ROOT / "scripts" / "run_evals.py")
 RELEASE_CHECK = load_module("release_check", ROOT / "scripts" / "release_check.py")
+VALIDATE_REPO = load_module("validate_repo", ROOT / "scripts" / "validate_repo.py")
 
 
 class EvalToolTests(unittest.TestCase):
+    def test_extracts_first_blockquote_after_marker(self) -> None:
+        text = "before\nmarker\n\n> first\n> second\n\nafter\n"
+        self.assertEqual(VALIDATE_REPO.first_blockquote_after(text, "marker"), "first\nsecond")
+        self.assertEqual(VALIDATE_REPO.first_blockquote_after(text, "missing"), "")
+
     def test_expected_batch_shapes(self) -> None:
         self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 4)])
         self.assertEqual(len(RUN_EVALS.select_batches("cases")), 3)
