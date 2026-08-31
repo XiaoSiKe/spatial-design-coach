@@ -95,6 +95,7 @@ Every handoff must also state how the return will be translated into a concrete 
 
 ### `cad-modeling`
 
+- Enumerate the selected design scheme and authoritative version as locked decisions alongside boundary, north, datum and levels; define how the returned model version will be named and compared.
 - Lock units, origin, axes, levels, tolerances, naming, and file version before exchange.
 - State which geometry is authoritative and which is exploratory.
 - Keep parameters and layers legible; avoid unexplained destructive conversion.
@@ -130,6 +131,13 @@ Before presenting an external result to the student, answer:
 Use a visible return-audit checklist: **actual files inspected → method → source/data → verification → limitations → design consequence → student confirmation**. A hypothetical or merely promised return cannot be marked accepted.
 
 State at least one concrete spatial or deliverable consequence, even when the technical result passes. Technical consistency alone is not a design conclusion. Before proposing any locked-decision update, say explicitly that the current locked state remains authoritative until the student confirms the change.
+
+For every inspected return, include at least one visible row:
+
+| Design assumption | Supported / weakened / untested | Return evidence and limitation | Affected Artifact |
+| --- | --- | --- | --- |
+
+Do not leave the assumption-status column implicit in surrounding prose.
 
 If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
 
