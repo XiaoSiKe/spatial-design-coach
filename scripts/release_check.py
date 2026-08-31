@@ -46,8 +46,8 @@ def validate_eval(path: Path, expected_commit: str) -> None:
     if payload.get("commit") != expected_commit:
         raise RuntimeError("eval report commit does not match HEAD")
     summary = payload.get("summary", {})
-    if summary.get("failed") != 0 or summary.get("critical_failed") != 0:
-        raise RuntimeError(f"eval report contains failures: {summary}")
+    if summary.get("release_ready") is not True:
+        raise RuntimeError(f"eval report does not satisfy critical quorum: {summary}")
     names = {(run_item["name"], run_item["run"]) for run_item in payload.get("runs", [])}
     required = {
         ("cases-1", 1),
@@ -55,7 +55,9 @@ def validate_eval(path: Path, expected_commit: str) -> None:
         ("cases-3", 1),
         ("journeys", 1),
         ("high-risk", 2),
+        ("high-risk", 3),
         ("journeys", 2),
+        ("journeys", 3),
     }
     if not required.issubset(names):
         raise RuntimeError("eval report is missing required case, journey, or independent rerun batches")

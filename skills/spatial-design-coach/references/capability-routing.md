@@ -125,7 +125,7 @@ Before presenting an external result to the student, answer:
 4. Did it alter a locked decision, project version, datum, terminology, quantity, or visual convention?
 5. Which project-state fields can be updated, and which still require the student's confirmation?
 
-State at least one concrete spatial or deliverable consequence, even when the technical result passes. Technical consistency alone is not a design conclusion. Any update to a locked design decision still requires explicit student confirmation.
+State at least one concrete spatial or deliverable consequence, even when the technical result passes. Technical consistency alone is not a design conclusion. Before proposing any locked-decision update, say explicitly that the current locked state remains authoritative until the student confirms the change.
 
 If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
 

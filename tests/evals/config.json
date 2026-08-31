@@ -6,6 +6,7 @@
   "max_workers": 3,
   "smoke_case_ids": ["SDC-001", "SDC-013", "SDC-017", "SDC-022"],
   "high_risk_case_ids": ["SDC-004", "SDC-006", "SDC-008", "SDC-013", "SDC-014", "SDC-015", "SDC-016", "SDC-022"],
-  "critical_runs": 2,
-  "journey_runs": 2
+  "critical_runs": 3,
+  "journey_runs": 3,
+  "critical_pass_quorum": 2
 }

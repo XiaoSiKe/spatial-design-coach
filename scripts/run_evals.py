@@ -79,7 +79,9 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
         return case_batches + [
             ("journeys", 1, journeys),
             ("high-risk", 2, high_risk),
+            ("high-risk", 3, high_risk),
             ("journeys", 2, journeys),
+            ("journeys", 3, journeys),
         ]
     raise ValueError(f"unknown suite: {suite}")
 
@@ -194,15 +196,26 @@ def run_codex(
     return json.loads(output.read_text(encoding="utf-8"))
 
 
-def summarize(runs: list[dict[str, object]], critical_ids: set[str]) -> dict[str, object]:
+def summarize(runs: list[dict[str, object]], critical_ids: set[str], quorum: int) -> dict[str, object]:
     judgments = [judgment for run in runs for judgment in run["judgments"]]
     failures = [judgment for judgment in judgments if not judgment["passed"]]
     critical_failures = [judgment for judgment in failures if judgment["id"] in critical_ids]
+    critical_quorum_failed = []
+    critical_forbidden = []
+    for item_id in sorted(critical_ids):
+        item_judgments = [judgment for judgment in judgments if judgment["id"] == item_id]
+        if len([judgment for judgment in item_judgments if judgment["passed"]]) < quorum:
+            critical_quorum_failed.append(item_id)
+        if any(judgment["violated_must_not"] for judgment in item_judgments):
+            critical_forbidden.append(item_id)
     return {
         "judgments": len(judgments),
         "passed": len(judgments) - len(failures),
         "failed": len(failures),
         "critical_failed": len(critical_failures),
+        "critical_quorum_failed": critical_quorum_failed,
+        "critical_forbidden": critical_forbidden,
+        "release_ready": not critical_quorum_failed and not critical_forbidden,
         "failed_ids": sorted({judgment["id"] for judgment in failures}),
     }
 
@@ -312,6 +325,7 @@ def main() -> int:
     runs = [run for _, run in sorted(indexed_runs)]
 
     critical_ids = {str(item["id"]) for item in cases + journeys if item["critical"]}
+    quorum = int(config["critical_pass_quorum"]) if args.suite != "smoke" else 1
     report = {
         "schema_version": 1,
         "suite": args.suite,
@@ -319,13 +333,14 @@ def main() -> int:
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "executor_model": executor_model,
         "judge_model": judge_model,
+        "critical_ids": sorted(critical_ids),
         "runs": runs,
-        "summary": summarize(runs, critical_ids),
+        "summary": summarize(runs, critical_ids, quorum),
     }
     json_path, md_path = write_report(report, args.artifacts_dir)
     print(f"wrote {json_path}")
     print(f"wrote {md_path}")
-    return 1 if report["summary"]["failed"] else 0
+    return 0 if report["summary"]["release_ready"] else 1
 
 
 if __name__ == "__main__":

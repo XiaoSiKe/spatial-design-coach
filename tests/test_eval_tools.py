@@ -25,8 +25,8 @@ RELEASE_CHECK = load_module("release_check", ROOT / "scripts" / "release_check.p
 class EvalToolTests(unittest.TestCase):
     def test_expected_batch_shapes(self) -> None:
         self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 4)])
-        self.assertEqual(len(RUN_EVALS.select_batches("high-risk")), 2)
-        self.assertEqual(len(RUN_EVALS.select_batches("journeys")), 2)
+        self.assertEqual(len(RUN_EVALS.select_batches("high-risk")), 3)
+        self.assertEqual(len(RUN_EVALS.select_batches("journeys")), 3)
         self.assertEqual(
             [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")],
             [
@@ -35,7 +35,9 @@ class EvalToolTests(unittest.TestCase):
                 ("cases-3", 1, 8),
                 ("journeys", 1, 8),
                 ("high-risk", 2, 8),
+                ("high-risk", 3, 8),
                 ("journeys", 2, 8),
+                ("journeys", 3, 8),
             ],
         )
 
@@ -43,14 +45,16 @@ class EvalToolTests(unittest.TestCase):
         payload = {
             "suite": "full",
             "commit": "abc123",
-            "summary": {"failed": 0, "critical_failed": 0},
+            "summary": {"failed": 3, "critical_failed": 1, "release_ready": True},
             "runs": [
                 {"name": "cases-1", "run": 1},
                 {"name": "cases-2", "run": 1},
                 {"name": "cases-3", "run": 1},
                 {"name": "journeys", "run": 1},
                 {"name": "high-risk", "run": 2},
+                {"name": "high-risk", "run": 3},
                 {"name": "journeys", "run": 2},
+                {"name": "journeys", "run": 3},
             ],
         }
         with tempfile.TemporaryDirectory() as temp:
