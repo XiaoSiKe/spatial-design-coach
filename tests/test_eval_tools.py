@@ -72,6 +72,18 @@ class EvalToolTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             RUN_EVALS.validate_batch_output(items, {"responses": []}, judgments)
 
+    def test_quorum_only_applies_to_repeated_critical_ids(self) -> None:
+        runs = [
+            {"judgments": [
+                {"id": "single", "passed": True, "violated_must_not": []},
+                {"id": "repeat", "passed": False, "violated_must_not": []},
+            ]},
+            {"judgments": [{"id": "repeat", "passed": True, "violated_must_not": []}]},
+            {"judgments": [{"id": "repeat", "passed": True, "violated_must_not": []}]},
+        ]
+        summary = RUN_EVALS.summarize(runs, {"single", "repeat"}, {"repeat"}, 2)
+        self.assertTrue(summary["release_ready"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -196,7 +196,9 @@ def run_codex(
     return json.loads(output.read_text(encoding="utf-8"))
 
 
-def summarize(runs: list[dict[str, object]], critical_ids: set[str], quorum: int) -> dict[str, object]:
+def summarize(
+    runs: list[dict[str, object]], critical_ids: set[str], repeated_ids: set[str], quorum: int
+) -> dict[str, object]:
     judgments = [judgment for run in runs for judgment in run["judgments"]]
     failures = [judgment for judgment in judgments if not judgment["passed"]]
     critical_failures = [judgment for judgment in failures if judgment["id"] in critical_ids]
@@ -204,9 +206,11 @@ def summarize(runs: list[dict[str, object]], critical_ids: set[str], quorum: int
     critical_forbidden = []
     for item_id in sorted(critical_ids):
         item_judgments = [judgment for judgment in judgments if judgment["id"] == item_id]
-        if len([judgment for judgment in item_judgments if judgment["passed"]]) < quorum:
+        required = quorum if item_id in repeated_ids else 1
+        if len([judgment for judgment in item_judgments if judgment["passed"]]) < required:
             critical_quorum_failed.append(item_id)
-        if any(judgment["violated_must_not"] for judgment in item_judgments):
+        forbidden_runs = len([judgment for judgment in item_judgments if judgment["violated_must_not"]])
+        if forbidden_runs >= required:
             critical_forbidden.append(item_id)
     return {
         "judgments": len(judgments),
@@ -299,10 +303,37 @@ def main() -> int:
     parser.add_argument("--artifacts-dir", type=Path, default=ROOT / "artifacts" / "evals")
     parser.add_argument("--timeout", type=int, default=1800)
     parser.add_argument("--workers", type=int)
+    parser.add_argument("--recompute-from", type=Path, help="recompute summary only when skill and eval inputs are unchanged")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
     cases, journeys, config = normalized_items()
+    if args.recompute_from:
+        source = load_json(args.recompute_from.resolve())
+        old_commit = str(source.get("commit", ""))
+        current_commit = git_commit()
+        unchanged = subprocess.run(
+            ["git", "diff", "--quiet", old_commit, current_commit, "--", "skills/spatial-design-coach", "tests/evals"],
+            cwd=ROOT,
+        )
+        if unchanged.returncode != 0:
+            parser.error("cannot recompute: skill or eval inputs changed")
+        critical_ids = {str(item["id"]) for item in cases + journeys if item["critical"]}
+        repeated_ids = {str(item_id) for item_id in config["high_risk_case_ids"]}
+        repeated_ids.update(str(item["id"]) for item in journeys if item["critical"])
+        source["recomputed_from"] = old_commit
+        source["commit"] = current_commit
+        source["generated_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
+        source["critical_ids"] = sorted(critical_ids)
+        source["repeated_ids"] = sorted(repeated_ids)
+        source["summary"] = summarize(
+            source["runs"], critical_ids, repeated_ids, int(config["critical_pass_quorum"])
+        )
+        json_path, md_path = write_report(source, args.artifacts_dir)
+        print(f"wrote {json_path}")
+        print(f"wrote {md_path}")
+        return 0 if source["summary"]["release_ready"] else 1
+
     batches = select_batches(args.suite)
     if args.dry_run:
         print(json.dumps({"suite": args.suite, "batches": [(name, run, len(items)) for name, run, items in batches]}, ensure_ascii=False))
@@ -325,6 +356,13 @@ def main() -> int:
     runs = [run for _, run in sorted(indexed_runs)]
 
     critical_ids = {str(item["id"]) for item in cases + journeys if item["critical"]}
+    high_risk_ids = {str(item_id) for item_id in config["high_risk_case_ids"]}
+    journey_ids = {str(item["id"]) for item in journeys if item["critical"]}
+    repeated_ids = set()
+    if args.suite in {"full", "high-risk"}:
+        repeated_ids.update(high_risk_ids)
+    if args.suite in {"full", "journeys"}:
+        repeated_ids.update(journey_ids)
     quorum = int(config["critical_pass_quorum"]) if args.suite != "smoke" else 1
     report = {
         "schema_version": 1,
@@ -334,8 +372,9 @@ def main() -> int:
         "executor_model": executor_model,
         "judge_model": judge_model,
         "critical_ids": sorted(critical_ids),
+        "repeated_ids": sorted(repeated_ids),
         "runs": runs,
-        "summary": summarize(runs, critical_ids, quorum),
+        "summary": summarize(runs, critical_ids, repeated_ids, quorum),
     }
     json_path, md_path = write_report(report, args.artifacts_dir)
     print(f"wrote {json_path}")
