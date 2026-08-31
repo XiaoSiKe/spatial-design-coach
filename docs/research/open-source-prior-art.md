@@ -1,6 +1,6 @@
 # 开源先例与整合策略
 
-> 调研日期：2026-08-31；`0.2.0` 复核
+> 调研日期：2026-08-31；`0.3.0` 复核
 >
 > 用途：维护者研究，不随运行时 Skill 默认加载。上游版本与许可证快照见 [来源与许可记录](./provenance.md)。
 
@@ -83,7 +83,7 @@
 | [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | Skill 目录 | 只用于发现，内容与许可必须追到上游 |
 | [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | Skill 聚合与镜像 | 只用于发现；聚合仓库许可证不覆盖被镜像内容 |
 
-`0.2.0` 进一步使用 [agentskills/agentskills](https://github.com/agentskills/agentskills) 作为格式验证依据，使用 [vercel-labs/skills](https://github.com/vercel-labs/skills) 做安装与发现 smoke test。两者改变的是包装和测试，不向学生辅导 runtime 注入通用工程说明。
+`0.3.0` 继续使用 [agentskills/agentskills](https://github.com/agentskills/agentskills) 作为格式验证依据，使用 [vercel-labs/skills](https://github.com/vercel-labs/skills) 做安装与发现测试。两者改变的是包装和测试，不向学生辅导 runtime 注入通用工程说明。
 
 [gmakstutis/qWiki](https://github.com/gmakstutis/qWiki) 可用于参考建筑理论知识库的组织方式，但仓库许可证不自动重新授权其中收录的书籍、文章、图片或笔记素材，运行时不得复制其第三方正文。
 

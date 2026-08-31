@@ -15,7 +15,7 @@ GIS、CAD、BIM、参数化、图像生成、PPT 或 PDF 操作应优先作为�
 
 1. 先提交 Issue 或在 PR 中说清真实失败情境，包括输入、当前不理想行为和期望的可观察行为。
 2. 只修改解决该问题所需的最小范围，避免同时重排无关文档或扩张功能。
-3. 任何改变 Skill 对外行为的修改，都必须在 `tests/evals/cases.json` 增加或更新一个行为情境，并同步维护 `docs/testing/acceptance-scenarios.md` 的人类可读说明。
+3. 任何改变 Skill 对外行为的修改，都必须更新对应单轮 case 或多轮 journey；涉及图纸、教师反馈、沙盒状态或外援返回时使用合成 studio packet。
 4. 运行 `python3 scripts/validate_repo.py`，并确认 Agent Skills、Plugin、安装发现和文档检查全部通过。
 
 ## 学生情境与隐私
@@ -23,6 +23,7 @@ GIS、CAD、BIM、参数化、图像生成、PPT 或 PDF 操作应优先作为�
 - 优先提交合成情境。真实学生材料必须获得允许，并删除姓名、学号、联系方式、精确住址和不必要的课程身份信息。
 - 不提交未授权的任务书、教师材料、场地图纸、模型、照片、录音或评图记录；得到查看许可不等于得到开源再发布许可。
 - 行为测试只保留重现问题所需的最少上下文，以及可观察的 `must`／`must_not` 条件；不保存模型内部推理或固定标准答案。
+- 新增 fixture 必须标记 `synthetic: true`、`contains_personal_data: false` 和明确许可证；PNG 应由同目录可编辑 SVG 机械生成。
 - “训练 Skill”表示用这些情境改进 instructions 和 references，不表示训练模型权重或建立学生画像。
 
 ## 来源与许可证

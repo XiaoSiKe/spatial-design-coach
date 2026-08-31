@@ -1,7 +1,7 @@
 {
   "name": "spatial-design-coach",
-  "version": "0.2.0",
-  "description": "A practical design-studio coach for architecture, urban planning, and landscape architecture students.",
+  "version": "0.3.0",
+  "description": "A sandbox-based design-studio coach for architecture, urban planning, and landscape architecture students.",
   "author": {
     "name": "XiaoSiKe",
     "url": "https://github.com/XiaoSiKe"
@@ -19,8 +19,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "设计课无敌教练",
-    "shortDescription": "解读任务书、深化方案、评图救火，推进建筑规划景观作业到答辩",
-    "longDescription": "面向建筑学、城乡规划与风景园林学生的设计课教练，支持任务书解读、概念落地、方案比较、跨尺度深化、评图救火、成果整理与答辩，同时保护学生作者性。",
+    "shortDescription": "在独立沙盒中推进建筑规划景观作业到交图与答辩",
+    "longDescription": "面向建筑学、城乡规划与风景园林学生的设计作业沙盒教练，从任务书和真实文件出发，持续维护项目状态，推进方案、图纸、评图、救火、成果与答辩。",
     "developerName": "XiaoSiKe",
     "category": "Education",
     "capabilities": [
@@ -28,9 +28,9 @@
     ],
     "websiteURL": "https://github.com/XiaoSiKe/spatial-design-coach",
     "defaultPrompt": [
-      "用 $spatial-design-coach 解读任务书，建立项目状态并安排下一步。",
+      "用 $spatial-design-coach 在当前沙盒读取任务书并开始这个设计作业。",
       "用 $spatial-design-coach 评图，找出方案最关键的空间矛盾。",
-      "用 $spatial-design-coach 切换救火模式，排出最低完整交付路径。"
+      "用 $spatial-design-coach 进入救火模式，按依赖排出最低完整交付路径。"
     ]
   }
 }

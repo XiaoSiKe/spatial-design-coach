@@ -2,7 +2,7 @@
 
 > 从“我有个概念”到“老师问吧，我准备好了”。
 
-`spatial-design-coach` 是面向建筑学、城乡规划和风景园林学生的开源 Agent Skill。它能解读任务书、把概念落到空间、建立证据链、生成并比较方案、深化平面与剖面、评图和拆解教师反馈、组织图纸／展板／汇报／答辩，并在截止前 72 小时内切换救火模式。
+`spatial-design-coach` 是面向建筑学、城乡规划和风景园林学生的开源 Agent Skill。学生把任务书、场地资料和已有成果放进一个独立作业沙盒，它会持续维护项目状态，推进概念、方案、平面、剖面、评图、展板、交图与答辩，并在截止前 72 小时内切换救火模式。
 
 它会积极帮你把作业推进到一致、可提交、可讲清的状态，但不会替你伪造调研、计算、规范结论或完成关键作者性决定。“无敌”是给你打气，不是保证高分或获奖。
 
@@ -16,7 +16,7 @@
 请使用 $skill-installer 从下面的 GitHub 地址安装 spatial-design-coach：
 https://github.com/XiaoSiKe/spatial-design-coach/tree/main/skills/spatial-design-coach
 
-请安装完整 Skill 目录，保留 agents/ 和 references/。完成后告诉我安装路径，并提醒我在新任务中用 $spatial-design-coach 做一次验证。
+请安装完整 Skill 目录，保留 agents/、references/、scripts/ 和 assets/。完成后告诉我安装路径，并提醒我在新任务中用 $spatial-design-coach 做一次验证。
 ```
 
 这条路径适用于带 GitHub Skill 安装能力的 Codex。其他 AI 客户端是否能直接安装，取决于它是否支持 [Agent Skills 规范](https://agentskills.io/specification) 或自己的 Skill 安装器；只说“安装这个仓库”并不是所有客户端都保证理解的通用命令。
@@ -43,19 +43,45 @@ mkdir -p ~/.agents/skills
 cp -R spatial-design-coach/skills/spatial-design-coach ~/.agents/skills/
 ```
 
-必须复制整个 `skills/spatial-design-coach/`，不要只复制 `SKILL.md`；否则会丢失界面元数据和按需加载的参考文档。
+必须复制整个 `skills/spatial-design-coach/`，不要只复制 `SKILL.md`；否则会丢失界面元数据、参考文档、沙盒初始化脚本和项目模板。
 
 ## 安装后验证
 
 1. 新建一个 Codex 任务；如果 Skill 没出现，完全重启 Codex。
 2. 输入 `/skills`，确认列表中有“设计课无敌教练”。
-3. 运行一次最小验证：
+3. 在一个临时空目录运行一次最小验证：
 
 ```text
-$spatial-design-coach 我现在只有一句“建筑方案没设计感”，请先做低信息诊断，不要假装看过我的图。
+$spatial-design-coach 开始这个设计作业。当前目录是可写测试沙盒，请初始化项目状态，但不要改动目录外的文件。
 ```
 
-通过表现应当是：不直接评价未看到的方案，不先让你换造型或渲染；区分空间组织、使用体验和图面表达，给一个可逆自检动作，并只索取一个最关键的图纸或说明。
+通过表现应当是：只创建 `studio/PROJECT.md`、`studio/outputs/working/` 和 `studio/outputs/final/`；再次运行时进入续作而不覆盖 `PROJECT.md`。
+
+## 三步开始一个设计作业
+
+1. 为这一次课程作业创建独立目录，不要直接使用主目录或整个硬盘根目录。
+2. 把任务书、评分表、场地资料、图纸导出、模型截图和教师反馈放进该目录；CAD／BIM／Rhino／GIS 原生文件最好同时提供 PDF、PNG 或 SVG 导出。
+3. 在这个目录中打开 Codex，输入：
+
+```text
+$spatial-design-coach 开始这个设计作业。请读取任务书和已有成果，建立沙盒项目状态，并告诉我当前最关键的设计矛盾和下一步 Artifact。
+```
+
+教练只管理当前作业中的 `studio/` 目录：
+
+```text
+studio/
+├── PROJECT.md
+└── outputs/
+    ├── working/
+    └── final/
+```
+
+- `PROJECT.md` 是任务书、决定、假设、Artifact、必交成果和下一步的唯一项目状态。
+- `working/` 保存派生和外援产物；已有目录使用 `-v2` 等新版本，不覆盖。
+- `final/` 只保存已确认任务书要求、项目版本和文件 QA 的最终提交文件。
+- 学生原始任务书、图纸、模型、照片和数据不会被重命名、重排或覆盖。
+- 只读环境会自动降级为聊天状态，并输出可复制续航快照。
 
 ## 更新与常见问题
 
@@ -85,10 +111,10 @@ npx skills update spatial-design-coach --global --yes
 | 截止期救火 | 截止时间、必交成果、当前源文件 | 最低完整交付、共享源图、QA／答辩三组工作包 |
 | 做展板、汇报和答辩 | 格式要求与当前成果集 | 叙事、每张图的任务、文件检查、模拟质疑 |
 
-### 示例：从任务书开始
+### 示例：在沙盒从任务书开始
 
 ```text
-$spatial-design-coach 这是课程任务书。请建立项目状态，判断题目真正要解决什么，并给我这周最重要的 3 个动作。
+$spatial-design-coach 开始这个设计作业。请读取沙盒中的课程任务书和现有图纸，建立 PROJECT.md，并给我这周最重要的 3 个动作。
 ```
 
 ### 示例：带现有方案评图
@@ -136,7 +162,7 @@ $spatial-design-coach 请把当前项目状态导出为“项目续航快照”�
 - 不把某位大师的外观当快捷键；大师可以借脑子，不能借脸。
 - 不把 AI 或外部工具输出自动宣布为设计结论。
 - 不代替学生确认关键立场，不保证分数、获奖、审批或规范合规。
-- 默认只在当前会话维护项目状态；只有学生明确要求时才导出续航快照或写入文件。
+- 可写作业沙盒默认使用 `studio/PROJECT.md` 保存该项目状态；只读环境才使用会话状态和续航快照。
 - 课程要求时可生成 AI 协作记录，但仍需按课程自己的规定披露。
 
 ## 仓库结构
@@ -147,12 +173,15 @@ $spatial-design-coach 请把当前项目状态导出为“项目续航快照”�
 ├── skills/spatial-design-coach/
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
+│   ├── assets/PROJECT.template.md
+│   ├── scripts/init_project.py
 │   └── references/
 │       ├── project-state.md
 │       ├── studio-workflow.md
 │       ├── design-reasoning.md
 │       ├── design-lenses.md
 │       ├── contemporary-challenges.md
+│       ├── studio-standard.md
 │       ├── critique-and-delivery.md
 │       └── capability-routing.md
 ├── tests/evals/
