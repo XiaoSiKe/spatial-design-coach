@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="500" viewBox="0 0 850 500">
+  <rect width="850" height="500" fill="#fafaf9"/>
+  <rect x="70" y="70" width="710" height="350" fill="#fff" stroke="#0f172a" stroke-width="5"/>
+  <rect x="175" y="120" width="500" height="250" fill="none" stroke="#dc2626" stroke-width="5" stroke-dasharray="15 9"/>
+  <path d="M70 245H780" stroke="#7c3aed" stroke-width="13"/>
+  <path d="M175 245H675" stroke="#fff" stroke-width="7"/>
+  <g fill="#fde68a" opacity=".75"><circle cx="230" cy="170" r="70"/><circle cx="425" cy="300" r="80"/><circle cx="630" cy="170" r="65"/></g>
+  <text x="85" y="55" font-size="18">锁定原边界</text><text x="180" y="110" font-size="18" fill="#dc2626">外援缩小边界</text>
+  <text x="300" y="235" font-size="18">锁定公共路径被外援删除</text>
+</svg>

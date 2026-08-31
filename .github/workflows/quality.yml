@@ -24,6 +24,10 @@ jobs:
           node-version: "22"
       - name: Validate repository
         run: python3 scripts/validate_repo.py
+      - name: Run deterministic tests
+        run: python3 -m unittest discover -s tests
+      - name: Validate full eval queue
+        run: python3 scripts/run_evals.py --suite full --dry-run
       - name: Validate Agent Skill
         run: npx --yes skills-ref validate skills/spatial-design-coach
       - name: Verify local discovery

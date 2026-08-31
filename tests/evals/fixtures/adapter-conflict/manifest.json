@@ -1,0 +1,15 @@
+{
+  "id": "adapter-conflict",
+  "discipline": "joint-studio",
+  "synthetic": true,
+  "license": "MIT",
+  "contains_personal_data": false,
+  "images": ["plan.png", "section.png"],
+  "files": {
+    "brief": "brief.md",
+    "plan": "plan.svg",
+    "section": "section.svg",
+    "feedback": "tutor-feedback.md",
+    "version": "version.md"
+  }
+}

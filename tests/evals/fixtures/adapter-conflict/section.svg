@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="420" viewBox="0 0 850 420">
+  <rect width="850" height="420" fill="#fafaf9"/>
+  <path d="M60 315H790" stroke="#334155" stroke-width="4"/>
+  <path d="M110 295H740" stroke="#7c3aed" stroke-width="6"/>
+  <path d="M110 255H740" stroke="#dc2626" stroke-width="5" stroke-dasharray="12 8"/>
+  <text x="110" y="345" font-size="17">锁定 ±0.000</text><text x="110" y="240" font-size="17" fill="#dc2626">外援模型抬高 0.8m 且未说明</text>
+  <path d="M690 60V155" stroke="#0f172a" stroke-width="5"/><path d="M690 60L675 85M690 60L705 85" stroke="#0f172a" stroke-width="5"/>
+  <text x="710" y="95" font-size="17">锁定北向</text>
+</svg>

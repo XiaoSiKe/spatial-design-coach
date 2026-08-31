@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430">
+  <rect width="900" height="430" fill="#fafaf9"/>
+  <path d="M50 315H600C690 315 720 350 850 350" fill="none" stroke="#334155" stroke-width="4"/>
+  <rect x="230" y="185" width="250" height="130" fill="#fff" stroke="#0f172a" stroke-width="4"/>
+  <path d="M230 265H480" stroke="#64748b" stroke-width="3"/>
+  <path d="M600 315C690 315 720 350 850 350V410H600Z" fill="#bbf7d0"/>
+  <path d="M650 350H850V410H650Z" fill="#bae6fd"/>
+  <text x="275" y="245" font-size="19">架空层</text><text x="700" y="395" font-size="18">水岸</text>
+  <text x="150" y="95" font-size="20">剖面没有轨道站、公共轴、入口与汇水关系</text>
+</svg>

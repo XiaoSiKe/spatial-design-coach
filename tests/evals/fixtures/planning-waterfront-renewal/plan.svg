@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#fafaf9"/>
+  <path d="M80 70H680V410H80Z" fill="#fff" stroke="#0f172a" stroke-width="4"/>
+  <path d="M680 70H750V410H680Z" fill="#bae6fd" stroke="#0369a1" stroke-width="3"/>
+  <path d="M610 70V410" stroke="#0ea5e9" stroke-width="6" stroke-dasharray="12 8"/>
+  <circle cx="220" cy="180" r="75" fill="#fecaca" opacity=".7"/><circle cx="420" cy="280" r="95" fill="#fdba74" opacity=".65"/>
+  <circle cx="550" cy="160" r="65" fill="#fde68a" opacity=".7"/>
+  <rect x="150" y="300" width="90" height="65" fill="#cbd5e1" stroke="#475569" stroke-width="3"/>
+  <rect x="310" y="110" width="100" height="70" fill="#cbd5e1" stroke="#475569" stroke-width="3"/>
+  <g fill="#dc2626"><circle cx="220" cy="180" r="10"/><circle cx="420" cy="280" r="10"/><circle cx="550" cy="160" r="10"/></g>
+  <text x="115" y="45" font-size="20">热点直接变成三个中心</text>
+  <text x="615" y="95" font-size="15">50m 防洪带</text><text x="695" y="250" font-size="18">河道</text>
+  <text x="155" y="335" font-size="15">厂房1</text><text x="320" y="148" font-size="15">厂房2</text>
+</svg>

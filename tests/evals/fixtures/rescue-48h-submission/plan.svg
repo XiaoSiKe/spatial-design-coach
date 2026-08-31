@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#fafaf9"/>
+  <rect x="70" y="70" width="660" height="360" fill="#dcfce7" stroke="#166534" stroke-width="4"/>
+  <path d="M100 340C230 210 330 390 470 235S620 220 700 120" fill="none" stroke="#78716c" stroke-width="10"/>
+  <path d="M560 70V430" stroke="#0284c7" stroke-width="7"/>
+  <g fill="#fff" stroke="#dc2626" stroke-width="3"><rect x="130" y="120" width="150" height="85"/><rect x="300" y="290" width="150" height="90"/></g>
+  <text x="120" y="45" font-size="20">总平版本 L-02：效果图使用 L-01 路径</text>
+  <text x="570" y="105" font-size="16">河道</text><text x="130" y="155" font-size="17">缺少功能名</text>
+  <text x="300" y="325" font-size="17">缺少标高</text><text x="500" y="465" font-size="16">缺图例、比例、北向</text>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+  <rect width="900" height="520" fill="#fafaf9"/>
+  <rect x="60" y="45" width="780" height="420" fill="#fff" stroke="#0f172a" stroke-width="4"/>
+  <rect x="350" y="70" width="200" height="75" fill="#cbd5e1" stroke="#475569" stroke-width="3"/>
+  <path d="M450 145V410" stroke="#dc2626" stroke-width="14"/>
+  <g fill="#e2e8f0" stroke="#475569" stroke-width="3">
+    <rect x="140" y="180" width="140" height="95"/><rect x="620" y="180" width="140" height="95"/>
+    <rect x="140" y="315" width="140" height="95"/><rect x="620" y="315" width="140" height="95"/>
+  </g>
+  <g stroke="#7c3aed" stroke-width="7"><path d="M210 228H170"/><path d="M690 228H730"/><path d="M210 362H170"/><path d="M690 362H730"/></g>
+  <path d="M85 420C220 370 330 455 450 410S700 455 815 410" fill="#bbf7d0" stroke="#166534" stroke-width="4"/>
+  <path d="M90 390C260 360 340 445 450 390S690 445 810 380" fill="none" stroke="#0284c7" stroke-width="6"/>
+  <text x="405" y="110" font-size="20">轨道站</text><text x="465" y="280" font-size="18">公共轴</text>
+  <text x="110" y="165" font-size="16">入口朝外侧内部街</text><text x="660" y="165" font-size="16">入口朝外侧内部街</text>
+  <text x="380" y="485" font-size="19">湿地与外围雨洪链</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+  <rect width="800" height="420" fill="#fafaf9"/>
+  <path d="M40 330H760" stroke="#334155" stroke-width="4"/>
+  <rect x="140" y="120" width="520" height="210" fill="#fff" stroke="#0f172a" stroke-width="4"/>
+  <path d="M140 225H660" stroke="#64748b" stroke-width="3"/>
+  <g stroke="#94a3b8" stroke-width="2"><path d="M250 120V330"/><path d="M390 120V330"/><path d="M530 120V330"/></g>
+  <path d="M55 310H140M660 310H745" stroke="#dc2626" stroke-width="7"/>
+  <text x="45" y="290" font-size="17">社区</text><text x="695" y="290" font-size="17">河岸</text>
+  <text x="270" y="205" font-size="18">上下层关系未解决</text>
+</svg>
