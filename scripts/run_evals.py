@@ -283,25 +283,32 @@ def execute_batch(
     executor_model: str,
     judge_model: str,
     timeout: int,
+    retries: int,
 ) -> dict[str, object]:
     name, run_number, items = batch
-    with tempfile.TemporaryDirectory(prefix="spatial-design-eval-") as temp:
-        sandbox = Path(temp)
-        manifests, images = prepare_sandbox(items, sandbox)
-        responses = run_codex(
-            executor_prompt(items, manifests), executor_model, EXECUTOR_SCHEMA, sandbox, images, timeout
-        )
-        judgments = run_codex(
-            judge_prompt(items, responses), judge_model, JUDGE_SCHEMA, sandbox, images, timeout
-        )
-        validate_batch_output(items, responses, judgments)
-        return {
-            "name": name,
-            "run": run_number,
-            "item_ids": [item["id"] for item in items],
-            "responses": responses["responses"],
-            "judgments": judgments["judgments"],
-        }
+    last_error: Exception | None = None
+    for _attempt in range(retries + 1):
+        try:
+            with tempfile.TemporaryDirectory(prefix="spatial-design-eval-") as temp:
+                sandbox = Path(temp)
+                manifests, images = prepare_sandbox(items, sandbox)
+                responses = run_codex(
+                    executor_prompt(items, manifests), executor_model, EXECUTOR_SCHEMA, sandbox, images, timeout
+                )
+                judgments = run_codex(
+                    judge_prompt(items, responses), judge_model, JUDGE_SCHEMA, sandbox, images, timeout
+                )
+                validate_batch_output(items, responses, judgments)
+                return {
+                    "name": name,
+                    "run": run_number,
+                    "item_ids": [item["id"] for item in items],
+                    "responses": responses["responses"],
+                    "judgments": judgments["judgments"],
+                }
+        except (RuntimeError, json.JSONDecodeError) as exc:
+            last_error = exc
+    raise RuntimeError(f"batch {name} run {run_number} failed after retry: {last_error}")
 
 
 def main() -> int:
@@ -354,10 +361,11 @@ def main() -> int:
     executor_model = args.executor_model or str(config["executor_model"])
     judge_model = args.judge_model or str(config["judge_model"])
     workers = args.workers or int(config["max_workers"])
+    retries = int(config["batch_retries"])
     indexed_runs: list[tuple[int, dict[str, object]]] = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
         futures = {
-            pool.submit(execute_batch, batch, executor_model, judge_model, args.timeout): index
+            pool.submit(execute_batch, batch, executor_model, judge_model, args.timeout, retries): index
             for index, batch in enumerate(batches)
         }
         for future in concurrent.futures.as_completed(futures):
