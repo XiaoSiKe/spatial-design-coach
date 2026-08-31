@@ -29,7 +29,7 @@ def read(path: Path) -> str:
 
 def check_text_files() -> None:
     for path in sorted(ROOT.rglob("*")):
-        if not path.is_file() or ".git" in path.parts or path.suffix not in {".md", ".json", ".yaml", ".yml", ".py"}:
+        if not path.is_file() or ".git" in path.parts or path.suffix not in {".md", ".json", ".yaml", ".yml", ".py", ".svg"}:
             continue
         text = read(path)
         rel = path.relative_to(ROOT)
@@ -141,8 +141,8 @@ def check_runtime() -> None:
         fail("unexpected skill name")
     skill_text = read(SKILL_DIR / "SKILL.md")
     references = sorted((SKILL_DIR / "references").glob("*.md"))
-    if len(references) != 7:
-        fail(f"expected 7 runtime references, found {len(references)}")
+    if len(references) != 8:
+        fail(f"expected 8 runtime references, found {len(references)}")
     for path in references:
         expected = f"references/{path.name}"
         if expected not in skill_text:
@@ -150,8 +150,14 @@ def check_runtime() -> None:
     if len(skill_text.splitlines()) > 200:
         fail("SKILL.md exceeds 200 lines")
     reference_lines = sum(len(read(path).splitlines()) for path in references)
-    if reference_lines > 1200:
-        fail(f"runtime references exceed 1200 lines: {reference_lines}")
+    if reference_lines > 1400:
+        fail(f"runtime references exceed 1400 lines: {reference_lines}")
+    for required in (
+        SKILL_DIR / "scripts" / "init_project.py",
+        SKILL_DIR / "assets" / "PROJECT.template.md",
+    ):
+        if not required.is_file():
+            fail(f"missing runtime sandbox resource: {required.relative_to(ROOT)}")
 
 
 def check_cases() -> None:
@@ -176,6 +182,71 @@ def check_cases() -> None:
             fail(f"eval case must list prohibited behavior: {case_id}")
 
 
+def check_journeys_and_fixtures() -> None:
+    eval_root = ROOT / "tests" / "evals"
+    payload = json.loads(read(eval_root / "journeys.json") or "{}")
+    journeys = payload.get("journeys", [])
+    if payload.get("skill") != "spatial-design-coach" or payload.get("schema_version") != 1:
+        fail("journeys.json header is invalid")
+    if len(journeys) != 8:
+        fail(f"expected 8 eval journeys, found {len(journeys)}")
+
+    fixture_root = eval_root / "fixtures"
+    manifests: dict[str, dict[str, object]] = {}
+    for manifest_path in sorted(fixture_root.glob("*/manifest.json")):
+        manifest = json.loads(read(manifest_path) or "{}")
+        fixture_id = manifest.get("id")
+        if not isinstance(fixture_id, str) or fixture_id != manifest_path.parent.name:
+            fail(f"fixture id must match directory: {manifest_path.relative_to(ROOT)}")
+            continue
+        manifests[fixture_id] = manifest
+        if manifest.get("synthetic") is not True or manifest.get("contains_personal_data") is not False:
+            fail(f"fixture must be synthetic and contain no personal data: {fixture_id}")
+        if manifest.get("license") != "MIT":
+            fail(f"fixture license must be MIT: {fixture_id}")
+        for relative in list(manifest.get("files", {}).values()) + list(manifest.get("images", [])):
+            target = manifest_path.parent / str(relative)
+            if not target.is_file() or target.stat().st_size == 0:
+                fail(f"missing or empty fixture file: {target.relative_to(ROOT)}")
+        if len(manifest.get("images", [])) != 2:
+            fail(f"fixture must provide plan and section images: {fixture_id}")
+    if len(manifests) != 6:
+        fail(f"expected 6 studio packets, found {len(manifests)}")
+
+    journey_ids: set[str] = set()
+    for journey in journeys:
+        journey_id = journey.get("id", "")
+        if journey_id in journey_ids:
+            fail(f"duplicate journey id: {journey_id}")
+        journey_ids.add(journey_id)
+        if journey.get("fixture") not in manifests:
+            fail(f"journey references unknown fixture: {journey_id}")
+        turns = journey.get("turns", [])
+        if len(turns) < 2:
+            fail(f"journey must contain at least two turns: {journey_id}")
+        for turn in turns:
+            for key in ("prompt", "must", "must_not"):
+                if not turn.get(key):
+                    fail(f"journey turn missing {key}: {journey_id}")
+
+    config = json.loads(read(eval_root / "config.json") or "{}")
+    case_ids = {
+        case["id"]
+        for case in json.loads(read(eval_root / "cases.json") or "{}").get("cases", [])
+    }
+    for key in ("smoke_case_ids", "high_risk_case_ids"):
+        unknown = set(config.get(key, [])) - case_ids
+        if unknown:
+            fail(f"eval config {key} contains unknown ids: {sorted(unknown)}")
+    for schema_name in ("executor-output.schema.json", "judge-output.schema.json"):
+        schema = json.loads(read(eval_root / "schemas" / schema_name) or "{}")
+        if schema.get("type") != "object":
+            fail(f"invalid eval output schema: {schema_name}")
+    mock_skill = eval_root / "mocks" / "geospatial" / "SKILL.md"
+    if not mock_skill.is_file() or "name: geospatial-eval-adapter" not in read(mock_skill):
+        fail("missing geospatial eval adapter mock")
+
+
 def check_doc_governance() -> None:
     if (ROOT / "docs" / "decisions").exists():
         fail("legacy docs/decisions directory still exists")
@@ -195,6 +266,7 @@ def main() -> int:
     check_metadata()
     check_runtime()
     check_cases()
+    check_journeys_and_fixtures()
     check_doc_governance()
     if ERRORS:
         for item in ERRORS:

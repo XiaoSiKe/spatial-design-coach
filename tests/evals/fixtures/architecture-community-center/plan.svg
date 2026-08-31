@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#fafaf9"/>
+  <rect x="80" y="80" width="640" height="320" fill="none" stroke="#0f172a" stroke-width="4"/>
+  <rect x="120" y="205" width="560" height="70" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <g fill="#fff" stroke="#64748b" stroke-width="2">
+    <rect x="120" y="110" width="120" height="95"/><rect x="250" y="110" width="120" height="95"/>
+    <rect x="380" y="110" width="140" height="95"/><rect x="530" y="110" width="150" height="95"/>
+    <rect x="120" y="275" width="160" height="95"/><rect x="290" y="275" width="130" height="95"/>
+    <rect x="430" y="275" width="120" height="95"/><rect x="560" y="275" width="120" height="95"/>
+  </g>
+  <circle cx="690" cy="120" r="34" fill="#86efac" stroke="#166534" stroke-width="3"/>
+  <path d="M35 240H120M680 240H765" stroke="#dc2626" stroke-width="8"/>
+  <text x="25" y="220" font-size="18">社区街</text><text x="720" y="220" font-size="18">河岸</text>
+  <text x="310" y="248" font-size="20">单一走廊</text><text x="645" y="75" font-size="16">保留大树</text>
+  <text x="120" y="135" font-size="15">阅览</text><text x="250" y="135" font-size="15">教室</text>
+  <text x="380" y="135" font-size="15">厨房</text><text x="530" y="135" font-size="15">多功能厅</text>
+</svg>

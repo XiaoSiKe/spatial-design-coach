@@ -7,7 +7,7 @@
 - 检查可观察行为，不锁定固定措辞、标题数量或模型内部推理。
 - 高风险事实无法核验时应明确限制；外部工具结果必须经过设计复核。
 - 幽默只有在紧跟专业判断或动作时才算通过。
-- 机器可读的完整 `must`／`must_not` 见 [`tests/evals/cases.json`](../../tests/evals/cases.json)。
+- 机器可读的单轮标准见 [`cases.json`](../../tests/evals/cases.json)，多轮状态与 Artifact 标准见 [`journeys.json`](../../tests/evals/journeys.json)。
 
 ## 触发范围
 
@@ -74,11 +74,27 @@
 - 外部 Adapter 不静默修改锁定决定；
 - 诙谐表达不稀释专业判断、风险与学术诚信边界。
 
+## 沙盒与多轮验收
+
+| Journey | 核心验收 |
+| --- | --- |
+| JRN-001 | 初始化沙盒、读取任务书和图纸、更新唯一项目状态且不覆盖原件 |
+| JRN-002 | 标准映射到 Artifact，学生价值选择跨轮保存 |
+| JRN-003 | 区分“生态共生”主张与总图／剖面可见证据 |
+| JRN-004 | 教师反馈解码为跨尺度、版本、人流和环境流修复 |
+| JRN-005 | 方案家族真正分歧，学生确认后保留决定与被否决方向 |
+| JRN-006 | 48 小时关键路径随上游超时更新，保留 QA 与答辩缓冲 |
+| JRN-007 | 正常 Adapter 使用指定 working 目录、`RESULT.md` 和复核后状态更新 |
+| JRN-008 | 冲突 Adapter 不覆盖锁定决定，不进入 final，并形成返工合同 |
+
 ## 发布检查
 
-- `SKILL.md` 不超过 200 行；七个运行时 reference 合计不超过 1,200 行。
+- `SKILL.md` 不超过 200 行；八个运行时 reference 合计不超过 1,400 行。
 - 仓库验证器、Agent Skills validator、Skill Creator validator 和 Plugin validator 通过。
 - 本地发现、隔离复制安装和远程 commit SHA 发现通过。
-- 24 个行为案例无关键违规；八个高风险案例由第二个独立执行者复跑。
+- 沙盒初始化幂等，学生修改的 `PROJECT.md` 不被覆盖，原始文件不被写入。
+- 24 个单轮案例无关键违规；八个高风险案例和八个多轮 journey 均由第二个独立执行者复跑。
+- 6 个合成 studio packet 的 manifest、可编辑 SVG、PNG、任务书、反馈和版本说明完整且无个人数据。
 - Markdown 链接、标题层级、YAML／JSON、文件末尾、行尾和 `git diff --check` 通过。
 - 无占位符、旧路径、重复权威文案或缺失 provenance 的上游仓库。
+- 完整评测报告 commit 与 HEAD 相同，发布资格检查给出通过结果。

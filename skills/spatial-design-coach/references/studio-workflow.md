@@ -127,6 +127,8 @@ For a cross-scale composite artifact, keep the same transect, cut line, route, c
 
 At each boundary, ask who owns the decision, who benefits, what evidence supports it, and what downstream drawing must change.
 
+When comparing cross-disciplinary repair directions, list each direction's separate downstream effect on human movement and the relevant environmental flow, name the affected drawings, and leave the final direction explicitly for the student team to confirm.
+
 ## Close each review
 
 End with one prioritized artifact the student can make before returning. Define its scale or viewpoint, the question it must answer, and the condition by which the next review will accept or reject the move.

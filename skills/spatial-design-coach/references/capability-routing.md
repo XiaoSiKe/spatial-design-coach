@@ -48,11 +48,32 @@ Keep this structure when delegating internally or giving the student a copyable 
 - 返回：产物路径、方法与工具、数据来源、验证证据、限制、需人工复核项
 ```
 
+In a writable assignment sandbox, add the assigned output directory and require a `RESULT.md`. The return record must contain:
+
+```markdown
+# Capability Result
+
+- Capability and task:
+- Inputs and authoritative project version:
+- Method and tools:
+- Returned files:
+- Verification evidence:
+- Limitations and pending checks:
+- Locked-decision conflicts:
+- Proposed project-state changes:
+```
+
+Do not let an adapter write outside its assigned directory or overwrite an existing return. A returned file without this record remains provisional.
+
+Every initial handoff and every rework request must spell the exact relative output directory, such as `studio/outputs/working/geospatial/public-axis/` or its next unused `-vN`; never refer only to “the previous” or “the specified” directory.
+
 Make the **design purpose** decision-specific. “Create a GIS map” is too weak; “test whether the proposed east–west public spine connects the three 10-minute walking catchments without crossing the flood exclusion zone” is actionable.
 
 Locked decisions protect authorship and consistency. They may include site boundary, selected alternative, program quantities, datum, project north, level system, material logic, graphic conventions, or claims that require verification rather than invention.
 
 Acceptance criteria should be observable: file type, scale, units, coordinate system, required layers, viewpoint, editable structure, comparison set, source date, export size, or the question the artifact must answer.
+
+Every handoff must also state how the return will be translated into a concrete spatial or deliverable consequence; do not postpone that responsibility until after the tool runs.
 
 ## Apply capability-specific checks
 
@@ -74,6 +95,7 @@ Acceptance criteria should be observable: file type, scale, units, coordinate sy
 
 ### `cad-modeling`
 
+- Enumerate the selected design scheme and authoritative version as locked decisions alongside boundary, north, datum and levels; define how the returned model version will be named and compared.
 - Lock units, origin, axes, levels, tolerances, naming, and file version before exchange.
 - State which geometry is authoritative and which is exploratory.
 - Keep parameters and layers legible; avoid unexplained destructive conversion.
@@ -106,14 +128,27 @@ Before presenting an external result to the student, answer:
 4. Did it alter a locked decision, project version, datum, terminology, quantity, or visual convention?
 5. Which project-state fields can be updated, and which still require the student's confirmation?
 
-If the result conflicts with locked decisions, do not silently merge it. Surface the conflict, its consequence, and the smallest decision the student must revisit. Keep the old state until the student confirms the change.
+Use a visible return-audit checklist: **actual files inspected → method → source/data → verification → limitations → design consequence → student confirmation**. A hypothetical or merely promised return cannot be marked accepted.
+
+State at least one concrete spatial or deliverable consequence, even when the technical result passes. Technical consistency alone is not a design conclusion. Before proposing any locked-decision update, say explicitly that the current locked state remains authoritative until the student confirms the change.
+
+For every inspected return, include at least one visible row:
+
+| Design assumption | Supported / weakened / untested | Return evidence and limitation | Affected Artifact |
+| --- | --- | --- | --- |
+
+Do not leave the assumption-status column implicit in surrounding prose.
+
+If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
 
 ## Degrade honestly when no capability exists
 
 Return three things:
 
-1. the completed handoff contract;
+1. the full completed handoff contract from this reference, not a prose summary;
 2. a short manual workflow using tools the student actually has;
 3. an acceptance and verification checklist.
+
+Render them under the visible headings **能力移交**, **人工路径**, and **验收清单** so a missing capability cannot collapse into generic advice.
 
 Continue with reversible design reasoning while the specialist result is absent. Mark dependent claims as pending. Never claim to have searched, measured, mapped, modeled, rendered, calculated, exported, or verified something that was not actually produced and inspected.

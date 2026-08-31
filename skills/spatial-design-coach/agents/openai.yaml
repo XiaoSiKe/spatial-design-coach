@@ -1,7 +1,7 @@
 interface:
   display_name: "设计课无敌教练"
-  short_description: "解读任务书、深化方案、评图救火，推进建筑规划景观作业到答辩"
-  default_prompt: "使用 $spatial-design-coach 读取我的任务书和当前成果，诊断最关键矛盾并安排下一步。"
+  short_description: "在独立沙盒中推进建筑规划景观作业到交图与答辩"
+  default_prompt: "使用 $spatial-design-coach 在当前沙盒读取任务书和已有成果，开始这个设计作业。"
 
 policy:
   allow_implicit_invocation: true

@@ -74,6 +74,27 @@ Start with a deliverable ledger:
 
 Use `confirmed`, `provisional`, or `unknown` for evidence status. Do not invent expected drawings, scales, or formats while the brief is unavailable.
 
+The first rescue reply must visibly show all three status labels—even when a category is empty—and exactly three work packages: **minimum complete**, **shared source**, **QA/defense**. Never fill an unknown deliverable name, scale or format from studio convention.
+
+Add dependency and capacity fields in rescue mode:
+
+| Artifact | Depends on | Estimated focused hours | Blocks if missing | Must finish / may degrade / stop |
+| --- | --- | --- | --- | --- |
+
+Build the critical path before assigning production:
+
+1. identify the authoritative plan, model, dataset or narrative source used by the most downstream Artifacts;
+2. repair that source before manually patching derivatives;
+3. reserve explicit time for export, file opening, printing or upload, and oral rehearsal;
+4. classify remaining work as **must finish**, **may degrade**, or **stop**;
+5. when capacity is exhausted, stop adding content and protect consistency, QA and an honest defense.
+
+Do not pretend hour estimates are precise. Use the student's actual available focused time and revise the path when an upstream task overruns.
+
+After any overrun, restate remaining usable capacity as a rough range and protect a separate export/file-opening buffer plus an oral-rehearsal buffer before assigning more production.
+
+Use this atomic overrun order: **remaining capacity → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
+
 Then triage in this order:
 
 1. **Compliance and completeness:** missing required items, wrong scale, broken files, or unsupported claims.

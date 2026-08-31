@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+  <rect width="800" height="420" fill="#fafaf9"/>
+  <path d="M40 300C180 270 250 280 360 320C470 360 560 325 760 335" fill="#dcfce7" stroke="#166534" stroke-width="4"/>
+  <path d="M520 330C600 300 680 305 760 320V390H520Z" fill="#bae6fd" stroke="#0369a1" stroke-width="3"/>
+  <path d="M80 290C230 250 400 300 610 300" fill="none" stroke="#78716c" stroke-width="7"/>
+  <g fill="#22c55e"><circle cx="180" cy="230" r="42"/><circle cx="350" cy="250" r="45"/></g>
+  <text x="105" y="120" font-size="19">常水位、洪水位、土壤与植被带未标</text>
+  <text x="580" y="370" font-size="18">河道</text>
+</svg>

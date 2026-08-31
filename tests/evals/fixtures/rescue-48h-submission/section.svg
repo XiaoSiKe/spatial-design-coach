@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+  <rect width="800" height="420" fill="#fafaf9"/>
+  <path d="M50 315H750" stroke="#94a3b8" stroke-width="3" stroke-dasharray="10 8"/>
+  <rect x="130" y="120" width="540" height="160" fill="#fff" stroke="#dc2626" stroke-width="4" stroke-dasharray="14 9"/>
+  <text x="250" y="205" font-size="26" fill="#dc2626">关键剖面尚未制作</text>
+  <text x="190" y="355" font-size="18">总图、水位、活动和模型依赖此剖面</text>
+</svg>

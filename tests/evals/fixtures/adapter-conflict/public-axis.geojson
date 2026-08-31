@@ -1,0 +1,11 @@
+{
+  "type": "FeatureCollection",
+  "name": "synthetic-public-axis",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"project_version": "B-04", "locked_path_retained": true},
+      "geometry": {"type": "LineString", "coordinates": [[0, 0], [50, 0], [100, 0]]}
+    }
+  ]
+}

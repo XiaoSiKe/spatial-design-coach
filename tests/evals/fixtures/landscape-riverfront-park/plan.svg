@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#fafaf9"/>
+  <path d="M60 70H740V430H60Z" fill="#dcfce7" stroke="#166534" stroke-width="4"/>
+  <path d="M540 70C500 150 590 210 545 300S590 380 540 430H740V70Z" fill="#bae6fd" stroke="#0369a1" stroke-width="3"/>
+  <path d="M110 360C210 250 280 390 360 250S480 180 540 120" fill="none" stroke="#78716c" stroke-width="10"/>
+  <path d="M120 140C230 80 320 190 430 125" fill="none" stroke="#78716c" stroke-width="8"/>
+  <g fill="#22c55e"><circle cx="180" cy="160" r="55"/><circle cx="350" cy="330" r="70"/><circle cx="470" cy="210" r="50"/></g>
+  <text x="90" y="45" font-size="20">“生态共生”＝绿色填充与曲线路网</text>
+  <text x="625" y="250" font-size="18">河道</text><text x="280" y="455" font-size="17">雨洪、使用、栖息地和维护尚未分辨</text>
+</svg>

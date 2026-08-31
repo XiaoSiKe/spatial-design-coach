@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["responses"],
+  "additionalProperties": false,
+  "properties": {
+    "responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "turns"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string"},
+          "turns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["turn", "response"],
+              "additionalProperties": false,
+              "properties": {
+                "turn": {"type": "integer", "minimum": 1},
+                "response": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@
 >
 > 检索日期：2026-08-31。
 >
-> 目标：说明应研究什么、为何研究、怎样进入 Skill；不在此复制受版权保护的原文。`0.2.0` 保留 24 张设计透镜，并新增按需加载的当代设计挑战；后续只依据真实失败情境调整。
+> 目标：说明应研究什么、为何研究、怎样进入 Skill；不在此复制受版权保护的原文。`0.3.0` 继续保留 24 张设计透镜与按需加载的当代设计挑战；后续只依据真实失败情境调整。
 
 ## 1. 研究结论摘要
 
@@ -235,7 +235,7 @@ Skill 不应建立单一大师谱系。推荐围绕以下冲突组织设计透�
 
 ## 14. 运行时入选透镜
 
-`0.2.0` 继续使用以下 24 张短卡：
+`0.3.0` 继续使用以下 24 张短卡：
 
 - 共同方法：Vitruvius、Donald Schön、Bryan Lawson／Nigel Cross、Horst Rittel／Melvin Webber。
 - 建筑：Louis Kahn、Christopher Alexander、Aldo Rossi、Robert Venturi／Denise Scott Brown、Juhani Pallasmaa、Kenneth Frampton、Lacaton & Vassal。
