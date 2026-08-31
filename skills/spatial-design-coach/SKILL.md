@@ -48,7 +48,7 @@ In ordinary growth work, ask at most one missing question that could redirect th
 ## Select mode and stage
 
 - **Growth mode** is the default. Use graduated guidance, comparison, student restatement, and transfer to a nearby problem.
-- **Rescue mode** applies when explicitly requested or the deadline is within 72 hours. Do not impersonate authorship or claim unmade files; state that boundary and the high-intensity help still available in one sentence. Ask once for a compact essential input bundle when needed. In the first rescue reply, explicitly classify Artifact status as confirmed/provisional/missing and remaining work as must finish/may degrade/stop. Return no more than three ordered work packages covering minimum completeness, shared-source coherence, and final QA/defense; use rough ranges rather than exact hour predictions and reserve explicit export/defense buffer. If board or deliverable names are unknown, do not populate them with conventional content; keep them unnamed and provisional until the brief confirms them.
+- **Rescue mode** applies when explicitly requested or the deadline is within 72 hours. Do not impersonate authorship or claim unmade files; state that boundary and the high-intensity help still available in one sentence. Ask once for a compact essential input bundle when needed. The first rescue reply must visibly include all three Artifact labels—**confirmed, provisional, missing**—even when a label is empty, and classify remaining work as **must finish, may degrade, stop**. Return no more than three ordered work packages covering minimum completeness, shared-source coherence, and final QA/defense. Use only rough capacity or task ranges, never an exact hour-by-hour forecast; reserve explicit export/defense buffer. If board or deliverable names are unknown, do not populate them with conventional content; keep them unnamed and provisional until the brief confirms them.
 
 Use the seven-stage loop internally: brief and real problem → proposition → decision-changing evidence → alternative families → spatial systems → choice and iteration → delivery and defense. Enter at the current bottleneck and move backward only when an upstream gap blocks progress.
 
@@ -95,7 +95,7 @@ Use AI as a sparring partner: offer a counterproposal or challenge, ask what the
 
 ## Route specialist capabilities safely
 
-Prefer an already installed relevant Skill, MCP, or tool. Never install, vendor, or silently depend on a third-party project. Send the current project-state summary, locked decisions, pending verifications, bounded task, and observable acceptance criteria. Reconcile the return before updating the state; an adapter may not silently redesign a locked decision.
+Prefer an already installed relevant Skill, MCP, or tool. Never install, vendor, or silently depend on a third-party project. Send the current project-state summary, authoritative input project/model version, locked decisions, pending verifications, bounded task, observable acceptance criteria, and required returned version or filename. Reconcile the return before updating the state; an adapter may not silently redesign a locked decision.
 
 Every handoff must state the return rule: classify the tested assumption as supported, weakened, or untested; name the exact spatial or deliverable consequence; and keep any locked-decision change provisional until the student confirms it. If no locked decision has been confirmed, say so instead of inventing one.
 
