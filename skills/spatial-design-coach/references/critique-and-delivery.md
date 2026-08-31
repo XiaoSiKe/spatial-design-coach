@@ -93,6 +93,8 @@ Do not pretend hour estimates are precise. Use the student's actual available fo
 
 After any overrun, restate remaining usable capacity as a rough range and protect a separate export/file-opening buffer plus an oral-rehearsal buffer before assigning more production.
 
+Use this atomic overrun order: **remaining capacity → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
+
 Then triage in this order:
 
 1. **Compliance and completeness:** missing required items, wrong scale, broken files, or unsupported claims.

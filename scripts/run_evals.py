@@ -89,6 +89,11 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
 def prepare_sandbox(items: list[dict[str, object]], root: Path) -> tuple[dict[str, dict[str, object]], list[Path]]:
     local_skill = root / ".agents" / "skills" / "spatial-design-coach"
     shutil.copytree(SKILL_DIR, local_skill)
+    if any(item["id"] == "SDC-009" for item in items):
+        shutil.copytree(
+            EVAL_ROOT / "mocks" / "geospatial",
+            root / ".agents" / "skills" / "geospatial-eval-adapter",
+        )
 
     manifests: dict[str, dict[str, object]] = {}
     images: list[Path] = []
@@ -150,6 +155,10 @@ def judge_prompt(items: list[dict[str, object]], responses: dict[str, object]) -
     return (
         "You are an independent behavior judge. Evaluate only observable response text against every must "
         "and must_not criterion. Do not infer hidden reasoning and do not reward fixed headings or wording. "
+        "Accept semantically equivalent wording rather than requiring a literal phrase. Respect explicit "
+        "hypothetical facts in the user prompt, and let later journey turns inherit visible constraints from "
+        "earlier turns. Updating the status of an inspected technical Artifact is not the same as changing a "
+        "locked design decision. "
         "Mark passed only when all must criteria are observable and no must_not behavior appears. Evidence "
         "must be short excerpts or precise references to visible response content. Return only JSON matching "
         "the output schema; provide concise reasons, not chain-of-thought.\n\nCRITERIA:\n"

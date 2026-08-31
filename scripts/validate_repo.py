@@ -242,6 +242,9 @@ def check_journeys_and_fixtures() -> None:
         schema = json.loads(read(eval_root / "schemas" / schema_name) or "{}")
         if schema.get("type") != "object":
             fail(f"invalid eval output schema: {schema_name}")
+    mock_skill = eval_root / "mocks" / "geospatial" / "SKILL.md"
+    if not mock_skill.is_file() or "name: geospatial-eval-adapter" not in read(mock_skill):
+        fail("missing geospatial eval adapter mock")
 
 
 def check_doc_governance() -> None:

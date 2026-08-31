@@ -141,4 +141,6 @@ Return three things:
 2. a short manual workflow using tools the student actually has;
 3. an acceptance and verification checklist.
 
+Render them under the visible headings **能力移交**, **人工路径**, and **验收清单** so a missing capability cannot collapse into generic advice.
+
 Continue with reversible design reasoning while the specialist result is absent. Mark dependent claims as pending. Never claim to have searched, measured, mapped, modeled, rendered, calculated, exported, or verified something that was not actually produced and inspected.
