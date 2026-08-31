@@ -10,6 +10,9 @@
     "plan": "plan.svg",
     "section": "section.svg",
     "feedback": "tutor-feedback.md",
-    "version": "version.md"
+    "version": "version.md",
+    "success_result": "result-success.md",
+    "success_gis": "public-axis.geojson",
+    "success_model": "model.obj"
   }
 }

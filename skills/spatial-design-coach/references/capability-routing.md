@@ -73,6 +73,8 @@ Locked decisions protect authorship and consistency. They may include site bound
 
 Acceptance criteria should be observable: file type, scale, units, coordinate system, required layers, viewpoint, editable structure, comparison set, source date, export size, or the question the artifact must answer.
 
+Every handoff must also state how the return will be translated into a concrete spatial or deliverable consequence; do not postpone that responsibility until after the tool runs.
+
 ## Apply capability-specific checks
 
 ### `research-current`
@@ -125,6 +127,8 @@ Before presenting an external result to the student, answer:
 4. Did it alter a locked decision, project version, datum, terminology, quantity, or visual convention?
 5. Which project-state fields can be updated, and which still require the student's confirmation?
 
+Use a visible return-audit checklist: **actual files inspected → method → source/data → verification → limitations → design consequence → student confirmation**. A hypothetical or merely promised return cannot be marked accepted.
+
 State at least one concrete spatial or deliverable consequence, even when the technical result passes. Technical consistency alone is not a design conclusion. Before proposing any locked-decision update, say explicitly that the current locked state remains authoritative until the student confirms the change.
 
 If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
@@ -133,7 +137,7 @@ If the result conflicts with locked decisions, do not silently merge it. Surface
 
 Return three things:
 
-1. the completed handoff contract;
+1. the full completed handoff contract from this reference, not a prose summary;
 2. a short manual workflow using tools the student actually has;
 3. an acceptance and verification checklist.
 

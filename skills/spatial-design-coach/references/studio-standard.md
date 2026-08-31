@@ -14,6 +14,8 @@ Do not use a generic gate to erase a course-specific requirement. Do not let a c
 
 Map every retained requirement to one responsible Artifact and one observable pass condition in `studio/PROJECT.md`. “Satisfied” without evidence is not a result.
 
+In the first standards mapping, state visibly that the supplied brief/rubric controls and the generic gates only fill its gaps. Record uncertain data, demand assumptions and unverified regulations, then name which required scale or重点地段 Artifact each later design decision would change.
+
 ## Use eight non-compensating gates
 
 1. **Brief compliance:** program, boundary, scale, format, deadline and required deliverables are accounted for.
