@@ -19,6 +19,14 @@ EVAL_ROOT = ROOT / "tests" / "evals"
 SKILL_DIR = ROOT / "skills" / "spatial-design-coach"
 EXECUTOR_SCHEMA = EVAL_ROOT / "schemas" / "executor-output.schema.json"
 JUDGE_SCHEMA = EVAL_ROOT / "schemas" / "judge-output.schema.json"
+BEHAVIOR_PATHS = [
+    "skills/spatial-design-coach",
+    "tests/evals/cases.json",
+    "tests/evals/journeys.json",
+    "tests/evals/fixtures",
+    "tests/evals/mocks",
+    "tests/evals/schemas",
+]
 
 
 def load_json(path: Path) -> dict[str, object]:
@@ -339,7 +347,7 @@ def main() -> int:
             source = load_json(report_path.resolve())
             old_commit = str(source.get("commit", ""))
             unchanged = subprocess.run(
-                ["git", "diff", "--quiet", old_commit, current_commit, "--", "skills/spatial-design-coach", "tests/evals"],
+                ["git", "diff", "--quiet", old_commit, current_commit, "--", *BEHAVIOR_PATHS],
                 cwd=ROOT,
             )
             if unchanged.returncode != 0:
@@ -372,7 +380,7 @@ def main() -> int:
         old_commit = str(source.get("commit", ""))
         current_commit = git_commit()
         unchanged = subprocess.run(
-            ["git", "diff", "--quiet", old_commit, current_commit, "--", "skills/spatial-design-coach", "tests/evals"],
+            ["git", "diff", "--quiet", old_commit, current_commit, "--", *BEHAVIOR_PATHS],
             cwd=ROOT,
         )
         if unchanged.returncode != 0:
