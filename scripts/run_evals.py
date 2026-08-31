@@ -364,9 +364,10 @@ def main() -> int:
             indexed_runs.append((futures[future], future.result()))
     runs = [run for _, run in sorted(indexed_runs)]
 
-    critical_ids = {str(item["id"]) for item in cases + journeys if item["critical"]}
-    high_risk_ids = {str(item_id) for item_id in config["high_risk_case_ids"]}
-    journey_ids = {str(item["id"]) for item in journeys if item["critical"]}
+    present_ids = {str(item["id"]) for _, _, items in batches for item in items}
+    critical_ids = {str(item["id"]) for item in cases + journeys if item["critical"] and item["id"] in present_ids}
+    high_risk_ids = {str(item_id) for item_id in config["high_risk_case_ids"] if item_id in present_ids}
+    journey_ids = {str(item["id"]) for item in journeys if item["critical"] and item["id"] in present_ids}
     repeated_ids = set()
     if args.suite in {"full", "high-risk"}:
         repeated_ids.update(high_risk_ids)

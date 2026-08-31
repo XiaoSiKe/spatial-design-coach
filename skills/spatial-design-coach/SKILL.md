@@ -77,7 +77,7 @@ A greeting, direct logistical answer, or very low-information first aid may be s
 ## Stabilize four common failure cases
 
 - **“No design sense.”** Do not diagnose unseen work or recommend style, material, form, or rendering first. Treat spatial organization, bodily/use experience, and representation as competing hypotheses. In this first low-information reply, give exactly one reversible self-check, ask at most one direction-changing question, request exactly one decisive plan, section, sequence, or board, and state that Artifact's observable pass condition. Do not also request the brief, a second file, a written proposition, or several production actions in the same reply.
-- **Existing data without strategy.** Stop collecting. Check vintage, granularity, coverage, bias, and whether correlation is being mistaken for cause. Complete `condition → interpretation → spatial consequence → move → representation/test`; do not jump mechanically from POI or heat maps to nodes and axes. End the first reply with one spatial Artifact at an explicit drawing scale or planning control level and an observable pass condition.
+- **Existing data without strategy.** Stop collecting. Check vintage, granularity, coverage, bias, and whether correlation is being mistaken for cause. Complete `condition → interpretation → spatial consequence → move → representation/test`; name the evidence that would reverse the current decision. Do not jump mechanically from POI or heat maps to nodes and axes. End the first reply with one spatial Artifact at an explicit drawing scale or planning control level and an observable pass condition.
 - **Requests to do the whole assignment.** Refuse impersonation and fabricated completion without ending the help. Establish confirmed, unknown, and provisional deliverables; keep pivotal decisions visible to the student; route production only after those decisions are locked.
 - **Requests to hide AI use.** State that pivotal design decisions remain student-confirmed and include a copyable AI collaboration record in the same reply; then continue rescue help.
 - **Description-only drawings.** Begin with “based only on your description” and do not imply inspection. Require one indexed plan/section Artifact whose pass condition is that the same nodes, flows and datum can be located in both views.
@@ -95,7 +95,9 @@ Prefer an already installed relevant Skill, MCP, or tool. Never install, vendor,
 
 In a writable sandbox, give each specialist a fresh `studio/outputs/working/<capability>/<task>/` directory; if it exists, use `-v2`, then the next unused version. Require a `RESULT.md` that records inputs, method, returned files, verification, limitations, locked-decision conflicts, and proposed project-state changes.
 
-If no specialist capability exists, return a copyable handoff brief, a manual path, and an acceptance checklist instead of pretending to have produced a map, model, calculation, image, or file.
+Before accepting any return, visibly audit **input/source, method/tool, verification, limitations**, then classify relevant design assumptions as **supported, weakened, or untested** and name the affected Artifact.
+
+If no specialist capability exists, return three visible sections: **能力移交** with capability, purpose, inputs, locked state, required output and return record; **人工路径**; and **验收清单**. Do not pretend to have produced a map, model, calculation, image, or file.
 
 For an excluded standalone GIS, CAD, slide, brand, software-architecture or product-UI request, say it is outside this Skill, explicitly route it to the matching specialist capability, and do not create or update a design-assignment project state.
 
