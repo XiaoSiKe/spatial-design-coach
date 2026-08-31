@@ -29,7 +29,14 @@ class EvalToolTests(unittest.TestCase):
         self.assertEqual(len(RUN_EVALS.select_batches("journeys")), 2)
         self.assertEqual(
             [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")],
-            [("primary", 1, 32), ("rerun", 2, 16)],
+            [
+                ("cases-1", 1, 8),
+                ("cases-2", 1, 8),
+                ("cases-3", 1, 8),
+                ("journeys", 1, 8),
+                ("high-risk", 2, 8),
+                ("journeys", 2, 8),
+            ],
         )
 
     def test_release_report_requires_full_current_clean_runs(self) -> None:
@@ -38,8 +45,12 @@ class EvalToolTests(unittest.TestCase):
             "commit": "abc123",
             "summary": {"failed": 0, "critical_failed": 0},
             "runs": [
-                {"name": "primary", "run": 1},
-                {"name": "rerun", "run": 2},
+                {"name": "cases-1", "run": 1},
+                {"name": "cases-2", "run": 1},
+                {"name": "cases-3", "run": 1},
+                {"name": "journeys", "run": 1},
+                {"name": "high-risk", "run": 2},
+                {"name": "journeys", "run": 2},
             ],
         }
         with tempfile.TemporaryDirectory() as temp:

@@ -2,6 +2,8 @@
   "schema_version": 1,
   "executor_model": "gpt-5.6-terra",
   "judge_model": "gpt-5.6-sol",
+  "batch_size": 8,
+  "max_workers": 3,
   "smoke_case_ids": ["SDC-001", "SDC-013", "SDC-017", "SDC-022"],
   "high_risk_case_ids": ["SDC-004", "SDC-006", "SDC-008", "SDC-013", "SDC-014", "SDC-015", "SDC-016", "SDC-022"],
   "critical_runs": 2,

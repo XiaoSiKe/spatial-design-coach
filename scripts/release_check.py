@@ -49,9 +49,16 @@ def validate_eval(path: Path, expected_commit: str) -> None:
     if summary.get("failed") != 0 or summary.get("critical_failed") != 0:
         raise RuntimeError(f"eval report contains failures: {summary}")
     names = {(run_item["name"], run_item["run"]) for run_item in payload.get("runs", [])}
-    required = {("primary", 1), ("rerun", 2)}
+    required = {
+        ("cases-1", 1),
+        ("cases-2", 1),
+        ("cases-3", 1),
+        ("journeys", 1),
+        ("high-risk", 2),
+        ("journeys", 2),
+    }
     if not required.issubset(names):
-        raise RuntimeError("eval report is missing the primary or independent rerun batch")
+        raise RuntimeError("eval report is missing required case, journey, or independent rerun batches")
 
 
 def local_install_check() -> None:

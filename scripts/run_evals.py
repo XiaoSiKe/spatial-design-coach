@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import datetime as dt
 import json
 import shutil
@@ -70,9 +71,15 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
     if suite == "journeys":
         return [("journeys", run, journeys) for run in range(1, int(config["journey_runs"]) + 1)]
     if suite == "full":
-        return [
-            ("primary", 1, cases + journeys),
-            ("rerun", 2, high_risk + journeys),
+        size = int(config["batch_size"])
+        case_batches = [
+            (f"cases-{index + 1}", 1, cases[start : start + size])
+            for index, start in enumerate(range(0, len(cases), size))
+        ]
+        return case_batches + [
+            ("journeys", 1, journeys),
+            ("high-risk", 2, high_risk),
+            ("journeys", 2, journeys),
         ]
     raise ValueError(f"unknown suite: {suite}")
 
@@ -118,7 +125,9 @@ def executor_prompt(items: list[dict[str, object]], manifests: dict[str, dict[st
         "$spatial-design-coach and its runtime references. Each item is independent; carry state only "
         "between turns of the same item. Inspect supplied fixture files and attached images before judging "
         "them. Do not read any eval criteria because none are provided. Reply as the coach would reply to "
-        "the student. Keep each turn concise, generally no more than 180 words. Return only JSON matching "
+        "the student. Cover the project-state update, next Artifact and pass condition required by the "
+        "Skill; when the eval sandbox is read-only, describe the exact intended file update rather than "
+        "omitting it. Keep each turn focused, generally no more than 300 words. Return only JSON matching "
         "the output schema, with every requested id and turn.\n\n"
         + json.dumps(blinded, ensure_ascii=False, indent=2)
     )
@@ -243,6 +252,32 @@ def write_report(report: dict[str, object], output_dir: Path) -> tuple[Path, Pat
     return json_path, md_path
 
 
+def execute_batch(
+    batch: tuple[str, int, list[dict[str, object]]],
+    executor_model: str,
+    judge_model: str,
+    timeout: int,
+) -> dict[str, object]:
+    name, run_number, items = batch
+    with tempfile.TemporaryDirectory(prefix="spatial-design-eval-") as temp:
+        sandbox = Path(temp)
+        manifests, images = prepare_sandbox(items, sandbox)
+        responses = run_codex(
+            executor_prompt(items, manifests), executor_model, EXECUTOR_SCHEMA, sandbox, images, timeout
+        )
+        judgments = run_codex(
+            judge_prompt(items, responses), judge_model, JUDGE_SCHEMA, sandbox, images, timeout
+        )
+        validate_batch_output(items, responses, judgments)
+        return {
+            "name": name,
+            "run": run_number,
+            "item_ids": [item["id"] for item in items],
+            "responses": responses["responses"],
+            "judgments": judgments["judgments"],
+        }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--suite", choices=("smoke", "high-risk", "journeys", "full"), default="smoke")
@@ -250,6 +285,7 @@ def main() -> int:
     parser.add_argument("--judge-model")
     parser.add_argument("--artifacts-dir", type=Path, default=ROOT / "artifacts" / "evals")
     parser.add_argument("--timeout", type=int, default=1800)
+    parser.add_argument("--workers", type=int)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -264,28 +300,16 @@ def main() -> int:
 
     executor_model = args.executor_model or str(config["executor_model"])
     judge_model = args.judge_model or str(config["judge_model"])
-    runs: list[dict[str, object]] = []
-
-    for name, run_number, items in batches:
-        with tempfile.TemporaryDirectory(prefix="spatial-design-eval-") as temp:
-            sandbox = Path(temp)
-            manifests, images = prepare_sandbox(items, sandbox)
-            responses = run_codex(
-                executor_prompt(items, manifests), executor_model, EXECUTOR_SCHEMA, sandbox, images, args.timeout
-            )
-            judgments = run_codex(
-                judge_prompt(items, responses), judge_model, JUDGE_SCHEMA, sandbox, images, args.timeout
-            )
-            validate_batch_output(items, responses, judgments)
-            runs.append(
-                {
-                    "name": name,
-                    "run": run_number,
-                    "item_ids": [item["id"] for item in items],
-                    "responses": responses["responses"],
-                    "judgments": judgments["judgments"],
-                }
-            )
+    workers = args.workers or int(config["max_workers"])
+    indexed_runs: list[tuple[int, dict[str, object]]] = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = {
+            pool.submit(execute_batch, batch, executor_model, judge_model, args.timeout): index
+            for index, batch in enumerate(batches)
+        }
+        for future in concurrent.futures.as_completed(futures):
+            indexed_runs.append((futures[future], future.result()))
+    runs = [run for _, run in sorted(indexed_runs)]
 
     critical_ids = {str(item["id"]) for item in cases + journeys if item["critical"]}
     report = {
