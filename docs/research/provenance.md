@@ -21,6 +21,25 @@
 | [maplibre/maplibre-agent-skills](https://github.com/maplibre/maplibre-agent-skills) | `0b44d71` | MIT | `README.md`、相关 skills、`LICENSE.md` | Web 地图外部调用候选；参考真实失败驱动 eval | 未直接复用；若未来复制须保留版权与 MIT 声明 |
 | [Sijie-Yang/Reasoning4UP](https://github.com/Sijie-Yang/Reasoning4UP) | `d03e9d5` | 无许可证 | `README.md`、论文链接与项目说明 | 只引用论文观点；不复制仓库代码、文本或结构 | 默认保留所有权利；任何复用需取得明确许可 |
 | [GarethManning/education-agent-skills](https://github.com/GarethManning/education-agent-skills) | `6bbbce4` | CC-BY-SA-4.0 | `README.md`、相关教育 skills、`LICENSE` | 只作教育主题索引与思想参考；回到一手研究独立形成方法 | 未改编其文本；若未来改编必须署名、标示变更并以 CC BY-SA 4.0 分享 |
+| [Aaa2122/QGIS-MCP](https://github.com/Aaa2122/QGIS-MCP) | `43fd99d2` | MIT | `README.md`、MCP／QGIS 工作流、`LICENSE` | 地理空间外部调用候选；未进入 runtime | 调用前另行检查依赖、写操作和数据路径 |
+| [CartoDB/agent-skills](https://github.com/CartoDB/agent-skills) | `bdc12fe7` | MIT | `README.md`、空间分析 skills、`LICENSE` | CARTO 环境中的外部调用候选 | 未复制；使用时遵守上游依赖和许可 |
+| [JB-Rockstar/landscape-architecture-ai](https://github.com/JB-Rockstar/landscape-architecture-ai) | `6f9f7a0f` | 无许可证 | 仓库根与项目说明 | 排除：没有可审阅的有效实现 | 默认保留所有权利，不复制 |
+| [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | `f6fcafeb` | MIT | `README.md`、`geomaster` 相关 skill、`LICENSE` | 已安装时作为大型科学／地理空间外援 | 不镜像大型能力库；调用时复核依赖 |
+| [NVIDIA/SkillSpector](https://github.com/NVIDIA/SkillSpector) | `1b875933` | Apache-2.0 | `README.md`、扫描范围、`LICENSE` | 发布安全工具参考，不作为内容来源 | 若复制须保留 Apache-2.0 与 NOTICE；当前未复制 |
+| [TEC413/qgis-with-claude](https://github.com/TEC413/qgis-with-claude) | `b15bf5c9` | MIT | `README.md`、QGIS skill、`LICENSE` | 轻量 QGIS 外部调用候选 | 未复制；调用前验证兼容性和写入范围 |
+| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | `5e1f3aeb` | MIT（聚合仓库） | `README.md`、目录索引、`LICENSE` | 仅用于发现上游 | 聚合许可不覆盖链接或镜像的上游内容 |
+| [agentskills/agentskills](https://github.com/agentskills/agentskills) | `69ef37e9` | Apache-2.0；文档 CC-BY-4.0 | 规范、`skills-ref`、许可证 | 结构与兼容验证的规范来源 | 未复制规范文本；引用时按文件级许可 |
+| [ahujasid/blender-mcp](https://github.com/ahujasid/blender-mcp) | `9224fe33` | MIT | `README.md`、MCP 配置、`LICENSE` | 三维制作外援候选 | 不将三维制作等同于设计判断；未复制 |
+| [anthropics/skills](https://github.com/anthropics/skills) | `3b3fad96` | 文件级混合许可 | 根 README、设计与文档 skills、文件级许可 | 复杂 Skill 结构与视觉／文档能力参考 | 每个目录单独核验；source-available 内容不作为开源复用 |
+| [dongwoosuk/rhino-grasshopper-mcp](https://github.com/dongwoosuk/rhino-grasshopper-mcp) | `cefb1de4` | MIT | `README.md`、MCP 实现、`LICENSE` | Rhino／Grasshopper 外部建模候选 | 未复制；调用前核对本地软件与安全范围 |
+| [gmakstutis/qWiki](https://github.com/gmakstutis/qWiki) | `52f7d1e9` | MIT（仓库代码） | `README.md`、知识组织、`LICENSE` | 仅参考知识组织方式 | MIT 不重新授权其中书籍、图片与第三方材料 |
+| [myloveql/urban-planning-ai-copilot](https://github.com/myloveql/urban-planning-ai-copilot) | `cae3a79f` | MIT | `README.md`、应用路由、`LICENSE` | 仅参考规划任务路由；不是 Skill 依赖 | 未复制完整应用或数据源 |
+| [nicobailon/visual-explainer](https://github.com/nicobailon/visual-explainer) | `7163c3e1` | MIT | `README.md`、Skill 结构、`LICENSE` | `visual`／`presentation-document` 外援候选 | 未复制；生成物仍需单独检查版权 |
+| [nkarasiak/qgis-mcp](https://github.com/nkarasiak/qgis-mcp) | `75499a7b` | GPL-2.0 | `README.md`、MCP 实现、`LICENSE` | 独立进程中的 QGIS 外援候选 | 不复制或打包进 MIT 核心 |
+| [op7418/guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill) | `c91369c4` | AGPL-3.0 | `README.md`、PPT Skill、`LICENSE` | 独立演示制作外援候选 | 不复制或并入 MIT 核心；网络使用遵守 AGPL |
+| [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | `d91ed427` | MIT（聚合仓库） | `README.md`、目录索引、`LICENSE` | 仅用于发现上游 | 聚合许可不覆盖被镜像或链接内容 |
+| [tt-a1i/archify](https://github.com/tt-a1i/archify) | `5de7275f` | MIT | `README.md`、Skill 结构、`LICENSE` | 系统关系图外援候选 | 未复制；不把软件架构语义机械转为空间语义 |
+| [vercel-labs/skills](https://github.com/vercel-labs/skills) | `435076e7` | MIT | `README.md`、安装发现逻辑、`LICENSE` | `npx skills` 安装、发现与 smoke test | 未复制实现；README 只引用公开命令 Interface |
 
 ## 使用声明
 
