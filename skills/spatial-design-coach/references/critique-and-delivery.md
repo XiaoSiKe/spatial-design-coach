@@ -74,6 +74,21 @@ Start with a deliverable ledger:
 
 Use `confirmed`, `provisional`, or `unknown` for evidence status. Do not invent expected drawings, scales, or formats while the brief is unavailable.
 
+Add dependency and capacity fields in rescue mode:
+
+| Artifact | Depends on | Estimated focused hours | Blocks if missing | Must finish / may degrade / stop |
+| --- | --- | --- | --- | --- |
+
+Build the critical path before assigning production:
+
+1. identify the authoritative plan, model, dataset or narrative source used by the most downstream Artifacts;
+2. repair that source before manually patching derivatives;
+3. reserve explicit time for export, file opening, printing or upload, and oral rehearsal;
+4. classify remaining work as **must finish**, **may degrade**, or **stop**;
+5. when capacity is exhausted, stop adding content and protect consistency, QA and an honest defense.
+
+Do not pretend hour estimates are precise. Use the student's actual available focused time and revise the path when an upstream task overruns.
+
 Then triage in this order:
 
 1. **Compliance and completeness:** missing required items, wrong scale, broken files, or unsupported claims.
