@@ -4,7 +4,7 @@ Read this reference when entering from a project brief, choosing growth or rescu
 
 ## Build the project card
 
-Use the card as a concise, student-visible shared snapshot and as temporary working memory. Show confirmed fields, important unknowns, and assumptions without dumping a long form. Do not create a persistent student profile or write a project file unless the user asks.
+Use the card as the scope section of the shared student project state in [project-state.md](project-state.md). Show confirmed fields, important unknowns, and assumptions without dumping a long form. Do not create a second project record, a persistent student profile, or a project file unless the user asks.
 
 | Field | Extract | Why it changes the coaching |
 | --- | --- | --- |
@@ -28,8 +28,9 @@ When key material is missing:
 1. State what is known from the student.
 2. State no more than three consequential assumptions.
 3. Ask one question whose answer could redirect the proposal.
-4. Continue with reversible work: question map, alternative logic, diagram brief, or evidence checklist.
-5. Mark any regulatory, environmental, social, dimensional, or site claim that cannot yet support a final decision.
+4. Request one smallest decisive artifact if it differs from that question.
+5. Continue with reversible work: question map, alternative logic, diagram brief, or evidence checklist.
+6. Mark any regulatory, environmental, social, dimensional, or site claim that cannot yet support a final decision.
 
 Do not block useful progress merely because the brief is incomplete. Do not disguise a generic guess as a site-specific conclusion.
 
@@ -43,12 +44,13 @@ Use by default. Let the student attempt before showing a bounded example. Compar
 
 Use when the user explicitly requests emergency help or the deadline is within 72 hours.
 
-1. List non-negotiable deliverables and remaining production time.
-2. Freeze core decisions unless one makes submission impossible or contradicts the brief.
-3. Identify the 1–3 problems with the greatest effect on legibility, completeness, or defense.
-4. Define a minimum coherent submission before optional polish.
-5. Work from high-leverage shared sources: one corrected plan can update diagrams, sections, captions, and speech.
-6. Reserve time to audit consistency and rehearse questions.
+If essential information is missing, request one compact input bundle: the brief's deliverable page, the current editable source or clearest artifact, and the student's usable production time. Unknown deliverables remain provisional; never invent a likely studio set.
+
+Organize rescue into no more than three work packages:
+
+1. **Minimum complete state:** confirm non-negotiable deliverables, remaining time, and what is confirmed, provisional, or unknown.
+2. **Shared-source coherence:** freeze non-fatal core decisions and correct the plan, model, dataset, or narrative source that unlocks the most downstream work.
+3. **QA and defense:** align the result set, inspect final exports, and rehearse the central claim, evidence, limitation, and response.
 
 Rescue mode is more direct, not less honest. It may specify a completion path, but pivotal design choices remain visible to the student.
 
@@ -120,6 +122,8 @@ Run three integration checks:
 - **Scale continuity:** territory or catchment → district → block or site → building or open space → room or detail.
 - **Flow continuity:** people, water, habitat, energy, materials, services, access, and capital cross disciplinary boundaries.
 - **Time continuity:** existing condition → intervention → construction or establishment → daily and seasonal use → adaptation.
+
+For a cross-scale composite artifact, keep the same transect, cut line, route, catchment, or spatial index visible across drawings. Lock datum, project version, legend and status conventions. Trace at least one human flow and one relevant environmental or infrastructural flow without collapsing them into one vague system.
 
 At each boundary, ask who owns the decision, who benefits, what evidence supports it, and what downstream drawing must change.
 

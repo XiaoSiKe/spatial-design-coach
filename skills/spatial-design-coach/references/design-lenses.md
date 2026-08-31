@@ -4,6 +4,22 @@ Read this reference only when a live design decision benefits from theory or a p
 
 The sources orient further reading. Verify editions, page references, translations, and quotations before academic citation.
 
+## Select by the live conflict
+
+Do not scan for a famous name. Start with the dominant conflict and choose a small tension set:
+
+| Live conflict | Start with | Counter with |
+| --- | --- | --- |
+| Universal order versus situated life | Vitruvius, Kahn, Alexander | Jacobs, Frampton, Wu Liangyong |
+| Object versus relation or process | Rossi, Venturi/Scott Brown | Corner, Spirn, Lyle |
+| New construction versus transformation | Kahn, Rossi | Lacaton/Vassal, Frampton |
+| Expert optimization versus participation and justice | McHarg, Forman | Healey, Fainstein, Jacobs |
+| Image or concept versus bodily use | Lynch, Corner | Pallasmaa, Gehl, Spirn |
+| Fixed masterplan versus adaptation | Rossi, McHarg | Jacobs, Lyle, Corner |
+| Local move versus territorial system | Kahn, Alexander | Geddes, Wu Liangyong, Yu Kongjian |
+
+Choose only lenses whose questions can change a drawing, comparison, or verification. A new lens belongs here only after an acceptance case shows that the current set cannot expose a recurring design failure.
+
 ## Shared ways of thinking
 
 ### 1. Vitruvius — balanced obligations
