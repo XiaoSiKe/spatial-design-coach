@@ -66,6 +66,12 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
 
     if suite == "smoke":
         return [("smoke", 1, [by_id[item_id] for item_id in config["smoke_case_ids"]])]
+    if suite == "cases":
+        size = int(config["batch_size"])
+        return [
+            (f"cases-{index + 1}", 1, cases[start : start + size])
+            for index, start in enumerate(range(0, len(cases), size))
+        ]
     if suite == "high-risk":
         return [("high-risk", run, high_risk) for run in range(1, int(config["critical_runs"]) + 1)]
     if suite == "journeys":
@@ -313,17 +319,54 @@ def execute_batch(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--suite", choices=("smoke", "high-risk", "journeys", "full"), default="smoke")
+    parser.add_argument("--suite", choices=("smoke", "cases", "high-risk", "journeys", "full"), default="smoke")
     parser.add_argument("--executor-model")
     parser.add_argument("--judge-model")
     parser.add_argument("--artifacts-dir", type=Path, default=ROOT / "artifacts" / "evals")
     parser.add_argument("--timeout", type=int, default=1800)
     parser.add_argument("--workers", type=int)
     parser.add_argument("--recompute-from", type=Path, help="recompute summary only when skill and eval inputs are unchanged")
+    parser.add_argument("--merge-reports", type=Path, nargs="+", help="merge modular reports into one full report")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
     cases, journeys, config = normalized_items()
+    if args.merge_reports:
+        current_commit = git_commit()
+        runs = []
+        source_commits = []
+        for report_path in args.merge_reports:
+            source = load_json(report_path.resolve())
+            old_commit = str(source.get("commit", ""))
+            unchanged = subprocess.run(
+                ["git", "diff", "--quiet", old_commit, current_commit, "--", "skills/spatial-design-coach", "tests/evals"],
+                cwd=ROOT,
+            )
+            if unchanged.returncode != 0:
+                parser.error(f"cannot merge {report_path}: skill or eval inputs changed")
+            runs.extend(source.get("runs", []))
+            source_commits.append(old_commit)
+        critical_ids = {str(item["id"]) for item in cases + journeys if item["critical"]}
+        repeated_ids = {str(item_id) for item_id in config["high_risk_case_ids"]}
+        repeated_ids.update(str(item["id"]) for item in journeys if item["critical"])
+        report = {
+            "schema_version": 1,
+            "suite": "full",
+            "commit": current_commit,
+            "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+            "executor_model": str(config["executor_model"]),
+            "judge_model": str(config["judge_model"]),
+            "merged_from": source_commits,
+            "critical_ids": sorted(critical_ids),
+            "repeated_ids": sorted(repeated_ids),
+            "runs": runs,
+            "summary": summarize(runs, critical_ids, repeated_ids, int(config["critical_pass_quorum"])),
+        }
+        json_path, md_path = write_report(report, args.artifacts_dir)
+        print(f"wrote {json_path}")
+        print(f"wrote {md_path}")
+        return 0 if report["summary"]["release_ready"] else 1
+
     if args.recompute_from:
         source = load_json(args.recompute_from.resolve())
         old_commit = str(source.get("commit", ""))

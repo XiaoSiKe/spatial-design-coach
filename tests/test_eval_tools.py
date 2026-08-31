@@ -25,6 +25,7 @@ RELEASE_CHECK = load_module("release_check", ROOT / "scripts" / "release_check.p
 class EvalToolTests(unittest.TestCase):
     def test_expected_batch_shapes(self) -> None:
         self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 4)])
+        self.assertEqual(len(RUN_EVALS.select_batches("cases")), 3)
         self.assertEqual(len(RUN_EVALS.select_batches("high-risk")), 3)
         self.assertEqual(len(RUN_EVALS.select_batches("journeys")), 3)
         self.assertEqual(
