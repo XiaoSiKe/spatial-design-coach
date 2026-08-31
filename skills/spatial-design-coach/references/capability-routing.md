@@ -48,6 +48,23 @@ Keep this structure when delegating internally or giving the student a copyable 
 - 返回：产物路径、方法与工具、数据来源、验证证据、限制、需人工复核项
 ```
 
+In a writable assignment sandbox, add the assigned output directory and require a `RESULT.md`. The return record must contain:
+
+```markdown
+# Capability Result
+
+- Capability and task:
+- Inputs and authoritative project version:
+- Method and tools:
+- Returned files:
+- Verification evidence:
+- Limitations and pending checks:
+- Locked-decision conflicts:
+- Proposed project-state changes:
+```
+
+Do not let an adapter write outside its assigned directory or overwrite an existing return. A returned file without this record remains provisional.
+
 Make the **design purpose** decision-specific. “Create a GIS map” is too weak; “test whether the proposed east–west public spine connects the three 10-minute walking catchments without crossing the flood exclusion zone” is actionable.
 
 Locked decisions protect authorship and consistency. They may include site boundary, selected alternative, program quantities, datum, project north, level system, material logic, graphic conventions, or claims that require verification rather than invention.
@@ -106,7 +123,7 @@ Before presenting an external result to the student, answer:
 4. Did it alter a locked decision, project version, datum, terminology, quantity, or visual convention?
 5. Which project-state fields can be updated, and which still require the student's confirmation?
 
-If the result conflicts with locked decisions, do not silently merge it. Surface the conflict, its consequence, and the smallest decision the student must revisit. Keep the old state until the student confirms the change.
+If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
 
 ## Degrade honestly when no capability exists
 

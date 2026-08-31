@@ -1,6 +1,12 @@
 # Student Project State
 
-Read this reference when material first arrives, a pivotal decision changes, rescue mode begins, an external capability returns, or the student asks to save or resume progress.
+Read this reference when material first arrives, a sandbox starts or resumes, a pivotal decision changes, rescue mode begins, an external capability returns, or the student asks to save or resume progress.
+
+## Select file-backed or chat-only state
+
+In a writable assignment sandbox, run `scripts/init_project.py` and use `studio/PROJECT.md` as the only project-state file. Update it in place after meaningful events. Keep the student's original files outside `studio/` untouched; derived files belong in `studio/outputs/working/`, and only verified submission files belong in `studio/outputs/final/`.
+
+If the workspace is read-only or the user prohibits writes, maintain the same fields in conversation and export a continuation snapshot on request. Do not create another state file as a workaround.
 
 ## Keep one shared state
 
@@ -14,6 +20,7 @@ Maintain one student-visible source of truth for the current project. Do not cre
 | Decisions | Locked student-confirmed choices, rejected alternatives, reason and trade-off |
 | Evidence | Supplied facts, inspected evidence, inferences, assumptions, pending verification |
 | Artifacts | Current project version, completed/provisional/missing status, blocking dependency |
+| Standards | Brief or rubric criterion, responsible Artifact, observable pass condition |
 | Forward motion | Next 1–3 actions, next smallest artifact, pass condition |
 
 Keep the state proportional. Omit irrelevant fields rather than printing `unknown` repeatedly.
@@ -28,6 +35,7 @@ Create or substantially refresh the state when:
 - a new fact invalidates an assumption;
 - rescue mode establishes a minimum complete submission;
 - an external capability returns an artifact or finding;
+- a required Artifact changes status, dependency, version or QA result;
 - the student asks to save, hand off, or resume the project.
 
 During ordinary turns, show only the changed decisions, assumptions, artifact status, and next evidence. Do not repeat the full state in every response.
@@ -43,6 +51,14 @@ When new information conflicts with the state:
 5. update the state and mark superseded items rather than silently deleting their history.
 
 An external capability return is evidence, not an automatic state change. If it conflicts with a locked decision, surface the conflict before merging it.
+
+## Preserve files and versions
+
+- Treat original material as read-only even when the sandbox is writable.
+- Never update an Artifact status from a filename alone; inspect the file or label it unverified.
+- Record which project version each Artifact represents.
+- When a derived target already exists, create the next `-vN` output instead of overwriting it.
+- Move or copy a file into `studio/outputs/final/` only after its requirement, project version and QA are confirmed.
 
 ## Export a continuation snapshot
 
