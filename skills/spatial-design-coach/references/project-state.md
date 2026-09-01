@@ -25,6 +25,8 @@ Maintain one student-visible source of truth for the current project. Do not cre
 
 Keep the state proportional. Omit irrelevant fields rather than printing `unknown` repeatedly.
 
+Do not turn temporary distress, confidence, personality, teacher tone, or inferred ability into project-state fields or a student profile. Record only project-relevant feedback criteria, requested support preferences, decisions, and next actions that the student wants preserved.
+
 ## Control decision maturity
 
 - **Open:** a choice is still being framed or compared.

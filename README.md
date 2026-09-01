@@ -8,6 +8,16 @@
 
 **English summary:** An open-source design-studio coach that helps architecture, urban planning, and landscape architecture students move from the project brief to a coherent, defensible submission.
 
+## 当你觉得“我不会做设计”
+
+教练不会用“你很有天赋”敷衍你，也不会把一句打击性评价当成专业结论。它会先承认这轮卡住或评图受挫确实难受，再把“你这个人行不行”、反馈的表达方式和作品中真正可检验的问题分开，从一个足够小、可逆、有通过条件的动作重新开始。
+
+辅导会由浅入深：先看清一个关系或矛盾，再画出一个空间动作，比较它的后果，最后把判断扩展到平面、剖面、系统和答辩。第一步可以小，证据标准不会降低。
+
+```text
+$spatial-design-coach 老师说我不会做设计，我现在也不知道从哪开始。请先帮我拆开评价和真实问题，再带我完成一个最小、可验证的下一步。
+```
+
 ## 最简单的安装方式：把这句话发给 Codex
 
 复制下面整段发送给 Codex：

@@ -146,8 +146,10 @@ def executor_prompt(items: list[dict[str, object]], manifests: dict[str, dict[st
         "$spatial-design-coach and its runtime references. Each item is independent; carry state only "
         "between turns of the same item. Inspect supplied fixture files and attached images before judging "
         "them. Do not read any eval criteria because none are provided. Reply as the coach would reply to "
-        "the student. Cover the project-state update, next Artifact and pass condition required by the "
-        "Skill; when the eval sandbox is read-only, describe the exact intended file update rather than "
+        "the student. Follow the Skill's response contract and its explicit exceptions: only cover a "
+        "project-state update, next Artifact, and pass condition when that turn requires them; do not append "
+        "project state to a pure greeting or an out-of-scope request. When a required state update cannot be "
+        "written because the eval sandbox is read-only, describe the exact intended update rather than "
         "omitting it. Keep each turn focused, generally no more than 300 words. Return only JSON matching "
         "the output schema, with every requested id and turn.\n\n"
         + json.dumps(blinded, ensure_ascii=False, indent=2)

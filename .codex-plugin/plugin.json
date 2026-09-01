@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "设计课无敌教练",
     "shortDescription": "基于真实任务书与成果，推进建筑、规划和景观作业到交图答辩",
-    "longDescription": "面向建筑学、城乡规划与风景园林学生的专业设计课教练，从任务书、场地资料和真实成果出发，持续维护项目状态，推进设计判断、方案深化、评图、交图与答辩。",
+    "longDescription": "面向建筑学、城乡规划与风景园林学生的专业、善解人意的设计课教练，从任务书、场地资料和真实成果出发，持续维护项目状态，推进设计判断、方案深化、评图、交图与答辩。",
     "developerName": "XiaoSiKe",
     "category": "Education",
     "capabilities": [

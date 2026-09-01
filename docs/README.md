@@ -16,7 +16,7 @@
 | 文档 | 唯一职责 |
 |---|---|
 | [产品需求](./product/prd.md) | 产品目标、工作流、行为要求、边界与用户故事 |
-| [名称与语气](./product/voice.md) | 显示名称、简介、欢迎语和表达边界 |
+| [名称与语气](./product/voice.md) | 显示名称、简介、欢迎语、支持式表达和语气边界 |
 | [ADR-0001：轻量核心与能力路由](./adr/0001-lightweight-core-and-capability-routing.md) | 解释为何核心保持轻量，以及怎样移交专业能力 |
 | [ADR-0002：Deep 项目状态与评测驱动演进](./adr/0002-deep-project-state-and-eval-driven-evolution.md) | 解释统一项目状态与评测驱动演进 |
 | [ADR-0003：单作业沙盒与文件化项目状态](./adr/0003-assignment-sandbox-and-file-backed-state.md) | 解释 `studio/PROJECT.md`、原始文件保护和只读降级 |
@@ -33,7 +33,7 @@
 
 | 改动类型 | 权威实现 | 必须同步 |
 |---|---|---|
-| 名称、简介、欢迎语 | [`product/voice.md`](./product/voice.md) | `agents/openai.yaml`、Plugin manifest、`SKILL.md` 欢迎语、SDC-001 |
+| 名称、简介、欢迎语与支持式表达 | [`product/voice.md`](./product/voice.md) | `agents/openai.yaml`、Plugin manifest、`SKILL.md` 欢迎语、SDC-001／013 与 JRN-001 |
 | 辅导入口与路由 | [`SKILL.md`](../skills/spatial-design-coach/SKILL.md) | 对应 runtime reference 和行为 case／journey |
 | 项目状态与决定 | [`project-state.md`](../skills/spatial-design-coach/references/project-state.md) | 项目模板、ADR-0002／0003、状态 journey |
 | 阶段、推理与交付 | `studio-workflow.md`、`design-reasoning.md`、`studio-standard.md`、`critique-and-delivery.md` | 产品需求与对应行为评测 |
