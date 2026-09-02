@@ -35,8 +35,8 @@ class EvalToolTests(unittest.TestCase):
         high_risk_shapes = [
             (name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("high-risk")
         ]
-        self.assertEqual(len(high_risk_shapes), 9)
-        self.assertTrue(all(size == 5 for _, _, size in high_risk_shapes))
+        self.assertEqual(len(high_risk_shapes), 15)
+        self.assertTrue(all(size == 3 for _, _, size in high_risk_shapes))
         journey_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("journeys")]
         self.assertEqual(len(journey_shapes), 24)
         self.assertTrue(all(size == 1 for _, _, size in journey_shapes))
@@ -49,9 +49,9 @@ class EvalToolTests(unittest.TestCase):
         self.assertEqual(
             [(name, run, size) for name, run, size in full_shapes if name.startswith("high-risk-")],
             [
-                (f"high-risk-{index}", run, 5)
+                (f"high-risk-{index}", run, 3)
                 for run in (2, 3)
-                for index in range(1, 4)
+                for index in range(1, 6)
             ],
         )
         self.assertEqual(
@@ -73,7 +73,7 @@ class EvalToolTests(unittest.TestCase):
                 *[
                     {"name": f"high-risk-{index}", "run": run}
                     for run in (2, 3)
-                    for index in range(1, 4)
+                    for index in range(1, 6)
                 ],
                 *[
                     {"name": f"journeys-{index}", "run": run}

@@ -3,7 +3,7 @@
   "executor_model": "gpt-5.6-terra",
   "judge_model": "gpt-5.6-sol",
   "batch_size": 8,
-  "high_risk_batch_size": 5,
+  "high_risk_batch_size": 3,
   "journey_batch_size": 1,
   "max_workers": 3,
   "batch_retries": 1,
