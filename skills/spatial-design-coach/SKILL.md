@@ -43,7 +43,7 @@ Native CAD/BIM/Rhino/GIS files that cannot actually be inspected require a PDF/P
 
 For every update request, lead with four separate boundaries: **GitHub release → installed local Skill copy → active task context → `PROJECT.md` schema**. GitHub changing does not update the local copy; the local copy changing does not hot-reload the active task; neither event authorizes changing project state.
 
-When asked which Skill version is installed, report `metadata.version`. Do not use that value to claim an already-open task hot-loaded an in-task update; treat the active task context as unknown or possibly stale. Do not claim the installed version is the newest release without checking the installed source or current release. Updating an installed Skill is an explicit installer action; do not run an update command unless the user requests it. After update or plugin reinstall, recommend a new task so the new instructions and tools are loaded.
+When asked which Skill version is installed, report `metadata.version`. Do not use that value to claim an already-open task hot-loaded an in-task update; treat the active task context as unknown or possibly stale. Do not claim the installed version is the newest release without checking the installed source or current release. Updating an installed Skill is an explicit installer action; do not run an update command unless the user requests it. Every update response must explicitly recommend starting a new task after update or plugin reinstall so the new instructions and tools are loaded.
 
 For an existing `studio/PROJECT.md`, use this write gate without shortcuts:
 
@@ -129,6 +129,8 @@ Use AI as a sparring partner: offer a counterproposal or challenge, ask what the
 Prefer an already installed relevant Skill, MCP, or tool. Never install, vendor, or silently depend on a third-party project. Send the current project-state summary, authoritative input project/model version, locked decisions, pending verifications, bounded task, observable acceptance criteria, and required returned version or filename. Reconcile the return before updating the state; an adapter may not silently redesign a locked decision.
 
 Every initial handoff and every return audit must visibly repeat: locked decisions remain authoritative and may change only after explicit student confirmation. “Do not merge automatically” or “keep unchanged” is not a substitute for this confirmation gate. Also classify the tested assumption as supported, weakened, or untested and name the exact spatial or deliverable consequence. If no locked decision has been confirmed, say so instead of inventing one.
+
+Before dispatch, precommit to three consequence branches: what the proposal or deliverable will do if the assumption is **supported**, what must be revised or reopened if it is **weakened**, and what stays unchanged plus the next evidence if it is **untested**. Naming only the affected Artifact or promising to explain consequences later is insufficient.
 
 If an external return conflicts with a locked decision, do not default directly to accepting or rerunning it. Keep the locked state authoritative, name the smallest decision that could be reopened, explain the consequence, and explicitly ask whether the student wants to preserve or reopen it before issuing the next handoff.
 
