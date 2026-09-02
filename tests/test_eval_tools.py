@@ -33,29 +33,21 @@ class EvalToolTests(unittest.TestCase):
         self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 4)])
         self.assertEqual(len(RUN_EVALS.select_batches("cases")), 3)
         self.assertEqual(len(RUN_EVALS.select_batches("high-risk")), 3)
-        self.assertEqual(len(RUN_EVALS.select_batches("journeys")), 12)
+        journey_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("journeys")]
+        self.assertEqual(len(journey_shapes), 24)
+        self.assertTrue(all(size == 1 for _, _, size in journey_shapes))
+
+        full_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")]
+        self.assertEqual(full_shapes[:3], [("cases-1", 1, 8), ("cases-2", 1, 8), ("cases-3", 1, 8)])
         self.assertEqual(
-            [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")],
-            [
-                ("cases-1", 1, 8),
-                ("cases-2", 1, 8),
-                ("cases-3", 1, 8),
-                ("journeys-1", 1, 2),
-                ("journeys-2", 1, 2),
-                ("journeys-3", 1, 2),
-                ("journeys-4", 1, 2),
-                ("high-risk", 2, 14),
-                ("high-risk", 3, 14),
-                ("journeys-1", 2, 2),
-                ("journeys-2", 2, 2),
-                ("journeys-3", 2, 2),
-                ("journeys-4", 2, 2),
-                ("journeys-1", 3, 2),
-                ("journeys-2", 3, 2),
-                ("journeys-3", 3, 2),
-                ("journeys-4", 3, 2),
-            ],
+            [(name, run, size) for name, run, size in full_shapes if name == "high-risk"],
+            [("high-risk", 2, 14), ("high-risk", 3, 14)],
         )
+        self.assertEqual(
+            {(name, run) for name, run, _ in full_shapes if name.startswith("journeys-")},
+            {(f"journeys-{index}", run) for run in (1, 2, 3) for index in range(1, 9)},
+        )
+        self.assertTrue(all(size == 1 for name, _, size in full_shapes if name.startswith("journeys-")))
 
     def test_release_report_requires_full_current_clean_runs(self) -> None:
         payload = {
@@ -66,20 +58,13 @@ class EvalToolTests(unittest.TestCase):
                 {"name": "cases-1", "run": 1},
                 {"name": "cases-2", "run": 1},
                 {"name": "cases-3", "run": 1},
-                {"name": "journeys-1", "run": 1},
-                {"name": "journeys-2", "run": 1},
-                {"name": "journeys-3", "run": 1},
-                {"name": "journeys-4", "run": 1},
                 {"name": "high-risk", "run": 2},
                 {"name": "high-risk", "run": 3},
-                {"name": "journeys-1", "run": 2},
-                {"name": "journeys-2", "run": 2},
-                {"name": "journeys-3", "run": 2},
-                {"name": "journeys-4", "run": 2},
-                {"name": "journeys-1", "run": 3},
-                {"name": "journeys-2", "run": 3},
-                {"name": "journeys-3", "run": 3},
-                {"name": "journeys-4", "run": 3},
+                *[
+                    {"name": f"journeys-{index}", "run": run}
+                    for run in (1, 2, 3)
+                    for index in range(1, 9)
+                ],
             ],
         }
         with tempfile.TemporaryDirectory() as temp:
