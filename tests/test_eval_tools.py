@@ -33,18 +33,21 @@ class EvalToolTests(unittest.TestCase):
         self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 4)])
         self.assertEqual(len(RUN_EVALS.select_batches("cases")), 3)
         self.assertEqual(len(RUN_EVALS.select_batches("high-risk")), 3)
-        self.assertEqual(len(RUN_EVALS.select_batches("journeys")), 3)
+        self.assertEqual(len(RUN_EVALS.select_batches("journeys")), 6)
         self.assertEqual(
             [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")],
             [
                 ("cases-1", 1, 8),
                 ("cases-2", 1, 8),
                 ("cases-3", 1, 8),
-                ("journeys", 1, 8),
+                ("journeys-1", 1, 4),
+                ("journeys-2", 1, 4),
                 ("high-risk", 2, 14),
                 ("high-risk", 3, 14),
-                ("journeys", 2, 8),
-                ("journeys", 3, 8),
+                ("journeys-1", 2, 4),
+                ("journeys-2", 2, 4),
+                ("journeys-1", 3, 4),
+                ("journeys-2", 3, 4),
             ],
         )
 
@@ -57,11 +60,14 @@ class EvalToolTests(unittest.TestCase):
                 {"name": "cases-1", "run": 1},
                 {"name": "cases-2", "run": 1},
                 {"name": "cases-3", "run": 1},
-                {"name": "journeys", "run": 1},
+                {"name": "journeys-1", "run": 1},
+                {"name": "journeys-2", "run": 1},
                 {"name": "high-risk", "run": 2},
                 {"name": "high-risk", "run": 3},
-                {"name": "journeys", "run": 2},
-                {"name": "journeys", "run": 3},
+                {"name": "journeys-1", "run": 2},
+                {"name": "journeys-2", "run": 2},
+                {"name": "journeys-1", "run": 3},
+                {"name": "journeys-2", "run": 3},
             ],
         }
         with tempfile.TemporaryDirectory() as temp:

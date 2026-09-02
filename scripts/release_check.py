@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_DIR = ROOT / "skills" / "spatial-design-coach"
+EVAL_ROOT = ROOT / "tests" / "evals"
 CODEX_ROOT = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex"))
 
 
@@ -49,16 +50,20 @@ def validate_eval(path: Path, expected_commit: str) -> None:
     if summary.get("release_ready") is not True:
         raise RuntimeError(f"eval report does not satisfy critical quorum: {summary}")
     names = {(run_item["name"], run_item["run"]) for run_item in payload.get("runs", [])}
-    required = {
-        ("cases-1", 1),
-        ("cases-2", 1),
-        ("cases-3", 1),
-        ("journeys", 1),
-        ("high-risk", 2),
-        ("high-risk", 3),
-        ("journeys", 2),
-        ("journeys", 3),
-    }
+    config = json.loads((EVAL_ROOT / "config.json").read_text(encoding="utf-8"))
+    case_count = len(json.loads((EVAL_ROOT / "cases.json").read_text(encoding="utf-8"))["cases"])
+    journey_count = len(json.loads((EVAL_ROOT / "journeys.json").read_text(encoding="utf-8"))["journeys"])
+    case_batches = (case_count + int(config["batch_size"]) - 1) // int(config["batch_size"])
+    journey_batches = (
+        journey_count + int(config["journey_batch_size"]) - 1
+    ) // int(config["journey_batch_size"])
+    required = {(f"cases-{index}", 1) for index in range(1, case_batches + 1)}
+    required.update(("high-risk", run) for run in (2, 3))
+    required.update(
+        (f"journeys-{index}", run)
+        for run in range(1, int(config["journey_runs"]) + 1)
+        for index in range(1, journey_batches + 1)
+    )
     if not required.issubset(names):
         raise RuntimeError("eval report is missing required case, journey, or independent rerun batches")
 
