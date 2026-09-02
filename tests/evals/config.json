@@ -6,8 +6,8 @@
   "journey_batch_size": 1,
   "max_workers": 3,
   "batch_retries": 1,
-  "smoke_case_ids": ["SDC-001", "SDC-013", "SDC-017", "SDC-022"],
-  "high_risk_case_ids": ["SDC-004", "SDC-006", "SDC-008", "SDC-009", "SDC-010", "SDC-013", "SDC-014", "SDC-015", "SDC-016", "SDC-018", "SDC-021", "SDC-022", "SDC-023", "SDC-024"],
+  "smoke_case_ids": ["SDC-001", "SDC-013", "SDC-017", "SDC-022", "SDC-025"],
+  "high_risk_case_ids": ["SDC-004", "SDC-006", "SDC-008", "SDC-009", "SDC-010", "SDC-013", "SDC-014", "SDC-015", "SDC-016", "SDC-018", "SDC-021", "SDC-022", "SDC-023", "SDC-024", "SDC-025"],
   "critical_runs": 3,
   "journey_runs": 3,
   "critical_pass_quorum": 2

@@ -108,6 +108,18 @@ def parse_frontmatter() -> dict[str, str]:
     return result
 
 
+def runtime_version() -> str:
+    match = re.search(
+        r'^  version: "(\d+\.\d+\.\d+)"$',
+        read(SKILL_DIR / "SKILL.md"),
+        re.MULTILINE,
+    )
+    if not match:
+        fail("SKILL.md metadata.version is missing or invalid")
+        return ""
+    return match.group(1)
+
+
 def check_metadata() -> None:
     manifest = json.loads(read(ROOT / ".codex-plugin" / "plugin.json") or "{}")
     required = ["name", "version", "description", "author", "skills", "interface"]
@@ -121,6 +133,8 @@ def check_metadata() -> None:
         fail("plugin version is not strict semver")
     if manifest.get("skills") != "./skills/":
         fail("plugin skills path must be ./skills/")
+    if runtime_version() != version:
+        fail("SKILL.md metadata.version differs from plugin.json")
     interface = manifest.get("interface", {})
     for key in ("displayName", "shortDescription", "longDescription", "developerName", "category", "capabilities", "websiteURL", "defaultPrompt"):
         if key not in interface:
@@ -145,6 +159,20 @@ def check_metadata() -> None:
         fail("implicit invocation must remain enabled")
     if f"版本：`{version}`" not in read(ROOT / "docs" / "README.md"):
         fail("docs/README.md version does not match plugin.json")
+    if f"状态：`{version}` 实施基线" not in read(ROOT / "docs" / "product" / "prd.md"):
+        fail("docs/product/prd.md version does not match plugin.json")
+    if f"当前发布版本：`{version}`" not in read(ROOT / "README.md"):
+        fail("README.md version does not match plugin.json")
+    template = read(SKILL_DIR / "assets" / "PROJECT.template.md")
+    if f"- Skill 版本：{version}" not in template:
+        fail("PROJECT.template.md Skill version does not match plugin.json")
+
+    migration = read(SKILL_DIR / "scripts" / "migrate_project.py")
+    schema = re.search(r"^PROJECT_SCHEMA_VERSION = (\d+)$", migration, re.MULTILINE)
+    if not schema:
+        fail("migrate_project.py is missing PROJECT_SCHEMA_VERSION")
+    elif f"- 项目状态格式：{schema.group(1)}" not in template:
+        fail("PROJECT.template.md schema differs from migrate_project.py")
 
 
 def check_runtime() -> None:
@@ -166,6 +194,7 @@ def check_runtime() -> None:
         fail(f"runtime references exceed 1400 lines: {reference_lines}")
     for required in (
         SKILL_DIR / "scripts" / "init_project.py",
+        SKILL_DIR / "scripts" / "migrate_project.py",
         SKILL_DIR / "assets" / "PROJECT.template.md",
     ):
         if not required.is_file():
@@ -177,8 +206,8 @@ def check_cases() -> None:
     cases = payload.get("cases", [])
     if payload.get("skill") != "spatial-design-coach" or payload.get("schema_version") != 1:
         fail("cases.json header is invalid")
-    if len(cases) != 24:
-        fail(f"expected 24 eval cases, found {len(cases)}")
+    if len(cases) != 25:
+        fail(f"expected 25 eval cases, found {len(cases)}")
     ids: set[str] = set()
     for case in cases:
         for key in ("id", "category", "prompt", "critical", "must", "must_not"):

@@ -1,6 +1,6 @@
 # 设计课无敌教练产品需求
 
-> 状态：`0.4.0` 实施基线
+> 状态：`0.5.0` 实施基线
 >
 > 更新日期：2026-09-02
 
@@ -36,6 +36,12 @@
 学生在作业目录中说“开始这个设计作业”时，Skill 幂等创建 `studio/PROJECT.md`、`studio/outputs/working/` 和 `studio/outputs/final/`。`PROJECT.md` 是该作业唯一、学生可审阅的项目状态；原始任务书、图纸、模型、照片和数据保持只读。
 
 外援和教练派生产物只写入 working；目录已存在时创建新版本。只有确认任务书要求、项目版本和文件 QA 后，文件才进入 final。只读环境或用户禁止写入时，继续用会话状态和续航快照，不停止辅导。
+
+### 更新与兼容
+
+Skill 的运行时版本由 `SKILL.md` 元数据声明，并与 Plugin manifest、产品基线和新项目模板保持一致。GitHub 源更新不等于用户本地副本已经更新；安装器更新后，用户使用新任务加载新版。
+
+项目状态格式独立于 Skill 版本。新项目记录当前 Skill 版本与项目 schema；旧项目只读检查兼容性，不因 Skill 更新自动写入。显式迁移必须先备份 `studio/PROJECT.md`，保留学生内容与决定，且不得触碰原始资料。未来 schema 高于当前支持范围时停止状态写入并要求先更新 Skill。
 
 ### 默认启动协议
 
@@ -271,6 +277,6 @@ presentation-document
 
 ## Acceptance
 
-实现通过 24 个单轮情境、8 个多轮 journey、6 个合成 studio packet、沙盒初始化单元测试和发布资格检查验收。测试关注真实 Artifact、项目状态、原始文件保护、阶段门、救火关键路径、Adapter 对账和最终成果完整性；固定措辞和模型内部推理不作为通过条件。
+实现通过 25 个单轮情境、8 个多轮 journey、6 个合成 studio packet、沙盒初始化与迁移单元测试和发布资格检查验收。测试关注真实 Artifact、项目状态、更新兼容、原始文件保护、阶段门、救火关键路径、Adapter 对账和最终成果完整性；固定措辞和模型内部推理不作为通过条件。
 
 架构取舍与影响见 [ADR-0001](../adr/0001-lightweight-core-and-capability-routing.md)、[ADR-0002](../adr/0002-deep-project-state-and-eval-driven-evolution.md) 与 [ADR-0003](../adr/0003-assignment-sandbox-and-file-backed-state.md)，研究依据见 [开源先例](../research/open-source-prior-art.md) 和 [来源地图](../research/source-map.md)。

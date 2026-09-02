@@ -1,6 +1,6 @@
 # 来源与许可记录
 
-> 快照日期：2026-08-31
+> 开源仓库快照日期：2026-08-31；产品文档复核日期：2026-09-02
 >
 > 目的：记录进入产品研究的上游版本、许可证、审阅范围与实际使用方式。commit 为发布前固定快照；若上游默认分支继续变化，必须先复核再更新本表。
 
@@ -40,6 +40,13 @@
 | [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | `d91ed427` | MIT（聚合仓库） | `README.md`、目录索引、`LICENSE` | 仅用于发现上游 | 聚合许可不覆盖被镜像或链接内容 |
 | [tt-a1i/archify](https://github.com/tt-a1i/archify) | `5de7275f` | MIT | `README.md`、Skill 结构、`LICENSE` | 系统关系图外援候选 | 未复制；不把软件架构语义机械转为空间语义 |
 | [vercel-labs/skills](https://github.com/vercel-labs/skills) | `435076e7` | MIT | `README.md`、安装发现逻辑、`LICENSE` | `npx skills` 安装、发现与 smoke test | 未复制实现；README 只引用公开命令 Interface |
+
+## 产品文档
+
+| 来源 | 复核日期 | 范围 | 本项目使用方式 | 复制情况 |
+|---|---|---|---|---|
+| [OpenAI Skills API](https://developers.openai.com/api/reference/go/resources/skills) | 2026-09-02 | Skill、默认版本与不可变版本资源 | 仅用于区分托管 API 版本和本地 GitHub 安装更新边界 | 未复制正文或示例代码 |
+| `npx skills` 本机 CLI `update --help`／`list --global --json` | 2026-09-02 | 全局／项目更新参数、安装来源字段 | 验证 README 中本地更新命令和来源检查方式 | 仅记录公开命令 Interface |
 
 ## 使用声明
 
