@@ -13,7 +13,7 @@
 
 ## 决策
 
-在可写项目沙盒中创建 `studio/PROJECT.md`，作为该作业唯一、学生可审阅的文件化项目状态；创建 `studio/outputs/working/` 保存派生产物，创建 `studio/outputs/final/` 保存已经过任务书、版本和文件 QA 的最终产物。
+当学生明确要求在当前可写作业沙盒开始或管理项目时，创建 `studio/PROJECT.md`，作为该作业唯一、学生可审阅的文件化项目状态；创建 `studio/outputs/working/` 保存派生产物，创建 `studio/outputs/final/` 保存已经过任务书、版本和文件 QA 的最终产物。目录可写本身不构成初始化授权。
 
 使用 bundled `scripts/init_project.py` 幂等初始化：已有项目状态时只返回续作状态，不覆盖。学生放入沙盒的原始任务书、图纸、模型、照片和数据一律保持只读；任何修改先复制到 working 目录并创建新版本。
 

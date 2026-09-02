@@ -20,27 +20,34 @@ def load_module(name: str, path: Path):
 
 RUN_EVALS = load_module("run_evals", ROOT / "scripts" / "run_evals.py")
 RELEASE_CHECK = load_module("release_check", ROOT / "scripts" / "release_check.py")
+VALIDATE_REPO = load_module("validate_repo", ROOT / "scripts" / "validate_repo.py")
 
 
 class EvalToolTests(unittest.TestCase):
+    def test_extracts_first_blockquote_after_marker(self) -> None:
+        text = "before\nmarker\n\n> first\n> second\n\nafter\n"
+        self.assertEqual(VALIDATE_REPO.first_blockquote_after(text, "marker"), "first\nsecond")
+        self.assertEqual(VALIDATE_REPO.first_blockquote_after(text, "missing"), "")
+
     def test_expected_batch_shapes(self) -> None:
         self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 4)])
         self.assertEqual(len(RUN_EVALS.select_batches("cases")), 3)
         self.assertEqual(len(RUN_EVALS.select_batches("high-risk")), 3)
-        self.assertEqual(len(RUN_EVALS.select_batches("journeys")), 3)
+        journey_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("journeys")]
+        self.assertEqual(len(journey_shapes), 24)
+        self.assertTrue(all(size == 1 for _, _, size in journey_shapes))
+
+        full_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")]
+        self.assertEqual(full_shapes[:3], [("cases-1", 1, 8), ("cases-2", 1, 8), ("cases-3", 1, 8)])
         self.assertEqual(
-            [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")],
-            [
-                ("cases-1", 1, 8),
-                ("cases-2", 1, 8),
-                ("cases-3", 1, 8),
-                ("journeys", 1, 8),
-                ("high-risk", 2, 14),
-                ("high-risk", 3, 14),
-                ("journeys", 2, 8),
-                ("journeys", 3, 8),
-            ],
+            [(name, run, size) for name, run, size in full_shapes if name == "high-risk"],
+            [("high-risk", 2, 14), ("high-risk", 3, 14)],
         )
+        self.assertEqual(
+            {(name, run) for name, run, _ in full_shapes if name.startswith("journeys-")},
+            {(f"journeys-{index}", run) for run in (1, 2, 3) for index in range(1, 9)},
+        )
+        self.assertTrue(all(size == 1 for name, _, size in full_shapes if name.startswith("journeys-")))
 
     def test_release_report_requires_full_current_clean_runs(self) -> None:
         payload = {
@@ -51,11 +58,13 @@ class EvalToolTests(unittest.TestCase):
                 {"name": "cases-1", "run": 1},
                 {"name": "cases-2", "run": 1},
                 {"name": "cases-3", "run": 1},
-                {"name": "journeys", "run": 1},
                 {"name": "high-risk", "run": 2},
                 {"name": "high-risk", "run": 3},
-                {"name": "journeys", "run": 2},
-                {"name": "journeys", "run": 3},
+                *[
+                    {"name": f"journeys-{index}", "run": run}
+                    for run in (1, 2, 3)
+                    for index in range(1, 9)
+                ],
             ],
         }
         with tempfile.TemporaryDirectory() as temp:

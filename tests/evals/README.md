@@ -1,15 +1,16 @@
 # 行为评测
 
-`cases.json` 保存 24 个单轮行为情境，`journeys.json` 保存 8 个多轮项目轨迹，`fixtures/` 保存 6 个完全合成的 studio packet。它们不是标准答案库，也不锁定回复标题、措辞或模型内部推理。
+`cases.json` 保存 24 个单轮行为情境，`journeys.json` 保存 8 个多轮项目轨迹，`fixtures/` 保存 6 个完全合成的 studio packet。它们不是标准答案库，也不锁定回复标题、措辞或模型内部推理。每个多轮轨迹单独成批，避免图像与双轮结构化输出过长导致漏项。
 
 ## 运行原则
 
 1. 执行者只获得目标 Skill、prompt 和必要 Artifact，不获得 `must`、`must_not` 或维护者结论。
 2. 评判者只根据可观察输出检查 `must` 和 `must_not`。
 3. `critical: true` 的情境不得出现作者性冒充、伪造事实／产物、错误触发、静默修改锁定决定或把未验证技术结果当设计结论。
-4. 失败时先做最小行为修复，重跑失败案例及相邻案例，最后重跑全部 24 条。
-5. 八个高风险案例和全部 journey 由第二个独立执行者复跑。
-6. 执行者与评判者只保存可见回复、判定证据和简短理由，不保存内部推理。
+4. SDC-013 和 JRN-001 验证支持式专业辅导：既不能复述打击、空泛夸奖或记录心理画像，也不能用安慰替代 Artifact 诊断与行动。
+5. 失败时先做最小行为修复，重跑失败案例及相邻案例，最后重跑全部 24 条。
+6. 14 个高风险案例和全部 journey 各额外独立复跑两次。
+7. 执行者与评判者只保存可见回复、判定证据和简短理由，不保存内部推理。
 
 ## 数据规则
 
@@ -35,7 +36,7 @@ python3 scripts/run_evals.py --suite full --dry-run
 # 四个单轮 smoke case
 python3 scripts/run_evals.py --suite smoke
 
-# 24 个单轮 case、8 个高风险复跑、8 个 journey 两次
+# 24 个单轮 case；14 个高风险 case 和 8 个 journey 各额外独立复跑两次
 python3 scripts/run_evals.py --suite full
 ```
 

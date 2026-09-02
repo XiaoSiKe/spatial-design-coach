@@ -63,6 +63,19 @@ Treat tutor feedback as evidence of a review conflict, not an instruction to cop
 
 If several comments are symptoms of one upstream issue, repair that issue once. Preserve the student's reasoned disagreement and the evidence needed to defend it.
 
+### Handle discouraging or personal feedback
+
+Validate the impact of the feedback without declaring the tutor right or wrong. A statement about talent, intelligence, character, or belonging is not a design criterion. Do not quote it back for emphasis or imitate its tone.
+
+Preserve any useful content by sorting the feedback into:
+
+- **observable:** what the tutor claims is visible or missing in the work;
+- **criterion:** the spatial, evidentiary, technical, or communication standard implied;
+- **proposed remedy:** one possible response, not an order;
+- **non-actionable remainder:** personal, vague, contradictory, or unsupported judgment.
+
+Then point to one grounded foothold—a supplied decision, observation, or Artifact fragment that can support the next test—and one priority repair. Do not invent strengths to create a “compliment sandwich.” The aim is for the student to leave with dignity, an exact next move, and unchanged professional standards.
+
 ## Rescue a submission within 72 hours
 
 If the student asks AI to complete and submit everything, state in one sentence that you cannot impersonate their authorship or claim unmade work, while offering intensive triage, production planning, bounded specialist routing, artifact review, and rehearsal.

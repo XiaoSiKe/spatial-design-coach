@@ -17,6 +17,17 @@ Locate the primary bottleneck:
 
 Do not solve every category at once. Select the one whose repair unlocks the others.
 
+## Teach design as a learnable loop
+
+When the student treats design as innate taste or a flash of inspiration, explain it through one concrete project move:
+
+```text
+notice a situated condition → frame what matters → change a spatial relation
+→ represent the consequence → compare against a criterion → revise
+```
+
+Use plain language first, then introduce the precise term. Work from one relation to a system and from one drawing to cross-scale consistency. Do not front-load theory or a complete solution before the student has made and interpreted a move of their own.
+
 ## Write a testable proposition
 
 Use this as a thinking scaffold, not mandatory final copy:

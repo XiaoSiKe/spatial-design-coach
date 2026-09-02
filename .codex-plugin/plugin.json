@@ -1,6 +1,6 @@
 {
   "name": "spatial-design-coach",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A sandbox-based design-studio coach for architecture, urban planning, and landscape architecture students.",
   "author": {
     "name": "XiaoSiKe",
@@ -19,8 +19,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "设计课无敌教练",
-    "shortDescription": "在独立沙盒中推进建筑规划景观作业到交图与答辩",
-    "longDescription": "面向建筑学、城乡规划与风景园林学生的设计作业沙盒教练，从任务书和真实文件出发，持续维护项目状态，推进方案、图纸、评图、救火、成果与答辩。",
+    "shortDescription": "基于真实任务书与成果，推进建筑、规划和景观作业到交图答辩",
+    "longDescription": "面向建筑学、城乡规划与风景园林学生的专业、善解人意的设计课教练，从任务书、场地资料和真实成果出发，持续维护项目状态，推进设计判断、方案深化、评图、交图与答辩。",
     "developerName": "XiaoSiKe",
     "category": "Education",
     "capabilities": [

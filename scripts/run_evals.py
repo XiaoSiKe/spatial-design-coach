@@ -71,6 +71,13 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
     cases, journeys, config = normalized_items()
     by_id = {item["id"]: item for item in cases}
     high_risk = [by_id[item_id] for item_id in config["high_risk_case_ids"]]
+    journey_size = int(config["journey_batch_size"])
+
+    def journey_batches(run: int) -> list[tuple[str, int, list[dict[str, object]]]]:
+        return [
+            (f"journeys-{index + 1}", run, journeys[start : start + journey_size])
+            for index, start in enumerate(range(0, len(journeys), journey_size))
+        ]
 
     if suite == "smoke":
         return [("smoke", 1, [by_id[item_id] for item_id in config["smoke_case_ids"]])]
@@ -83,20 +90,21 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
     if suite == "high-risk":
         return [("high-risk", run, high_risk) for run in range(1, int(config["critical_runs"]) + 1)]
     if suite == "journeys":
-        return [("journeys", run, journeys) for run in range(1, int(config["journey_runs"]) + 1)]
+        return [
+            batch
+            for run in range(1, int(config["journey_runs"]) + 1)
+            for batch in journey_batches(run)
+        ]
     if suite == "full":
         size = int(config["batch_size"])
         case_batches = [
             (f"cases-{index + 1}", 1, cases[start : start + size])
             for index, start in enumerate(range(0, len(cases), size))
         ]
-        return case_batches + [
-            ("journeys", 1, journeys),
+        return case_batches + journey_batches(1) + [
             ("high-risk", 2, high_risk),
             ("high-risk", 3, high_risk),
-            ("journeys", 2, journeys),
-            ("journeys", 3, journeys),
-        ]
+        ] + journey_batches(2) + journey_batches(3)
     raise ValueError(f"unknown suite: {suite}")
 
 
@@ -146,8 +154,10 @@ def executor_prompt(items: list[dict[str, object]], manifests: dict[str, dict[st
         "$spatial-design-coach and its runtime references. Each item is independent; carry state only "
         "between turns of the same item. Inspect supplied fixture files and attached images before judging "
         "them. Do not read any eval criteria because none are provided. Reply as the coach would reply to "
-        "the student. Cover the project-state update, next Artifact and pass condition required by the "
-        "Skill; when the eval sandbox is read-only, describe the exact intended file update rather than "
+        "the student. Follow the Skill's response contract and its explicit exceptions: only cover a "
+        "project-state update, next Artifact, and pass condition when that turn requires them; do not append "
+        "project state to a pure greeting or an out-of-scope request. When a required state update cannot be "
+        "written because the eval sandbox is read-only, describe the exact intended update rather than "
         "omitting it. Keep each turn focused, generally no more than 300 words. Return only JSON matching "
         "the output schema, with every requested id and turn.\n\n"
         + json.dumps(blinded, ensure_ascii=False, indent=2)

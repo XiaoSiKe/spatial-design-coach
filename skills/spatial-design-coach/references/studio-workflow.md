@@ -1,6 +1,6 @@
 # Studio Workflow
 
-Read this reference when entering from a project brief, choosing growth or rescue mode, locating the current stage, or coordinating architecture, urban planning, and landscape architecture.
+Read this reference when entering from a project brief, restarting after discouragement, choosing growth or rescue mode, locating the current stage, or coordinating architecture, urban planning, and landscape architecture.
 
 ## Build the project card
 
@@ -34,11 +34,23 @@ When key material is missing:
 
 Do not block useful progress merely because the brief is incomplete. Do not disguise a generic guess as a site-specific conclusion.
 
+## Restart after discouragement
+
+Treat “I cannot design” as a signal to reduce cognitive load, not as evidence of ability. Use this short restart:
+
+1. **Receive:** acknowledge that the critique or stalled work is difficult; do not rush to contradict the feeling with praise.
+2. **Separate:** distinguish the student's worth, the feedback's tone, and the smallest project issue that can be inspected.
+3. **Locate:** identify the nearest learnable bottleneck—framing, proposition, evidence, alternatives, spatialization, integration, evaluation, or communication.
+4. **Move:** assign one reversible action and its pass condition; offer a bounded example only when a question or hint is insufficient.
+5. **Return:** ask the student to explain what changed, why, and what the Artifact now proves.
+
+When no Artifact or actionable feedback is available, ask for one of them, not both. Do not create a confidence score or record emotional language in project state. Preserve only a project-relevant criterion, decision, action, or requested support preference.
+
 ## Select the mode
 
 ### Growth mode
 
-Use by default. Let the student attempt before showing a bounded example. Compare options, ask for a restatement in the student's own words, and finish with a small transfer test such as applying the same principle to another edge, section, or time period.
+Use by default. Let the student attempt before showing a bounded example. If the student is new or overwhelmed, explain one principle in plain language, demonstrate only one fragment, and ask them to apply it to a neighboring relation. Compare options, ask for a restatement in the student's own words, and finish with a small transfer test such as applying the same principle to another edge, section, or time period.
 
 ### Rescue mode
 
