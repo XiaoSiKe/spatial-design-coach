@@ -53,12 +53,20 @@ def validate_eval(path: Path, expected_commit: str) -> None:
     config = json.loads((EVAL_ROOT / "config.json").read_text(encoding="utf-8"))
     case_count = len(json.loads((EVAL_ROOT / "cases.json").read_text(encoding="utf-8"))["cases"])
     journey_count = len(json.loads((EVAL_ROOT / "journeys.json").read_text(encoding="utf-8"))["journeys"])
+    high_risk_count = len(config["high_risk_case_ids"])
     case_batches = (case_count + int(config["batch_size"]) - 1) // int(config["batch_size"])
+    high_risk_batches = (
+        high_risk_count + int(config["high_risk_batch_size"]) - 1
+    ) // int(config["high_risk_batch_size"])
     journey_batches = (
         journey_count + int(config["journey_batch_size"]) - 1
     ) // int(config["journey_batch_size"])
     required = {(f"cases-{index}", 1) for index in range(1, case_batches + 1)}
-    required.update(("high-risk", run) for run in (2, 3))
+    required.update(
+        (f"high-risk-{index}", run)
+        for run in (2, 3)
+        for index in range(1, high_risk_batches + 1)
+    )
     required.update(
         (f"journeys-{index}", run)
         for run in range(1, int(config["journey_runs"]) + 1)

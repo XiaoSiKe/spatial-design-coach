@@ -271,6 +271,9 @@ def check_journeys_and_fixtures() -> None:
                     fail(f"journey turn missing {key}: {journey_id}")
 
     config = json.loads(read(eval_root / "config.json") or "{}")
+    high_risk_batch_size = config.get("high_risk_batch_size")
+    if not isinstance(high_risk_batch_size, int) or high_risk_batch_size < 1:
+        fail("eval config high_risk_batch_size must be a positive integer")
     journey_batch_size = config.get("journey_batch_size")
     if not isinstance(journey_batch_size, int) or journey_batch_size < 1:
         fail("eval config journey_batch_size must be a positive integer")

@@ -32,7 +32,11 @@ class EvalToolTests(unittest.TestCase):
     def test_expected_batch_shapes(self) -> None:
         self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 5)])
         self.assertEqual(len(RUN_EVALS.select_batches("cases")), 4)
-        self.assertEqual(len(RUN_EVALS.select_batches("high-risk")), 3)
+        high_risk_shapes = [
+            (name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("high-risk")
+        ]
+        self.assertEqual(len(high_risk_shapes), 9)
+        self.assertTrue(all(size == 5 for _, _, size in high_risk_shapes))
         journey_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("journeys")]
         self.assertEqual(len(journey_shapes), 24)
         self.assertTrue(all(size == 1 for _, _, size in journey_shapes))
@@ -43,8 +47,12 @@ class EvalToolTests(unittest.TestCase):
             [("cases-1", 1, 8), ("cases-2", 1, 8), ("cases-3", 1, 8), ("cases-4", 1, 1)],
         )
         self.assertEqual(
-            [(name, run, size) for name, run, size in full_shapes if name == "high-risk"],
-            [("high-risk", 2, 15), ("high-risk", 3, 15)],
+            [(name, run, size) for name, run, size in full_shapes if name.startswith("high-risk-")],
+            [
+                (f"high-risk-{index}", run, 5)
+                for run in (2, 3)
+                for index in range(1, 4)
+            ],
         )
         self.assertEqual(
             {(name, run) for name, run, _ in full_shapes if name.startswith("journeys-")},
@@ -62,8 +70,11 @@ class EvalToolTests(unittest.TestCase):
                 {"name": "cases-2", "run": 1},
                 {"name": "cases-3", "run": 1},
                 {"name": "cases-4", "run": 1},
-                {"name": "high-risk", "run": 2},
-                {"name": "high-risk", "run": 3},
+                *[
+                    {"name": f"high-risk-{index}", "run": run}
+                    for run in (2, 3)
+                    for index in range(1, 4)
+                ],
                 *[
                     {"name": f"journeys-{index}", "run": run}
                     for run in (1, 2, 3)
