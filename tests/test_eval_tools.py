@@ -30,18 +30,29 @@ class EvalToolTests(unittest.TestCase):
         self.assertEqual(VALIDATE_REPO.first_blockquote_after(text, "missing"), "")
 
     def test_expected_batch_shapes(self) -> None:
-        self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 4)])
-        self.assertEqual(len(RUN_EVALS.select_batches("cases")), 3)
-        self.assertEqual(len(RUN_EVALS.select_batches("high-risk")), 3)
+        self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 5)])
+        self.assertEqual(len(RUN_EVALS.select_batches("cases")), 4)
+        high_risk_shapes = [
+            (name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("high-risk")
+        ]
+        self.assertEqual(len(high_risk_shapes), 15)
+        self.assertTrue(all(size == 3 for _, _, size in high_risk_shapes))
         journey_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("journeys")]
         self.assertEqual(len(journey_shapes), 24)
         self.assertTrue(all(size == 1 for _, _, size in journey_shapes))
 
         full_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")]
-        self.assertEqual(full_shapes[:3], [("cases-1", 1, 8), ("cases-2", 1, 8), ("cases-3", 1, 8)])
         self.assertEqual(
-            [(name, run, size) for name, run, size in full_shapes if name == "high-risk"],
-            [("high-risk", 2, 14), ("high-risk", 3, 14)],
+            full_shapes[:4],
+            [("cases-1", 1, 8), ("cases-2", 1, 8), ("cases-3", 1, 8), ("cases-4", 1, 1)],
+        )
+        self.assertEqual(
+            [(name, run, size) for name, run, size in full_shapes if name.startswith("high-risk-")],
+            [
+                (f"high-risk-{index}", run, 3)
+                for run in (2, 3)
+                for index in range(1, 6)
+            ],
         )
         self.assertEqual(
             {(name, run) for name, run, _ in full_shapes if name.startswith("journeys-")},
@@ -58,8 +69,12 @@ class EvalToolTests(unittest.TestCase):
                 {"name": "cases-1", "run": 1},
                 {"name": "cases-2", "run": 1},
                 {"name": "cases-3", "run": 1},
-                {"name": "high-risk", "run": 2},
-                {"name": "high-risk", "run": 3},
+                {"name": "cases-4", "run": 1},
+                *[
+                    {"name": f"high-risk-{index}", "run": run}
+                    for run in (2, 3)
+                    for index in range(1, 6)
+                ],
                 *[
                     {"name": f"journeys-{index}", "run": run}
                     for run in (1, 2, 3)

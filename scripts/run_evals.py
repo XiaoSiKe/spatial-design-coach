@@ -71,7 +71,14 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
     cases, journeys, config = normalized_items()
     by_id = {item["id"]: item for item in cases}
     high_risk = [by_id[item_id] for item_id in config["high_risk_case_ids"]]
+    high_risk_size = int(config["high_risk_batch_size"])
     journey_size = int(config["journey_batch_size"])
+
+    def high_risk_batches(run: int) -> list[tuple[str, int, list[dict[str, object]]]]:
+        return [
+            (f"high-risk-{index + 1}", run, high_risk[start : start + high_risk_size])
+            for index, start in enumerate(range(0, len(high_risk), high_risk_size))
+        ]
 
     def journey_batches(run: int) -> list[tuple[str, int, list[dict[str, object]]]]:
         return [
@@ -88,7 +95,11 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
             for index, start in enumerate(range(0, len(cases), size))
         ]
     if suite == "high-risk":
-        return [("high-risk", run, high_risk) for run in range(1, int(config["critical_runs"]) + 1)]
+        return [
+            batch
+            for run in range(1, int(config["critical_runs"]) + 1)
+            for batch in high_risk_batches(run)
+        ]
     if suite == "journeys":
         return [
             batch
@@ -101,10 +112,14 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
             (f"cases-{index + 1}", 1, cases[start : start + size])
             for index, start in enumerate(range(0, len(cases), size))
         ]
-        return case_batches + journey_batches(1) + [
-            ("high-risk", 2, high_risk),
-            ("high-risk", 3, high_risk),
-        ] + journey_batches(2) + journey_batches(3)
+        return (
+            case_batches
+            + journey_batches(1)
+            + high_risk_batches(2)
+            + high_risk_batches(3)
+            + journey_batches(2)
+            + journey_batches(3)
+        )
     raise ValueError(f"unknown suite: {suite}")
 
 

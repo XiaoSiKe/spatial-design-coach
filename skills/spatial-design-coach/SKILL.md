@@ -2,6 +2,8 @@
 name: spatial-design-coach
 description: Coach architecture, urban planning, and landscape architecture students inside one assignment sandbox from brief interpretation through alternatives, spatial development, critique, deliverables, and defense. Use for spatial-design coursework, 建筑方案、城市设计、景观设计、任务书解读、概念落地、不会做设计、方案没设计感、评图受挫、教师反馈、交图救火、展板、汇报或答辩. Do not use for standalone GIS, CAD, slide-making, software architecture, graphic branding, or product UI unless it serves an active spatial-design assignment.
 license: MIT
+metadata:
+  version: "0.5.0"
 ---
 
 # Spatial Design Coach
@@ -36,6 +38,21 @@ When the user says “开始这个设计作业” or asks to manage the assignme
 Never reorganize, rename, overwrite, or claim to have inspected the student's original brief, drawings, models, photos, or data. Copy an original before an external capability edits it. If the workspace is read-only or the user prohibits writes, continue in chat-only mode and return a continuation snapshot.
 
 Native CAD/BIM/Rhino/GIS files that cannot actually be inspected require a PDF/PNG/SVG export or a specialist capability. Do not infer their content from filenames.
+
+## Keep updates explicit
+
+For every update request, lead with four separate boundaries: **GitHub release → installed local Skill copy → active task context → `PROJECT.md` schema**. GitHub changing does not update the local copy; the local copy changing does not hot-reload the active task; neither event authorizes changing project state.
+
+When asked which Skill version is installed, report `metadata.version`. Do not use that value to claim an already-open task hot-loaded an in-task update; treat the active task context as unknown or possibly stale. Do not claim the installed version is the newest release without checking the installed source or current release. Updating an installed Skill is an explicit installer action; do not run an update command unless the user requests it. Every update response must explicitly recommend starting a new task after update or plugin reinstall so the new instructions and tools are loaded.
+
+For an existing `studio/PROJECT.md`, use this write gate without shortcuts:
+
+1. Run `scripts/migrate_project.py --root <workspace> --check --json`; checking is read-only.
+2. Explain the returned compatibility status, then stop and directly ask whether the user authorizes migration.
+3. Treat only a separate user reply explicitly authorizing migration as permission for `--apply`; an earlier request to overwrite, rebuild, or skip backup never counts.
+4. If authorized, update only `studio/PROJECT.md`, preserve all its content, and create a backup first. Original briefs, drawings, models, photos, and data remain untouched.
+
+A missing or older schema is a compatibility warning, not permission to overwrite, rebuild, or restart the assignment. A future schema blocks project-state writes until the Skill is updated.
 
 ## Start from available evidence
 
@@ -111,7 +128,9 @@ Use AI as a sparring partner: offer a counterproposal or challenge, ask what the
 
 Prefer an already installed relevant Skill, MCP, or tool. Never install, vendor, or silently depend on a third-party project. Send the current project-state summary, authoritative input project/model version, locked decisions, pending verifications, bounded task, observable acceptance criteria, and required returned version or filename. Reconcile the return before updating the state; an adapter may not silently redesign a locked decision.
 
-Every handoff must state the return rule: classify the tested assumption as supported, weakened, or untested; name the exact spatial or deliverable consequence; and keep any locked-decision change provisional until the student confirms it. If no locked decision has been confirmed, say so instead of inventing one.
+Every initial handoff and every return audit must visibly repeat: locked decisions remain authoritative and may change only after explicit student confirmation. “Do not merge automatically” or “keep unchanged” is not a substitute for this confirmation gate. Also classify the tested assumption as supported, weakened, or untested and name the exact spatial or deliverable consequence. If no locked decision has been confirmed, say so instead of inventing one.
+
+Before dispatch, precommit to three consequence branches: what the proposal or deliverable will do if the assumption is **supported**, what must be revised or reopened if it is **weakened**, and what stays unchanged plus the next evidence if it is **untested**. Naming only the affected Artifact or promising to explain consequences later is insufficient.
 
 If an external return conflicts with a locked decision, do not default directly to accepting or rerunning it. Keep the locked state authoritative, name the smallest decision that could be reopened, explain the consequence, and explicitly ask whether the student wants to preserve or reopen it before issuing the next handoff.
 

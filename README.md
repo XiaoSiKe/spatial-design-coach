@@ -8,6 +8,8 @@
 
 **English summary:** An open-source design-studio coach that helps architecture, urban planning, and landscape architecture students move from the project brief to a coherent, defensible submission.
 
+当前发布版本：`0.5.0`
+
 ## 当你觉得“我不会做设计”
 
 教练不会用“你很有天赋”敷衍你，也不会把一句打击性评价当成专业结论。它会先承认这轮卡住或评图受挫确实难受，再把“你这个人行不行”、反馈的表达方式和作品中真正可检验的问题分开，从一个足够小、可逆、有通过条件的动作重新开始。
@@ -93,15 +95,52 @@ studio/
 - 学生原始任务书、图纸、模型、照片和数据不会被重命名、重排或覆盖。
 - 只读环境会自动降级为聊天状态，并输出可复制续航快照。
 
-## 更新与常见问题
+## 更新 Skill
 
-使用 `npx skills` 安装的版本可这样更新：
+GitHub 仓库更新后，用户已经安装的本地副本不会自动变化。使用 `npx skills` 全局安装的版本可这样更新：
 
 ```bash
 npx skills update spatial-design-coach --global --yes
 ```
 
+项目级安装使用：
+
+```bash
+npx skills update spatial-design-coach --project --yes
+```
+
+更新完成后新建一个 Codex 任务；如果新任务仍未发现新版，完全重启 Codex。已经打开的任务可能仍保留更新前加载的 Skill 上下文。
+
+`npx skills list --global --json` 可确认安装范围和 GitHub 来源；运行时版本以完整 Skill 中 `SKILL.md` 的 `metadata.version` 为准。手动复制安装没有可靠的来源记录，更新时应先备份原目录，再用最新 Release 的完整 `skills/spatial-design-coach/` 替换，而不是只覆盖 `SKILL.md`。
+
+### 已有设计作业不会被自动迁移
+
+更新 Skill 不会覆盖已有 `studio/PROJECT.md`。在作业目录先只读检查兼容性：
+
+```bash
+python3 ~/.agents/skills/spatial-design-coach/scripts/migrate_project.py \
+  --root . \
+  --check \
+  --json
+```
+
+只有确认需要迁移并同意写入时才运行：
+
+```bash
+python3 ~/.agents/skills/spatial-design-coach/scripts/migrate_project.py \
+  --root . \
+  --apply \
+  --json
+```
+
+迁移只更新 `studio/PROJECT.md` 的状态元数据，写入前创建不覆盖的备份，不修改学生原始任务书、图纸、模型、照片或数据。安装路径不在 `~/.agents/skills/` 时，应改用 `npx skills list --global --json` 返回的实际路径。
+
+### 常见问题
+
 - **安装后当前对话没有生效：** 新建任务或重启 Codex；已开始的任务可能仍使用旧上下文。
+- **更新命令找不到来源：** 这通常是手动复制安装；备份后重新安装完整 Skill，并优先改用 `npx skills add` 保留 GitHub 来源。
+- **老项目显示 `legacy`：** 代表缺少状态 schema，不代表作业损坏；先审阅检查结果，再明确决定是否执行迁移。
+- **显示 `future-schema`：** 当前 Skill 旧于项目状态格式；不要写入项目状态，先更新 Skill。
 - **只看到了 `SKILL.md`：** 重新安装完整目录，确认 `agents/` 和 `references/` 都存在。
 - **`/spatial-design-coach` 无效：** 它不是自定义斜杠命令；使用 `/skills` 选择或在消息中写 `$spatial-design-coach`。
 - **名称出现两次：** 检查是否同时在项目级和用户级安装了同名 Skill；Codex 不会自动合并同名副本。
@@ -184,7 +223,9 @@ $spatial-design-coach 请把当前项目状态导出为“项目续航快照”�
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
 │   ├── assets/PROJECT.template.md
-│   ├── scripts/init_project.py
+│   ├── scripts/
+│   │   ├── init_project.py
+│   │   └── migrate_project.py
 │   └── references/
 │       ├── project-state.md
 │       ├── studio-workflow.md

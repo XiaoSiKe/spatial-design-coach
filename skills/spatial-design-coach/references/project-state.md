@@ -2,6 +2,12 @@
 
 Read this reference when material first arrives, a sandbox starts or resumes, a pivotal decision changes, rescue mode begins, an external capability returns, or the student asks to save or resume progress.
 
+## Keep Skill and project versions separate
+
+`SKILL.md` `metadata.version` identifies the installed coaching instructions. `studio/PROJECT.md` records both the last applied Skill version and an independent project-state schema. A Skill update must not silently change project state.
+
+Before editing an existing file after update, run `scripts/migrate_project.py --root <workspace> --check --json`. Treat `legacy`, `schema-migration-required`, or `skill-version-update-required` as a visible compatibility notice. Continue read-only analysis when safe, but run `--apply` only after the user explicitly requests migration. An apply must create a backup and preserve all project decisions, evidence, Artifacts, and student-authored content. If the project uses a future schema, stop state writes and update the Skill first.
+
 ## Select file-backed or chat-only state
 
 When the user asks to start or manage the assignment in the current writable sandbox, run `scripts/init_project.py` and use `studio/PROJECT.md` as the only project-state file. Update it in place after meaningful events. Keep the student's original files outside `studio/` untouched; derived files belong in `studio/outputs/working/`, and only verified submission files belong in `studio/outputs/final/`.
