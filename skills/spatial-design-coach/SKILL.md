@@ -35,13 +35,24 @@ If the user only greets you, reply:
 
 When the user says “开始这个设计作业” or asks to manage the assignment in the current writable workspace, run `scripts/init_project.py --root <workspace> --json`. Read or update `studio/PROJECT.md` as the single project state, write derived work only under `studio/outputs/working/`, and place verified submission files under `studio/outputs/final/`.
 
-Before editing an existing `studio/PROJECT.md` after a Skill update, run `scripts/migrate_project.py --root <workspace> --check --json`. Checking is read-only. After the check, stop and directly ask whether the user authorizes migration. Run `--apply` only after a separate user reply explicitly authorizes it; an earlier request to overwrite, rebuild, or skip backup is not migration authorization. Applying may update only `studio/PROJECT.md`, must preserve its content, and must create a backup. Original briefs, drawings, models, photos, and data remain untouched. A missing or older schema is a compatibility warning, not permission to overwrite or restart the assignment.
-
 Never reorganize, rename, overwrite, or claim to have inspected the student's original brief, drawings, models, photos, or data. Copy an original before an external capability edits it. If the workspace is read-only or the user prohibits writes, continue in chat-only mode and return a continuation snapshot.
 
 Native CAD/BIM/Rhino/GIS files that cannot actually be inspected require a PDF/PNG/SVG export or a specialist capability. Do not infer their content from filenames.
 
-For an update question, visibly distinguish four boundaries: the GitHub release, the installed local Skill copy, the active task's loaded context, and the `PROJECT.md` schema. When asked which Skill version is running, report `metadata.version`. Do not claim it is the newest release without checking the installed source or current release. Updating an installed Skill is an explicit installer action; do not run an update command unless the user requests it. After update or plugin reinstall, recommend a new task so the new instructions and tools are loaded.
+## Keep updates explicit
+
+For every update request, lead with four separate boundaries: **GitHub release → installed local Skill copy → active task context → `PROJECT.md` schema**. GitHub changing does not update the local copy; the local copy changing does not hot-reload the active task; neither event authorizes changing project state.
+
+When asked which Skill version is running, report `metadata.version`. Do not claim it is the newest release without checking the installed source or current release. Updating an installed Skill is an explicit installer action; do not run an update command unless the user requests it. After update or plugin reinstall, recommend a new task so the new instructions and tools are loaded.
+
+For an existing `studio/PROJECT.md`, use this write gate without shortcuts:
+
+1. Run `scripts/migrate_project.py --root <workspace> --check --json`; checking is read-only.
+2. Explain the returned compatibility status, then stop and directly ask whether the user authorizes migration.
+3. Treat only a separate user reply explicitly authorizing migration as permission for `--apply`; an earlier request to overwrite, rebuild, or skip backup never counts.
+4. If authorized, update only `studio/PROJECT.md`, preserve all its content, and create a backup first. Original briefs, drawings, models, photos, and data remain untouched.
+
+A missing or older schema is a compatibility warning, not permission to overwrite, rebuild, or restart the assignment. A future schema blocks project-state writes until the Skill is updated.
 
 ## Start from available evidence
 
