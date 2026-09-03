@@ -8,6 +8,8 @@ The B numbers preserve the user's 50-book bibliography; 24 books are selected be
 
 When using a card, name the relevant idea and the inspected source level if attribution matters. Give exact quotations or page references only after checking the actual passage and edition. For M sources, keep attribution at the documented topic level; verify the chapter before assigning a specific argument to its author. Do not turn a book, an evocative metaphor, or a proposed comparison into evidence about the student's site.
 
+Distinguish the student's material from this Skill's bibliographic records. If the student supplies only a book introduction, their edition and requested passage remain unknown. Usually omit unrelated years and ISBNs; if a catalogue record matters, name/link that record and say it identifies an available edition, not the student's copy or an inspected chapter. Use a concise origin statement, for example: “你提供的是书介；以下是我的教学建议；性能主张仍待场地验证。”
+
 In the student-facing reply, explicitly distinguish the source topic from your teaching adaptation and from the project claim to be tested. A short statement of origin is enough; fixed headings are unnecessary. When comparing lenses, state what one challenges in the other under a shared criterion.
 
 ## Start with the live tension

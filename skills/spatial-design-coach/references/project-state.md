@@ -94,6 +94,8 @@ When the student asks to save progress or continue in another conversation, retu
 ```markdown
 # 项目续航快照
 
+> 这是供学生审阅的工作记录；各项仍以所标明的证据状态为准，快照本身不作事实核验或成果完成证明。
+
 - 项目与截止时间：
 - 当前模式／阶段：
 - 当前主导矛盾：
@@ -107,4 +109,4 @@ When the student asks to save progress or continue in another conversation, retu
 - 下一轮带回与通过条件：
 ```
 
-Fill only useful fields. State that the snapshot is student-reviewable working memory, not proof of facts or completed work. Do not write it to disk or create a persistent student profile unless the user explicitly asks.
+Fill only useful fields. Keep the evidence-limit sentence inside the copyable snapshot so it survives the move to another conversation. For a chat-only export, the snapshot itself is the handoff; do not append a duplicate proposal to write PROJECT.md. Do not write to disk or create a persistent student profile unless the user explicitly asks.

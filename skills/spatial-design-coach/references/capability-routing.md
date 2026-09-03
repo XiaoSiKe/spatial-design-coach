@@ -134,6 +134,8 @@ Use a visible return-audit checklist: **actual files inspected → method → so
 
 For a reported return without inspectable content, state the current gaps separately: **files not inspected; method unknown; data provenance unknown; validation evidence unavailable; scope/limitations unassessed**. Source provenance means where the input data came from, its owner and date/version; unknown north or elevation alone is not a source audit. Name the affected hypothesis as untested and a conditional spatial consequence, without asserting that a merely reported file actually exists or passed.
 
+Complete one result-to-action branch now; a menu of possible design questions or a request for files is not that branch. For an explicitly hypothetical sunlight question: **if a validated result shows a daily-use area shaded during its intended use**, compare relocating the activity or changing its schedule with adjusting the shading mass; **if it supports the intended condition**, retain the arrangement and carry the evidence into the indexed plan/section; **if provenance or validation is missing**, keep the hypothesis untested, add the missing evidence/location record and retain the current decision. The current return remains uninspected; any change to a locked choice still needs student confirmation.
+
 State at least one concrete spatial or deliverable consequence, even when the technical result passes. Technical consistency alone is not a design conclusion. Before proposing any locked-decision update, say explicitly that the current locked state remains authoritative until the student confirms the change.
 
 For every inspected return, include at least one visible row:

@@ -114,6 +114,8 @@ A report of work taking longer is not a completion or inspection record. Keep �
 
 Use this overrun order: **known capacity or explicit capacity gap → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
 
+While capacity is unknown, include an executable conditional replan in this reply: **if remaining effort only covers required content plus QA/defense**, simplify representations, integrate diagrams that can share a checked source, and stop optional refinements; **if capacity remains after those needs**, restore one refinement that most strengthens the central claim. Each branch retains every required item's minimum content and the authoritative version. Asking for hours and promising to replan later, or only branching on whether a drawing is finished, does not express how capacity changes the plan. No numerical threshold is needed when effort is unknown.
+
 Then triage in this order:
 
 1. **Compliance and completeness:** missing required items, wrong scale, broken files, or unsupported claims.

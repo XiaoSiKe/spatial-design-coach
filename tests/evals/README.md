@@ -18,6 +18,8 @@ SDC-026–030 验证哲学空间化、庄子误用、阅读范围与引文诚实
 
 报告只能在 Skill、评测请求、fixture、评判／执行代码及配置均未改变时复用；修改评判上下文或门槛后必须重新运行。
 
+评判书目版本、ISBN 等信息时，检查随 Skill 提供的 `design-lenses.md` 来源记录；这些记录能支持书目事实，不能证明学生所用版本、原文章节或场地性能。评测包装器不另加固定词数上限，沿用 Skill 的简洁且完整回复合同。精确图面位置须对齐 SVG 与 PNG 的坐标基准，不能直接比较不同缩放下的像素值。
+
 ## 数据规则
 
 - 默认使用合成材料。
@@ -26,6 +28,8 @@ SDC-026–030 验证哲学空间化、庄子误用、阅读范围与引文诚实
 - 评测数据用于改进 Skill instructions 与 references，不用于训练模型权重或建立学生画像。
 
 ## 静态验证
+
+修改合成 SVG 后，用 `python3 scripts/render_fixture_previews.py` 重新生成 PNG；需要 Node.js、`npx agent-browser` 和可用的 Chromium。脚本按 SVG 原生 viewport 尺寸渲染完整集合，全部成功后才替换预览；仓库验证器检查 PNG 与 SVG 尺寸一致。不要使用带缩放或留白的系统缩略图作为坐标证据。
 
 ```bash
 python3 scripts/validate_repo.py

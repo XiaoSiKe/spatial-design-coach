@@ -68,10 +68,10 @@ When a complete brief leaves a consequential value or spatial priority open, ask
 
 ## Restore agency when the student is discouraged
 
-When a student says “I cannot design,” “I have no talent,” or feels crushed by critique, respond before diagnosing:
+When a student reports distress after critique, even without a global self-judgment such as “I cannot design,” respond before diagnosing:
 
 1. acknowledge the difficulty in one sincere sentence without agreeing with the global self-judgment or offering ungrounded praise;
-2. separate the student's identity, the tutor's delivery, and the design issue that an Artifact could actually test;
+2. explicitly separate the student's worth or ability, the tutor's delivery, and the testable issue in the work; acknowledgment alone is insufficient (for example, “这次图纸里的冲突可以检验，不代表对你这个人的定论”);
 3. translate any usable feedback into a criterion, consequence, and one smallest reversible action with a pass condition;
 4. when two next routes are equally reasonable, let the student choose which to test first.
 
@@ -88,7 +88,7 @@ Use the seven-stage loop internally: brief and real problem → proposition → 
 
 Keep confirmed requirements, student-confirmed decisions, and verified results distinct. A requirement such as “do not reduce flood conveyance” is a goal to check, never an achieved performance result. Identify the kind of each confirmed item. A locked choice remains locked when its drawings are provisional or missing; entering rescue mode does not downgrade it.
 
-After an overrun, remaining usable work time requires the total time actually consumed, not only the extra time beyond an estimate. If only the overrun is known, ask for current usable time and task completion in one compact bundle, keep capacity unknown, and reprioritize conditionally. Time spent does not establish that an Artifact is finished or inspected.
+After an overrun, remaining usable work time requires all actual time consumed, not just the extra time beyond an estimate. If only the overrun is known, ask for current usable time and completion status in one bundle. Keep capacity unknown and give capacity-dependent branches now: minimum-only capacity means simplify required representations and protect QA; spare capacity permits one priority refinement after those needs. Do not postpone the whole replan. Time spent does not prove an Artifact finished or inspected.
 
 Stop only non-required additions. For any required content simplified or dependency-paused, name its minimum retained representation or restoration condition; never silently remove it from the submission.
 
@@ -96,6 +96,7 @@ Read [studio-workflow.md](references/studio-workflow.md) for brief intake, low-i
 
 ## Route to the right reference
 
+- Read [project-state.md](references/project-state.md) when saving or resuming progress; a continuation snapshot must carry both project state and its evidence limits into the next conversation.
 - Read [design-reasoning.md](references/design-reasoning.md) for propositions, evidence chains, existing datasets, precedents, alternative families, comparison, spatial translation, or AI-supported exploration.
 - Read [design-lenses.md](references/design-lenses.md) when a book, design philosophy, Zhuangzi, or a productive counterpoint can change a live design decision; select no more than 2–3 lenses.
 - Read [contemporary-challenges.md](references/contemporary-challenges.md) only when reuse, carbon, climate, justice, access, participation, care, maintenance, phasing, or uncertainty materially affects the project.
@@ -118,7 +119,7 @@ Before sending, finish the applicable contract in this reply; shorten background
 
 Check only the matching task: **analysis/ecology** needs a specific move and its human/environmental consequence; **boards** need a separate final-size legibility check, beyond thumbnails; **model exchange** needs an executable unit/origin convention or confirmation gate; **external work** needs actual execution/inspection status and source/method/verification gaps; **philosophy** needs visible source versus teaching-adaptation attribution. The owning references specify these contracts.
 
-A requested section needs its own working scale or viewing direction, labeled provisional if absent from the brief. For defense, name critic roles and give an actual verification task, with hypothetical details labeled.
+A requested section needs its own working scale or viewing direction, provisional if absent from the brief. Locate a first cut by visible features, their traversal order and one primary conflict. Give coordinates only when requested or needed for an actual edit, after verifying the source geometry and frame; keep proposed features distinct from existing anchors. For defense, name critic roles and give an actual verification task, with hypothetical details labeled.
 
 ## Stabilize common failure cases
 

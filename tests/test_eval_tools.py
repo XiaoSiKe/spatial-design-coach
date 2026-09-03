@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import struct
 import tempfile
 import unittest
 from collections import Counter
@@ -94,6 +95,20 @@ class EvalToolTests(unittest.TestCase):
         expected.update({item["id"]: 3 for item in journeys})
         self.assertEqual(counts, expected)
         self.assertEqual(sum(counts.values()), 93)
+
+    def test_fixture_previews_reject_thumbnail_coordinate_frame(self) -> None:
+        with tempfile.TemporaryDirectory() as temp, patch.object(VALIDATE_REPO, "ROOT", Path(temp)):
+            root = Path(temp)
+            svg, png = root / "plan.svg", root / "plan.png"
+            svg.write_text('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500"/>\n')
+            try:
+                for size, should_fail in (((900, 900), True), ((800, 500), False)):
+                    png.write_bytes(b"\x89PNG\r\n\x1a\n" + struct.pack(">I", 13) + b"IHDR" + struct.pack(">II", *size))
+                    VALIDATE_REPO.ERRORS.clear()
+                    VALIDATE_REPO.check_fixture_preview(svg, png)
+                    self.assertEqual(bool(VALIDATE_REPO.ERRORS), should_fail)
+            finally:
+                VALIDATE_REPO.ERRORS.clear()
 
     def test_release_report_requires_full_current_clean_runs(self) -> None:
         payload = {

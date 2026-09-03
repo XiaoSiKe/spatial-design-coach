@@ -5,7 +5,9 @@ from __future__ import annotations
 
 import json
 import re
+import struct
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.parse import unquote
 
@@ -52,6 +54,21 @@ def check_text_files() -> None:
                 fail(f"trailing whitespace: {rel}:{number}")
         if re.search(r"\[(?:TODO|FIXME|TBD)(?::|\])", text, re.IGNORECASE):
             fail(f"unfinished placeholder: {rel}")
+
+
+def check_fixture_preview(svg_path: Path, png_path: Path) -> None:
+    try:
+        svg = ET.parse(svg_path).getroot()
+        expected = (int(svg.attrib["width"]), int(svg.attrib["height"]))
+        header = png_path.read_bytes()[:24]
+        if header[:8] != b"\x89PNG\r\n\x1a\n" or header[12:16] != b"IHDR":
+            raise ValueError("missing PNG IHDR")
+        actual = struct.unpack(">II", header[16:24])
+    except (OSError, KeyError, ValueError, struct.error, ET.ParseError) as exc:
+        fail(f"invalid fixture preview {png_path.relative_to(ROOT)}: {exc}")
+        return
+    if actual != expected:
+        fail(f"fixture preview coordinate frame differs: {png_path.relative_to(ROOT)} is {actual}, SVG is {expected}")
 
 
 def markdown_structure_and_links() -> None:
@@ -252,6 +269,9 @@ def check_journeys_and_fixtures() -> None:
                 fail(f"missing or empty fixture file: {target.relative_to(ROOT)}")
         if len(manifest.get("images", [])) != 2:
             fail(f"fixture must provide plan and section images: {fixture_id}")
+        for image_name in manifest.get("images", []):
+            png_path = manifest_path.parent / image_name
+            check_fixture_preview(png_path.with_suffix(".svg"), png_path)
     if len(manifests) != 6:
         fail(f"expected 6 studio packets, found {len(manifests)}")
 

@@ -141,6 +141,10 @@ Select the cheapest representation that can falsify the move:
 - environmental or operational performance → calculation, simulation, scenario, or specialist check;
 - change over time → phased plan, seasonal set, timeline, or stewardship protocol.
 
+For “where should my first section cut?”, use visible features and a traversed sequence, with one primary relationship to test. Do not add pixel coordinates just to sound precise. Say image-left/right when geographic orientation is unknown. Separate existing anchors from proposed paths, terrain or planting; a proposed element must be located on the working plan before it can serve as a shared section anchor. Leave secondary processes for later tests.
+
+Use numerical coordinates only if the user requests them or an actual drawing edit requires them. Declare the source SVG viewBox, model/GIS units or intrinsic image frame, then verify endpoints and crossings from editable geometry. A resized preview is a different frame. If that verification is unavailable, explain the limit and give a feature-anchored proposal; do not append guessed coordinates followed by “verify later.”
+
 Do not ask an atmospheric rendering to prove access, dimensions, ecology, or feasibility. An image can testify to experience; it is not an alibi for unresolved space.
 
 ## Escalate help without taking over
