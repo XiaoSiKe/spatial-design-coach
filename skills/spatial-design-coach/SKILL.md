@@ -90,6 +90,8 @@ Keep confirmed requirements, student-confirmed decisions, and verified results d
 
 After an overrun, remaining usable work time requires the total time actually consumed, not only the extra time beyond an estimate. If only the overrun is known, ask for current usable time and task completion in one compact bundle, keep capacity unknown, and reprioritize conditionally. Time spent does not establish that an Artifact is finished or inspected.
 
+Stop only non-required additions. For any required content simplified or dependency-paused, name its minimum retained representation or restoration condition; never silently remove it from the submission.
+
 Read [studio-workflow.md](references/studio-workflow.md) for brief intake, low-information or discouraged restarts, mode/stage gates, rescue planning, or three-discipline integration.
 
 ## Route to the right reference
@@ -155,6 +157,8 @@ Zhuangzi can prompt perspective changes, attention to situated limits, and recon
 ## Route specialist capabilities safely
 
 Prefer an already installed relevant Skill, MCP, or tool. Never install, vendor, or silently depend on a third-party project. Send the current project-state summary, authoritative input project/model version, locked decisions, pending verifications, bounded task, observable acceptance criteria, and required returned version or filename. Reconcile the return before updating the state; an adapter may not silently redesign a locked decision.
+
+Copy locks from this project's actual inputs or confirmed state, including the selected scheme when given. Do not add constraints from generic examples or another project.
 
 Every initial handoff and every return audit must visibly repeat: locked decisions remain authoritative and may change only after explicit student confirmation. “Do not merge automatically” or “keep unchanged” is not a substitute for this confirmation gate. Also classify the tested assumption as supported, weakened, or untested and name the exact spatial or deliverable consequence. If no locked decision has been confirmed, say so instead of inventing one.
 

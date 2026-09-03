@@ -102,6 +102,8 @@ Build the critical path before assigning production:
 4. classify remaining work as **must finish**, **may degrade**, or **stop**;
 5. when capacity is exhausted, stop adding content and protect consistency, QA and an honest defense.
 
+The brief determines what is required. Stop optional additions; simplify a required item's representation only while retaining its mandated content and format. If a required diagram is paused behind a dependency, name its restoration trigger or the permitted substitute that carries the same content. A seasonal-process requirement, for example, must remain represented even when a separate polished diagram is unnecessary.
+
 Do not pretend hour estimates are precise. Use the student's actual available focused time and revise the path when an upstream task overruns.
 
 After an overrun, use the student's current usable capacity or compute it from the last confirmed capacity minus **all actual work consumed since that report**. Overrun is only the difference from an estimate, not the total consumed time. Do not subtract just that extra amount from the original budget, invent an unknown original estimate, or confuse wall-clock time with usable work hours.
