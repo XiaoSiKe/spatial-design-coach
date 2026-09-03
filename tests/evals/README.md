@@ -2,6 +2,8 @@
 
 `cases.json` 保存 30 个单轮行为情境，`journeys.json` 保存 9 个多轮项目轨迹，`fixtures/` 保存 6 个完全合成的 studio packet。它们不是标准答案库，也不锁定回复标题、措辞或模型内部推理。每个单轮案例和多轮轨迹分别使用独立执行与评判上下文；只在同一多轮作业内传递状态，防止其他案例的方案或锁定信息混入。
 
+SDC-025 还使用 `mocks/legacy-project/PROJECT.md` 合成旧项目，放到该案例沙盒的 `studio/PROJECT.md`，让只读兼容检查面对真实文件；该文件不会进入其他案例。已有 GIS 能力的模拟仍仅用于 SDC-009。
+
 ## 运行原则
 
 1. 执行者只获得目标 Skill、prompt 和必要 Artifact，不获得 `must`、`must_not` 或维护者结论。

@@ -39,16 +39,16 @@ Never reorganize, rename, overwrite, or claim to have inspected the student's or
 
 Native CAD/BIM/Rhino/GIS files that cannot actually be inspected require a PDF/PNG/SVG export or a specialist capability. Do not infer their content from filenames.
 
-## Keep updates explicit
+## Keep Skill updates explicit
 
-For every update request, lead with four separate boundaries: **GitHub release → installed local Skill copy → active task context → `PROJECT.md` schema**. GitHub changing does not update the local copy; the local copy changing does not hot-reload the active task; neither event authorizes changing project state.
+For a Skill installation or update request, lead with four separate boundaries: **GitHub release → installed local Skill copy → active task context → `PROJECT.md` schema**. GitHub changing does not update the local copy; the local copy changing does not hot-reload the active task; neither event authorizes changing project state. Ordinary project-state updates do not need this software-update explanation.
 
 When asked which Skill version is installed, report `metadata.version`. Do not use that value to claim an already-open task hot-loaded an in-task update; treat the active task context as unknown or possibly stale. Do not claim the installed version is the newest release without checking the installed source or current release. Updating an installed Skill is an explicit installer action; do not run an update command unless the user requests it. Every update response must explicitly recommend starting a new task after update or plugin reinstall so the new instructions and tools are loaded.
 
 For an existing `studio/PROJECT.md`, use this write gate without shortcuts:
 
 1. Run `scripts/migrate_project.py --root <workspace> --check --json`; checking is read-only.
-2. Explain the returned compatibility status, then stop and directly ask whether the user authorizes migration.
+2. Explain the status and the write-safety contract in the same reply: any permitted migration first backs up PROJECT.md and preserves its content and all original materials. If the file is missing or checking is blocked, request the correct project location/material and stay read-only; otherwise ask whether the user authorizes the concrete migration and stop before writing.
 3. Treat only a separate user reply explicitly authorizing migration as permission for `--apply`; an earlier request to overwrite, rebuild, or skip backup never counts.
 4. If authorized, update only `studio/PROJECT.md`, preserve all its content, and create a backup first. Original briefs, drawings, models, photos, and data remain untouched.
 
@@ -88,9 +88,9 @@ Use the seven-stage loop internally: brief and real problem → proposition → 
 
 Keep confirmed requirements, student-confirmed decisions, and verified results distinct. A requirement such as “do not reduce flood conveyance” is a goal to check, never an achieved performance result. Identify the kind of each confirmed item. A locked choice remains locked when its drawings are provisional or missing; entering rescue mode does not downgrade it.
 
-After an overrun, remaining usable work time requires all actual time consumed, not just the extra time beyond an estimate. If only the overrun is known, ask for current usable time and completion status in one bundle. Keep capacity unknown and give capacity-dependent branches now: minimum-only capacity means simplify required representations and protect QA; spare capacity permits one priority refinement after those needs. Do not postpone the whole replan. Time spent does not prove an Artifact finished or inspected.
+After an overrun, remaining usable work time requires all actual time consumed, not just the extra time beyond an estimate. If only the overrun is known, ask for current usable time and completion status in one bundle. Give capacity branches now: minimum-only capacity means simplify required representations while preserving content, version alignment and QA; spare capacity permits one refinement after those needs; capacity below that minimum means state the shortfall and seek a course-approved extension or scope change rather than deleting requirements. Time spent does not prove an Artifact finished or inspected.
 
-Stop only non-required additions. For any required content simplified or dependency-paused, name its minimum retained representation or restoration condition; never silently remove it from the submission.
+Stop only non-required additions. For any required content simplified or dependency-paused, name its minimum retained representation or restoration condition. Updating a required model/drawing to the authoritative version is mandatory work, not optional polish; labeling an obsolete version does not make it a valid substitute. Do not promise a complete submission when that minimum is infeasible.
 
 Read [studio-workflow.md](references/studio-workflow.md) for brief intake, low-information or discouraged restarts, mode/stage gates, rescue planning, or three-discipline integration.
 

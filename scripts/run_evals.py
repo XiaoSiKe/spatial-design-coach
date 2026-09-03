@@ -117,6 +117,9 @@ def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]
 def prepare_sandbox(items: list[dict[str, object]], root: Path) -> tuple[dict[str, dict[str, object]], list[Path]]:
     local_skill = root / ".agents" / "skills" / "spatial-design-coach"
     shutil.copytree(SKILL_DIR, local_skill)
+    if any(item["id"] == "SDC-025" for item in items):
+        (root / "studio").mkdir()
+        shutil.copyfile(EVAL_ROOT / "mocks/legacy-project/PROJECT.md", root / "studio/PROJECT.md")
     if any(item["id"] == "SDC-009" for item in items):
         shutil.copytree(
             EVAL_ROOT / "mocks" / "geospatial",

@@ -110,6 +110,19 @@ class EvalToolTests(unittest.TestCase):
             finally:
                 VALIDATE_REPO.ERRORS.clear()
 
+    def test_update_case_gets_existing_state_without_leaking_to_other_cases(self) -> None:
+        cases, _, _ = RUN_EVALS.normalized_items()
+        source = ROOT / "tests/evals/mocks/legacy-project/PROJECT.md"
+        for item_id, has_project in (("SDC-025", True), ("SDC-024", False)):
+            with self.subTest(item_id=item_id), tempfile.TemporaryDirectory() as temp:
+                sandbox = Path(temp)
+                item = next(case for case in cases if case["id"] == item_id)
+                RUN_EVALS.prepare_sandbox([item], sandbox)
+                target = sandbox / "studio/PROJECT.md"
+                self.assertEqual(target.exists(), has_project)
+                if has_project:
+                    self.assertEqual(target.read_bytes(), source.read_bytes())
+
     def test_release_report_requires_full_current_clean_runs(self) -> None:
         payload = {
             "suite": "full",

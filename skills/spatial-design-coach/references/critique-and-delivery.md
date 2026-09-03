@@ -104,6 +104,8 @@ Build the critical path before assigning production:
 
 The brief determines what is required. Stop optional additions; simplify a required item's representation only while retaining its mandated content and format. If a required diagram is paused behind a dependency, name its restoration trigger or the permitted substitute that carries the same content. A seasonal-process requirement, for example, must remain represented even when a separate polished diagram is unnecessary.
 
+Version alignment belongs to the minimum, not the polish budget. A required model may use simpler materials or reduced detail, but it must still show the current essential geometry, paths and levels at the required scale. Do not withdraw that model or defer its essential version correction to a spare-capacity branch. A label saying “old version” is an honest limitation, not fulfillment of the current-version requirement.
+
 Do not pretend hour estimates are precise. Use the student's actual available focused time and revise the path when an upstream task overruns.
 
 After an overrun, use the student's current usable capacity or compute it from the last confirmed capacity minus **all actual work consumed since that report**. Overrun is only the difference from an estimate, not the total consumed time. Do not subtract just that extra amount from the original budget, invent an unknown original estimate, or confuse wall-clock time with usable work hours.
@@ -115,6 +117,8 @@ A report of work taking longer is not a completion or inspection record. Keep �
 Use this overrun order: **known capacity or explicit capacity gap → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
 
 While capacity is unknown, include an executable conditional replan in this reply: **if remaining effort only covers required content plus QA/defense**, simplify representations, integrate diagrams that can share a checked source, and stop optional refinements; **if capacity remains after those needs**, restore one refinement that most strengthens the central claim. Each branch retains every required item's minimum content and the authoritative version. Asking for hours and promising to replan later, or only branching on whether a drawing is finished, does not express how capacity changes the plan. No numerical threshold is needed when effort is unknown.
+
+If even the minimum consistent set and QA cannot fit, say that full delivery is currently infeasible. Prioritize the blocking source and record the remaining required items as missing; ask the student to seek an explicit course-approved extension or requirement change. Continue helping with the feasible work, but do not invent a waiver, silently delete an item, or present an outdated artifact as a complete substitute.
 
 Then triage in this order:
 
