@@ -141,11 +141,18 @@ Select the cheapest representation that can falsify the move:
 - environmental or operational performance → calculation, simulation, scenario, or specialist check;
 - change over time → phased plan, seasonal set, timeline, or stewardship protocol.
 
-For “where should my first section cut?”, use visible features and a traversed sequence, with one primary relationship to test. Do not add pixel coordinates just to sound precise. Say image-left/right when geographic orientation is unknown. Separate existing anchors from proposed paths, terrain or planting; a proposed element must be located on the working plan before it can serve as a shared section anchor. Leave secondary processes for later tests.
-
-Use numerical coordinates only if the user requests them or an actual drawing edit requires them. Declare the source SVG viewBox, model/GIS units or intrinsic image frame, then verify endpoints and crossings from editable geometry. A resized preview is a different frame. If that verification is unavailable, explain the limit and give a feature-anchored proposal; do not append guessed coordinates followed by “verify later.”
-
 Do not ask an atmospheric rendering to prove access, dimensions, ecology, or feasibility. An image can testify to experience; it is not an alibi for unresolved space.
+
+## Choose a first section
+
+Read the plan and its actual annotations before answering “where should I cut?” Separate **mapped existing features**, **brief requirements without mapped locations**, and **proposed design elements**. A brief requiring mature woodland preservation does not locate that woodland; do not invent it as a starting point.
+
+1. Select one primary use/process conflict, such as everyday access versus changing water levels. Leave other ecological processes for later tests.
+2. Name two visibly locatable existing anchors: start and end. If a path is essential, start at a visible point on it rather than assuming it lies between a lawn and the waterfront. Use image-left/right when geographic orientation is absent.
+3. Check any crossing that the proposed test relies on. A concise answer need not list every intermediate graphic; name only the relevant, supported relationships, and do not describe a partial account as an exhaustive inventory. If a crossing is uncertain, choose a simpler cut between verifiable anchors. A stock “lawn → path → wetland → river” recipe is not evidence of plan topology.
+4. Return those anchors, the primary question, a working scale or view, and an observable pass condition. A general “where” question does not request numerical coordinates: do not append image x/y values or an unsupported claim that the line was geometrically verified.
+
+Describe proposed swales, habitat bands or relocated paths separately as design hypotheses; locate them on a proposed layer before using them for drawing alignment. Coordinate-level editing belongs to a specialist handoff with a declared frame and an actual geometry check. Never give guessed coordinates followed by “verify later.”
 
 ## Escalate help without taking over
 

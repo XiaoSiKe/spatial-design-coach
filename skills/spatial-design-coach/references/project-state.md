@@ -77,6 +77,10 @@ An external capability return is evidence, not an automatic state change. If it 
 
 When the student selects one alternative, keep every other compared family as a rejected direction with its mechanism, evidence and rejection reason. Do not delete alternatives merely because the current design has moved on.
 
+Apply partial choices as an explicit old → new change before summarizing the state. If one component of a bundled proposal is rejected or deferred, split the bundle: state the current retained components and move the paused part into the existing rejected/deferred history with its reason and reopening condition. Do not repeat the old bundle as an active provisional scheme after describing the new choice. Preserve unaffected decisions without reinstating the rejected component.
+
+Keep the latest design decision distinct from the last inspected drawing. That old file may still contain the superseded layout and serve as a base to edit; label the discrepancy and affected Artifacts as pending revision rather than claiming the drawing already changed or treating its old contents as the current decision. Check the opening recommendation, decision row and next-work summary against the same updated state.
+
 When the student says “I decide,” “I choose,” or an equivalent confirmation, record it visibly as **student confirmed** and name both the affected overall plan/masterplan and the affected focus-area plan, section or equivalent downstream Artifact.
 
 ## Preserve files and versions

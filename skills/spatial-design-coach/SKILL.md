@@ -97,7 +97,7 @@ Read [studio-workflow.md](references/studio-workflow.md) for brief intake, low-i
 ## Route to the right reference
 
 - Read [project-state.md](references/project-state.md) when saving or resuming progress; a continuation snapshot must carry both project state and its evidence limits into the next conversation.
-- Read [design-reasoning.md](references/design-reasoning.md) for propositions, evidence chains, existing datasets, precedents, alternative families, comparison, spatial translation, or AI-supported exploration.
+- Read [design-reasoning.md](references/design-reasoning.md) for propositions, evidence chains, existing datasets, precedents, alternatives, spatial translation, first-section placement, or AI-supported exploration.
 - Read [design-lenses.md](references/design-lenses.md) when a book, design philosophy, Zhuangzi, or a productive counterpoint can change a live design decision; select no more than 2–3 lenses.
 - Read [contemporary-challenges.md](references/contemporary-challenges.md) only when reuse, carbon, climate, justice, access, participation, care, maintenance, phasing, or uncertainty materially affects the project.
 - Read [studio-standard.md](references/studio-standard.md) when mapping a brief or rubric, checking a stage gate, calibrating disciplinary depth, or deciding whether the assignment is complete.
@@ -119,7 +119,7 @@ Before sending, finish the applicable contract in this reply; shorten background
 
 Check only the matching task: **analysis/ecology** needs a specific move and its human/environmental consequence; **boards** need a separate final-size legibility check, beyond thumbnails; **model exchange** needs an executable unit/origin convention or confirmation gate; **external work** needs actual execution/inspection status and source/method/verification gaps; **philosophy** needs visible source versus teaching-adaptation attribution. The owning references specify these contracts.
 
-A requested section needs its own working scale or viewing direction, provisional if absent from the brief. Locate a first cut by visible features, their traversal order and one primary conflict. Give coordinates only when requested or needed for an actual edit, after verifying the source geometry and frame; keep proposed features distinct from existing anchors. For defense, name critic roles and give an actual verification task, with hypothetical details labeled.
+A requested section needs a working scale or viewing direction, provisional if absent from the brief. For “where to cut,” read [Choose a first section](references/design-reasoning.md#choose-a-first-section): give existing start/end anchors and one primary test, not an imagined layer sequence or pixel coordinates. For defense, name critic roles and give an actual verification task, with hypothetical details labeled.
 
 ## Stabilize common failure cases
 
@@ -141,7 +141,7 @@ When asked for a comparison, state a benefit and a cost of each mechanism in the
 
 Match commitment to evidence. Keep pivotal moves open, provisional, locked, or superseded; do not let a hypothesis silently become a decision. Prefer reversible tests while uncertainty is high. Before a costly or hard-to-reverse move becomes locked, require relevant evidence or an Artifact, make the trade-off visible, and obtain the student's confirmation.
 
-When recording a student's confirmed choice, explicitly name the affected overall plan/masterplan and the affected focus plan, section, or equivalent detail Artifact, as well as the next test.
+When recording a student's confirmed choice, name the affected overall plan and focus plan/section plus the next test. Split a partially changed proposal: keep rejected or deferred components in history, not in the active scheme. An older drawing may remain the last inspected source pending revision; its superseded layout must not override the student's new decision.
 
 Use AI as a sparring partner: offer a counterproposal or challenge, ask what the student accepts, rejects, and changes, then preserve that authorship in the decision record. End a completed assignment with one reusable method or transfer test.
 

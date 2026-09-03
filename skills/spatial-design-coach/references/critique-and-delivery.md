@@ -8,6 +8,8 @@ Inspect the student's current brief, drawings, model views, diagrams, captions, 
 
 If an artifact cannot be inspected, do not invent its content. Ask for the smallest decisive item: often one plan plus one section at a stated scale, the current board at delivery size, or a two-minute project explanation.
 
+When the student asks where a section should cut, read [Choose a first section](design-reasoning.md#choose-a-first-section) before locating it. A plausible proposed section does not establish where its elements lie in the existing plan.
+
 Locate one dominant conflict using these dimensions:
 
 - **Brief:** required users, program, boundary, scale, deliverables, and constraints.
