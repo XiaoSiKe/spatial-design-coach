@@ -137,6 +137,8 @@ Run three integration checks:
 
 For a cross-scale composite artifact, keep the same transect, cut line, route, catchment, or spatial index visible across drawings. Lock datum, project version, legend and status conventions. Trace at least one human flow and one relevant environmental or infrastructural flow without collapsing them into one vague system.
 
+Put the synchronization requirement in the requested deliverable and its pass condition: **shared project-version label + spatial index + datum + legend** must be visible on the related drawings. Use the supplied authoritative version; if none was given, explicitly require selecting and naming one common working version before acceptance. A diagnosis saying “versions differ” is not an instruction to use a shared version.
+
 At each boundary, ask who owns the decision, who benefits, what evidence supports it, and what downstream drawing must change.
 
 When comparing cross-disciplinary repair directions, list each direction's separate downstream effect on human movement and the relevant environmental flow, name the affected drawings, and leave the final direction explicitly for the student team to confirm.
