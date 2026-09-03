@@ -138,12 +138,12 @@ Complete one result-to-action branch now; a menu of possible design questions or
 
 State at least one concrete spatial or deliverable consequence, even when the technical result passes. Technical consistency alone is not a design conclusion. Before proposing any locked-decision update, say explicitly that the current locked state remains authoritative until the student confirms the change.
 
-For every inspected return, include at least one visible row:
+For every inspected return, include at least one visible row about the returned artifact:
 
-| Design assumption | Supported / weakened / untested | Return evidence and limitation | Affected Artifact |
+| Claim about the returned artifact | Supported / weakened / untested | Return evidence and limitation | Affected Artifact |
 | --- | --- | --- | --- |
 
-Do not leave the assumption-status column implicit in surrounding prose.
+Phrase the claim as something the return can establish, such as “does the returned layer retain the locked public path?” Keep “retain the public path” separately identified as the unchanged locked decision. Brief requirements and student choices do not belong in this evidence-status column: a row saying “the boundary/path must be retained — untested” confuses authority with compliance. A reported conflict may remain uninspected while the decision stays locked. Make both states explicit and consistent with the final project-state update.
 
 If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
 
