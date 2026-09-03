@@ -206,8 +206,8 @@ def check_cases() -> None:
     cases = payload.get("cases", [])
     if payload.get("skill") != "spatial-design-coach" or payload.get("schema_version") != 1:
         fail("cases.json header is invalid")
-    if len(cases) != 25:
-        fail(f"expected 25 eval cases, found {len(cases)}")
+    if len(cases) != 30:
+        fail(f"expected 30 eval cases, found {len(cases)}")
     ids: set[str] = set()
     for case in cases:
         for key in ("id", "category", "prompt", "critical", "must", "must_not"):
@@ -229,8 +229,8 @@ def check_journeys_and_fixtures() -> None:
     journeys = payload.get("journeys", [])
     if payload.get("skill") != "spatial-design-coach" or payload.get("schema_version") != 1:
         fail("journeys.json header is invalid")
-    if len(journeys) != 8:
-        fail(f"expected 8 eval journeys, found {len(journeys)}")
+    if len(journeys) != 9:
+        fail(f"expected 9 eval journeys, found {len(journeys)}")
 
     fixture_root = eval_root / "fixtures"
     manifests: dict[str, dict[str, object]] = {}
@@ -307,6 +307,46 @@ def check_doc_governance() -> None:
         fail("prior-art repositories missing from provenance: " + ", ".join(missing))
 
 
+def check_reading_registry() -> None:
+    rows = re.findall(
+        r"^\| (B\d{2}|Z01) \| [^\n]+ \| (核心·[EM]|哲学·E|专题参考) \|$",
+        read(ROOT / "README.md"),
+        re.MULTILINE,
+    )
+    roles = dict(rows)
+    expected = {f"B{number:02}" for number in range(1, 51)} | {"Z01"}
+    if len(rows) != len(roles) or set(roles) != expected:
+        fail("README must list B01–B50 and Z01 exactly once")
+    selected = {key for key, role in rows if role.startswith("核心·")}
+    for start, end in ((1, 20), (21, 35), (36, 50)):
+        if len(selected & {f"B{number:02}" for number in range(start, end + 1)}) != 8:
+            fail(f"expected eight selected readings in B{start:02}–B{end:02}")
+    if roles.get("Z01") != "哲学·E":
+        fail("Z01 must remain a separately identified philosophical reading")
+    active = selected | {"Z01"}
+    lens_text = read(SKILL_DIR / "references" / "design-lenses.md")
+    anchors = re.findall(r'^<a id="(b\d{2}|z01)"></a>$', lens_text, re.MULTILINE)
+    if len(anchors) != len(active) or {key.upper() for key in anchors} != active:
+        fail("runtime reading cards differ from README selection")
+    evidence_rows = re.findall(
+        r"^\| (B\d{2}|Z01) \| ([EM]) \|",
+        read(ROOT / "docs" / "research" / "source-map.md"),
+        re.MULTILINE,
+    )
+    evidence = dict(evidence_rows)
+    if len(evidence_rows) != len(active) or set(evidence) != active:
+        fail("source-map evidence records differ from README selection")
+    for key in active:
+        if evidence.get(key) != roles.get(key, "")[-1:]:
+            fail(f"reading evidence level differs between README and source-map: {key}")
+    for block in re.split(r'(?=^<a id="(?:b\d{2}|z01)">)', lens_text, flags=re.MULTILINE)[1:]:
+        key = re.match(r'<a id="(b\d{2}|z01)">', block).group(1).upper()
+        if key != "Z01":
+            level = re.search(r"\*\*Basis \(([EM])\):\*\*", block)
+            if not level or level.group(1) != evidence.get(key):
+                fail(f"runtime reading evidence level differs from source-map: {key}")
+
+
 def check_behavior_contracts() -> None:
     skill_text = read(SKILL_DIR / "SKILL.md")
     voice_text = read(ROOT / "docs" / "product" / "voice.md")
@@ -346,6 +386,7 @@ def main() -> int:
     check_cases()
     check_journeys_and_fixtures()
     check_doc_governance()
+    check_reading_registry()
     check_behavior_contracts()
     if ERRORS:
         for item in ERRORS:

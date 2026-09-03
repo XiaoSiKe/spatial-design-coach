@@ -5,6 +5,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,34 +30,68 @@ class EvalToolTests(unittest.TestCase):
         self.assertEqual(VALIDATE_REPO.first_blockquote_after(text, "marker"), "first\nsecond")
         self.assertEqual(VALIDATE_REPO.first_blockquote_after(text, "missing"), "")
 
+    def test_judge_sees_original_input_while_executor_remains_blind(self) -> None:
+        fact = "Student reports a report exists, but provides no file."
+        criterion = "Private rubric: distinguish reported receipt from inspection."
+        items = [{"id": "case", "critical": True, "fixture": None, "turns": [
+            {"prompt": fact, "must": [criterion], "must_not": ["invent a returned result"]}
+        ]}]
+        execution = RUN_EVALS.executor_prompt(items, {})
+        judgment = RUN_EVALS.judge_prompt(items, {"responses": []})
+        self.assertIn(".agents/skills/spatial-design-coach/SKILL.md", execution)
+        self.assertIn(fact, execution)
+        self.assertNotIn(criterion, execution)
+        self.assertIn(fact, judgment)
+        self.assertIn(criterion, judgment)
+
+    def test_reading_registry_rejects_selection_and_evidence_drift(self) -> None:
+        read = VALIDATE_REPO.read
+        mutations = (
+            (ROOT / "README.md", "| B02 |", "| B51 |"),
+            (ROOT / "docs/research/source-map.md", "| B02 | M |", "| B02 | E |"),
+        )
+        try:
+            VALIDATE_REPO.ERRORS.clear()
+            VALIDATE_REPO.check_reading_registry()
+            self.assertEqual(VALIDATE_REPO.ERRORS, [])
+            for path, old, new in mutations:
+                with self.subTest(path=path):
+                    changed = read(path).replace(old, new, 1)
+                    VALIDATE_REPO.ERRORS.clear()
+                    with patch.object(VALIDATE_REPO, "read", side_effect=lambda item: changed if item == path else read(item)):
+                        VALIDATE_REPO.check_reading_registry()
+                    self.assertTrue(VALIDATE_REPO.ERRORS)
+        finally:
+            VALIDATE_REPO.ERRORS.clear()
+
     def test_expected_batch_shapes(self) -> None:
         self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 5)])
         self.assertEqual(len(RUN_EVALS.select_batches("cases")), 4)
         high_risk_shapes = [
             (name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("high-risk")
         ]
-        self.assertEqual(len(high_risk_shapes), 15)
+        self.assertEqual(len(high_risk_shapes), 18)
         self.assertTrue(all(size == 3 for _, _, size in high_risk_shapes))
         journey_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("journeys")]
-        self.assertEqual(len(journey_shapes), 24)
+        self.assertEqual(len(journey_shapes), 27)
         self.assertTrue(all(size == 1 for _, _, size in journey_shapes))
 
         full_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")]
         self.assertEqual(
             full_shapes[:4],
-            [("cases-1", 1, 8), ("cases-2", 1, 8), ("cases-3", 1, 8), ("cases-4", 1, 1)],
+            [("cases-1", 1, 8), ("cases-2", 1, 8), ("cases-3", 1, 8), ("cases-4", 1, 6)],
         )
         self.assertEqual(
             [(name, run, size) for name, run, size in full_shapes if name.startswith("high-risk-")],
             [
                 (f"high-risk-{index}", run, 3)
                 for run in (2, 3)
-                for index in range(1, 6)
+                for index in range(1, 7)
             ],
         )
         self.assertEqual(
             {(name, run) for name, run, _ in full_shapes if name.startswith("journeys-")},
-            {(f"journeys-{index}", run) for run in (1, 2, 3) for index in range(1, 9)},
+            {(f"journeys-{index}", run) for run in (1, 2, 3) for index in range(1, 10)},
         )
         self.assertTrue(all(size == 1 for name, _, size in full_shapes if name.startswith("journeys-")))
 
@@ -73,12 +108,12 @@ class EvalToolTests(unittest.TestCase):
                 *[
                     {"name": f"high-risk-{index}", "run": run}
                     for run in (2, 3)
-                    for index in range(1, 6)
+                    for index in range(1, 7)
                 ],
                 *[
                     {"name": f"journeys-{index}", "run": run}
                     for run in (1, 2, 3)
-                    for index in range(1, 9)
+                    for index in range(1, 10)
                 ],
             ],
         }

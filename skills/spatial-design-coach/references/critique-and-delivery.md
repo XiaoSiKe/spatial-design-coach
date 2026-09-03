@@ -102,11 +102,17 @@ Build the critical path before assigning production:
 4. classify remaining work as **must finish**, **may degrade**, or **stop**;
 5. when capacity is exhausted, stop adding content and protect consistency, QA and an honest defense.
 
+The brief determines what is required. Stop optional additions; simplify a required item's representation only while retaining its mandated content and format. If a required diagram is paused behind a dependency, name its restoration trigger or the permitted substitute that carries the same content. A seasonal-process requirement, for example, must remain represented even when a separate polished diagram is unnecessary.
+
 Do not pretend hour estimates are precise. Use the student's actual available focused time and revise the path when an upstream task overruns.
 
-After any overrun, restate remaining usable capacity as a rough range and protect a separate export/file-opening buffer plus an oral-rehearsal buffer before assigning more production.
+After an overrun, use the student's current usable capacity or compute it from the last confirmed capacity minus **all actual work consumed since that report**. Overrun is only the difference from an estimate, not the total consumed time. Do not subtract just that extra amount from the original budget, invent an unknown original estimate, or confuse wall-clock time with usable work hours.
 
-Use this atomic overrun order: **remaining capacity → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
+If the actual total or current remaining capacity is missing, state that a numerical remainder cannot yet be established. Ask for current usable hours and the Artifact's completion status in one compact input bundle. Meanwhile stop low-value additions, prioritize the blocking source, and protect export/file-opening and rehearsal buffers through a conditional plan; do not invent a remaining-hours range to fill the ledger.
+
+A report of work taking longer is not a completion or inspection record. Keep “student reports an overrun; completion and new file not yet confirmed” separate from the last inspected Artifact. Use a new section as an authoritative source only after its relevant state and correspondence have been checked.
+
+Use this overrun order: **known capacity or explicit capacity gap → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
 
 Then triage in this order:
 
@@ -196,6 +202,8 @@ claim → evidence visible here → limitation or uncertainty → reasoned respo
 ```
 
 Do not bluff. “That requires verification by X; the current design reserves Y so the decision remains possible” is stronger than invented certainty.
+
+Give one concrete rehearsal test alongside the framework: for example, a user reviewer traces a proposed daily route on the plan while a technical reviewer checks the associated section's declared assumptions. Label this as an example when project details are absent. Do not leave the student's only verification plan as an ellipsis to fill in later.
 
 ## Close the assignment
 
