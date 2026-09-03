@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import importlib.util
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "skills" / "spatial-design-coach" / "scripts" / "migrate_project.py"
+sys.path.insert(0, str(SCRIPT.parent))
 SPEC = importlib.util.spec_from_file_location("migrate_project", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
@@ -95,6 +97,56 @@ class MigrateProjectTests(unittest.TestCase):
                 MODULE.apply(root)
             self.assertEqual(project.read_text(encoding="utf-8"), original)
             self.assertEqual(list(project.parent.glob("*.bak")), [])
+
+    def test_rejects_malformed_metadata_without_writing(self) -> None:
+        fields = (
+            "- Skill 版本：broken\n- 项目状态格式：unknown\n",
+            "- Skill 版本：0.6.1\n- Skill 版本：0.6.1\n- 项目状态格式：1\n",
+        )
+        for metadata in fields:
+            with self.subTest(metadata=metadata), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                original = "# 设计作业项目状态\n\n## 状态元数据\n\n" + metadata + "\n## 当前设计状态\n"
+                project = self.project(root, original)
+                self.assertEqual(MODULE.inspect(root)["status"], "invalid-metadata")
+                with self.assertRaisesRegex(ValueError, "invalid"):
+                    MODULE.apply(root)
+                self.assertEqual(project.read_text(encoding="utf-8"), original)
+                self.assertEqual(list(project.parent.glob("*.bak")), [])
+
+    def test_rejects_links_for_project_and_migration_files(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            root, outside = base / "assignment", base / "outside"
+            root.mkdir()
+            outside.mkdir()
+            external_project = self.project(outside, "# Project\n\n## State\n")
+            (root / "studio").symlink_to(external_project.parent, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "symbolic link"):
+                MODULE.inspect(root)
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            external = root / "external-project.md"
+            external.write_text("# External\n", encoding="utf-8")
+            project = root / "studio" / "PROJECT.md"
+            project.parent.mkdir()
+            project.symlink_to(external)
+            with self.assertRaisesRegex(ValueError, "symbolic link"):
+                MODULE.inspect(root)
+
+        for managed_name in ("PROJECT.md.pre-migration.bak", ".PROJECT.md.migrating"):
+            with self.subTest(managed_name=managed_name), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                original = "# Project\n\n## State\n\n- Keep trees\n"
+                project = self.project(root, original)
+                outside = root / "outside"
+                outside.write_text("do not change\n", encoding="utf-8")
+                (project.parent / managed_name).symlink_to(outside)
+                with self.assertRaisesRegex(ValueError, "symbolic link"):
+                    MODULE.apply(root)
+                self.assertEqual(project.read_text(encoding="utf-8"), original)
+                self.assertEqual(outside.read_text(encoding="utf-8"), "do not change\n")
 
 
 if __name__ == "__main__":

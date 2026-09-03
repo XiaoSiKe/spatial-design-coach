@@ -9,6 +9,8 @@ import re
 import shutil
 from pathlib import Path
 
+from _project_paths import checked_path, sandbox_root
+
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 SKILL_FILE = SKILL_ROOT / "SKILL.md"
@@ -24,35 +26,26 @@ def skill_version() -> str:
 
 
 def resolve_project(root: Path) -> Path:
-    root = root.expanduser().resolve()
-    if not root.exists() or not root.is_dir():
-        raise ValueError(f"sandbox root is not a directory: {root}")
-    if root in {Path("/").resolve(), Path.home().resolve()}:
-        raise ValueError("refusing to inspect a broad system or home directory")
-    project = root / "studio" / "PROJECT.md"
+    project = checked_path(sandbox_root(root), "studio/PROJECT.md")
     if not project.is_file():
         raise ValueError(f"project state does not exist: {project}")
     return project
 
 
-def inspect(root: Path) -> dict[str, object]:
-    project = resolve_project(root)
-    text = project.read_text(encoding="utf-8")
-    installed_version = skill_version()
-    version_matches = re.findall(r"^- Skill 版本：(\d+\.\d+\.\d+)$", text, re.MULTILINE)
-    schema_matches = re.findall(r"^- 项目状态格式：(\d+)$", text, re.MULTILINE)
+def inspect_metadata(text: str, installed_version: str) -> dict[str, object]:
+    version_fields = re.findall(r"^- Skill 版本：(.*)$", text, re.MULTILINE)
+    schema_fields = re.findall(r"^- 项目状态格式：(.*)$", text, re.MULTILINE)
+    valid_version = len(version_fields) == 1 and re.fullmatch(r"\d+\.\d+\.\d+", version_fields[0])
+    valid_schema = len(schema_fields) == 1 and re.fullmatch(r"\d+", schema_fields[0])
+    project_version = version_fields[0] if valid_version else None
+    project_schema = int(schema_fields[0]) if valid_schema else None
 
-    if not version_matches and not schema_matches:
+    if not version_fields and not schema_fields:
         status = "legacy"
-        project_version = None
         project_schema = 0
-    elif len(version_matches) != 1 or len(schema_matches) != 1:
+    elif project_version is None or project_schema is None:
         status = "invalid-metadata"
-        project_version = version_matches[0] if len(version_matches) == 1 else None
-        project_schema = int(schema_matches[0]) if len(schema_matches) == 1 else None
     else:
-        project_version = version_matches[0]
-        project_schema = int(schema_matches[0])
         if project_schema > PROJECT_SCHEMA_VERSION:
             status = "future-schema"
         elif project_schema < PROJECT_SCHEMA_VERSION:
@@ -64,7 +57,6 @@ def inspect(root: Path) -> dict[str, object]:
 
     return {
         "status": status,
-        "project": str(project),
         "project_skill_version": project_version,
         "installed_skill_version": installed_version,
         "project_schema": project_schema,
@@ -72,11 +64,19 @@ def inspect(root: Path) -> dict[str, object]:
     }
 
 
+def inspect(root: Path) -> dict[str, object]:
+    project = resolve_project(root)
+    return {
+        **inspect_metadata(project.read_text(encoding="utf-8"), skill_version()),
+        "project": str(project),
+    }
+
+
 def next_backup(project: Path) -> Path:
-    candidate = project.with_name("PROJECT.md.pre-migration.bak")
+    candidate = checked_path(project.parent, "PROJECT.md.pre-migration.bak")
     version = 2
     while candidate.exists():
-        candidate = project.with_name(f"PROJECT.md.pre-migration-v{version}.bak")
+        candidate = checked_path(project.parent, f"PROJECT.md.pre-migration-v{version}.bak")
         version += 1
     return candidate
 
@@ -97,7 +97,7 @@ def apply(root: Path) -> dict[str, object]:
     before = inspect(root)
     status = str(before["status"])
     if status == "invalid-metadata":
-        raise ValueError("PROJECT.md contains partial or duplicate status metadata")
+        raise ValueError("PROJECT.md contains invalid, partial or duplicate status metadata")
     if status == "future-schema":
         raise ValueError("PROJECT.md uses a newer schema; update the Skill before continuing")
     if status == "current":
@@ -124,14 +124,23 @@ def apply(root: Path) -> dict[str, object]:
             flags=re.MULTILINE,
         )
 
+    if inspect_metadata(updated, installed_version)["status"] != "current":
+        raise ValueError("migration would not produce current metadata")
+    temporary = checked_path(project.parent, ".PROJECT.md.migrating")
+    if temporary.exists():
+        raise ValueError(f"migration temporary file already exists: {temporary}")
     backup = next_backup(project)
-    shutil.copy2(project, backup)
-    temporary = project.with_name(".PROJECT.md.migrating")
+    with project.open("rb") as source, backup.open("xb") as output:
+        shutil.copyfileobj(source, output)
+    shutil.copystat(project, backup)
+    created_temporary = False
     try:
-        temporary.write_text(updated, encoding="utf-8")
+        with temporary.open("x", encoding="utf-8") as output:
+            created_temporary = True
+            output.write(updated)
         temporary.replace(project)
     finally:
-        if temporary.exists():
+        if created_temporary and temporary.exists():
             temporary.unlink()
 
     after = inspect(root)

@@ -7,29 +7,26 @@ import argparse
 import json
 from pathlib import Path
 
+from _project_paths import checked_path, sandbox_root
+
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = SKILL_ROOT / "assets" / "PROJECT.template.md"
 
 
 def initialize(root: Path) -> dict[str, object]:
-    root = root.expanduser().resolve()
-    if not root.exists() or not root.is_dir():
-        raise ValueError(f"sandbox root is not a directory: {root}")
-    if root in {Path("/").resolve(), Path.home().resolve()}:
-        raise ValueError("refusing to initialize a broad system or home directory")
-
-    studio = root / "studio"
-    project = studio / "PROJECT.md"
-    working = studio / "outputs" / "working"
-    final = studio / "outputs" / "final"
+    root = sandbox_root(root)
+    project = checked_path(root, "studio/PROJECT.md")
+    working = checked_path(root, "studio/outputs/working", directory=True)
+    final = checked_path(root, "studio/outputs/final", directory=True)
 
     working.mkdir(parents=True, exist_ok=True)
     final.mkdir(parents=True, exist_ok=True)
 
     created = False
     if not project.exists():
-        project.write_text(TEMPLATE.read_text(encoding="utf-8"), encoding="utf-8")
+        with project.open("x", encoding="utf-8") as output:
+            output.write(TEMPLATE.read_text(encoding="utf-8"))
         created = True
 
     return {

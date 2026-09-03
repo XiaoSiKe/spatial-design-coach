@@ -15,6 +15,15 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_DIR = ROOT / "skills" / "spatial-design-coach"
 ERRORS: list[str] = []
+IGNORED_SOURCE_DIRECTORIES = {
+    ".cache",
+    ".git",
+    ".idea",
+    ".vscode",
+    "__pycache__",
+    "artifacts",
+    "node_modules",
+}
 
 
 def fail(message: str) -> None:
@@ -27,6 +36,17 @@ def read(path: Path) -> str:
     except (OSError, UnicodeError) as exc:
         fail(f"cannot read {path.relative_to(ROOT)}: {exc}")
         return ""
+
+
+def source_files(*suffixes: str) -> list[Path]:
+    """Return repository source files without local reports, dependencies, or caches."""
+    return sorted(
+        path
+        for path in ROOT.rglob("*")
+        if path.is_file()
+        and not IGNORED_SOURCE_DIRECTORIES.intersection(path.relative_to(ROOT).parts)
+        and (not suffixes or path.suffix in suffixes)
+    )
 
 
 def first_blockquote_after(text: str, marker: str) -> str:
@@ -42,9 +62,7 @@ def first_blockquote_after(text: str, marker: str) -> str:
 
 
 def check_text_files() -> None:
-    for path in sorted(ROOT.rglob("*")):
-        if not path.is_file() or ".git" in path.parts or path.suffix not in {".md", ".json", ".yaml", ".yml", ".py", ".svg"}:
-            continue
+    for path in source_files(".md", ".json", ".yaml", ".yml", ".py", ".svg"):
         text = read(path)
         rel = path.relative_to(ROOT)
         if text and not text.endswith("\n"):
@@ -74,9 +92,7 @@ def check_fixture_preview(svg_path: Path, png_path: Path) -> None:
 def markdown_structure_and_links() -> None:
     link_pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
     html_link_pattern = re.compile(r'<(?:img|a)\b[^>]*\b(?:src|href)="([^"]+)"', re.IGNORECASE)
-    for path in sorted(ROOT.rglob("*.md")):
-        if ".git" in path.parts:
-            continue
+    for path in source_files(".md"):
         text = read(path)
         rel = path.relative_to(ROOT)
         in_fence = False
@@ -312,7 +328,7 @@ def check_journeys_and_fixtures() -> None:
 def check_doc_governance() -> None:
     if (ROOT / "docs" / "decisions").exists():
         fail("legacy docs/decisions directory still exists")
-    tracked_text = "\n".join(read(path) for path in ROOT.rglob("*.md") if "archive" not in path.parts)
+    tracked_text = "\n".join(read(path) for path in source_files(".md") if "archive" not in path.parts)
     if "docs/decisions" in tracked_text or "../decisions/" in tracked_text or "./decisions/" in tracked_text:
         fail("current documentation still links to docs/decisions")
     prior = set(re.findall(r"https://github\.com/([^/)]+/[^/)#]+)", read(ROOT / "docs" / "research" / "open-source-prior-art.md")))

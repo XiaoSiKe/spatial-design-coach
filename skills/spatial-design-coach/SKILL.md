@@ -35,7 +35,7 @@ If the user only greets you, reply:
 
 When the user says “开始这个设计作业” or asks to manage the assignment in the current writable workspace, run `scripts/init_project.py --root <workspace> --json`. Read or update `studio/PROJECT.md` as the single project state, write derived work only under `studio/outputs/working/`, and place verified submission files under `studio/outputs/final/`.
 
-Never reorganize, rename, overwrite, or claim to have inspected the student's original brief, drawings, models, photos, or data. Copy an original before an external capability edits it. If the workspace is read-only or the user prohibits writes, continue in chat-only mode and return a continuation snapshot.
+Never reorganize, rename, or overwrite the student's original brief, drawings, models, photos, or data. Inspect them read-only when the format is supported, and claim inspection only for material actually inspected. Copy an original before an external capability edits it. If the workspace is read-only or the user prohibits writes, continue in chat-only mode and return a continuation snapshot.
 
 Native CAD/BIM/Rhino/GIS files that cannot actually be inspected require a PDF/PNG/SVG export or a specialist capability. Do not infer their content from filenames.
 

@@ -13,6 +13,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+from _eval_contract import build_batches, full_summary, load_items, validate_full_coverage
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_DIR = ROOT / "skills" / "spatial-design-coach"
@@ -48,35 +50,22 @@ def validate_eval(path: Path, expected_commit: str, max_failed: int = 0) -> dict
         raise RuntimeError("release requires a full eval report")
     if payload.get("commit") != expected_commit:
         raise RuntimeError("eval report commit does not match HEAD")
-    summary = payload.get("summary", {})
-    names = {(run_item["name"], run_item["run"]) for run_item in payload.get("runs", [])}
-    config = json.loads((EVAL_ROOT / "config.json").read_text(encoding="utf-8"))
-    case_count = len(json.loads((EVAL_ROOT / "cases.json").read_text(encoding="utf-8"))["cases"])
-    journey_count = len(json.loads((EVAL_ROOT / "journeys.json").read_text(encoding="utf-8"))["journeys"])
-    high_risk_count = len(config["high_risk_case_ids"])
-    required = {(f"cases-{index}", 1) for index in range(1, case_count + 1)}
-    required.update(
-        (f"high-risk-{index}", run)
-        for run in range(2, int(config["critical_runs"]) + 1)
-        for index in range(1, high_risk_count + 1)
-    )
-    required.update(
-        (f"journeys-{index}", run)
-        for run in range(1, int(config["journey_runs"]) + 1)
-        for index in range(1, journey_count + 1)
-    )
-    if required != names or len(payload.get("runs", [])) != len(required):
-        raise RuntimeError("eval report must contain exactly the required isolated cases and reruns")
-    judgments = [item for run_item in payload["runs"] for item in run_item.get("judgments", [])]
-    if len(judgments) != len(required) or any(
+    runs = payload.get("runs", [])
+    cases, journeys, config = load_items(EVAL_ROOT)
+    validate_full_coverage(runs, build_batches("full", cases, journeys, config))
+    judgments = [item for run_item in runs for item in run_item["judgments"]]
+    if any(
         type(item.get("passed")) is not bool or (
             item["passed"] and (item.get("missing_must") or item.get("violated_must_not"))
-        ) for item in judgments
+        ) or not isinstance(item.get("missing_must"), list)
+        or not isinstance(item.get("violated_must_not"), list) for item in judgments
     ):
         raise RuntimeError("eval judgments are incomplete or hide a required-behavior failure")
+    summary = full_summary(runs, cases, journeys, config)
+    reported_summary = payload.get("summary", {})
+    if any(reported_summary.get(key) != value for key, value in summary.items()):
+        raise RuntimeError("eval summary does not match its judgments or critical behavior gates")
     failures = [item for item in judgments if not item["passed"]]
-    if summary.get("failed") != len(failures):
-        raise RuntimeError("eval failure count does not match its judgments")
     if len(failures) > max_failed:
         raise RuntimeError(f"eval has {len(failures)} failures; explicitly accepted maximum is {max_failed}")
     if summary.get("critical_quorum_failed") or summary.get("critical_forbidden"):

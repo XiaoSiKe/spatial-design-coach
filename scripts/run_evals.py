@@ -13,6 +13,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+from _eval_contract import build_batches, full_sets, full_summary, load_items, summarize
+
 
 ROOT = Path(__file__).resolve().parents[1]
 EVAL_ROOT = ROOT / "tests" / "evals"
@@ -20,6 +22,7 @@ SKILL_DIR = ROOT / "skills" / "spatial-design-coach"
 EXECUTOR_SCHEMA = EVAL_ROOT / "schemas" / "executor-output.schema.json"
 JUDGE_SCHEMA = EVAL_ROOT / "schemas" / "judge-output.schema.json"
 BEHAVIOR_PATHS = [
+    "scripts/_eval_contract.py",
     "scripts/run_evals.py",
     "skills/spatial-design-coach",
     "tests/evals/config.json",
@@ -42,76 +45,11 @@ def git_commit() -> str:
 
 
 def normalized_items() -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
-    cases_payload = load_json(EVAL_ROOT / "cases.json")
-    journeys_payload = load_json(EVAL_ROOT / "journeys.json")
-    config = load_json(EVAL_ROOT / "config.json")
-
-    cases = [
-        {
-            "id": case["id"],
-            "critical": case["critical"],
-            "fixture": None,
-            "turns": [
-                {"prompt": case["prompt"], "must": case["must"], "must_not": case["must_not"]}
-            ],
-        }
-        for case in cases_payload["cases"]
-    ]
-    journeys = [
-        {
-            "id": journey["id"],
-            "critical": journey["critical"],
-            "fixture": journey["fixture"],
-            "turns": journey["turns"],
-        }
-        for journey in journeys_payload["journeys"]
-    ]
-    return cases, journeys, config
+    return load_items(EVAL_ROOT)
 
 
 def select_batches(suite: str) -> list[tuple[str, int, list[dict[str, object]]]]:
-    cases, journeys, config = normalized_items()
-    by_id = {item["id"]: item for item in cases}
-    high_risk = [by_id[item_id] for item_id in config["high_risk_case_ids"]]
-    def high_risk_batches(run: int) -> list[tuple[str, int, list[dict[str, object]]]]:
-        return [
-            (f"high-risk-{index + 1}", run, [item])
-            for index, item in enumerate(high_risk)
-        ]
-
-    def journey_batches(run: int) -> list[tuple[str, int, list[dict[str, object]]]]:
-        return [
-            (f"journeys-{index + 1}", run, [item])
-            for index, item in enumerate(journeys)
-        ]
-
-    if suite == "smoke":
-        return [(f"smoke-{index + 1}", 1, [by_id[item_id]]) for index, item_id in enumerate(config["smoke_case_ids"])]
-    if suite == "cases":
-        return [(f"cases-{index + 1}", 1, [item]) for index, item in enumerate(cases)]
-    if suite == "high-risk":
-        return [
-            batch
-            for run in range(1, int(config["critical_runs"]) + 1)
-            for batch in high_risk_batches(run)
-        ]
-    if suite == "journeys":
-        return [
-            batch
-            for run in range(1, int(config["journey_runs"]) + 1)
-            for batch in journey_batches(run)
-        ]
-    if suite == "full":
-        case_batches = [(f"cases-{index + 1}", 1, [item]) for index, item in enumerate(cases)]
-        return (
-            case_batches
-            + journey_batches(1)
-            + high_risk_batches(2)
-            + high_risk_batches(3)
-            + journey_batches(2)
-            + journey_batches(3)
-        )
-    raise ValueError(f"unknown suite: {suite}")
+    return build_batches(suite, *normalized_items())
 
 
 def prepare_sandbox(items: list[dict[str, object]], root: Path) -> tuple[dict[str, dict[str, object]], list[Path]]:
@@ -262,35 +200,6 @@ def run_codex(
     return json.loads(output.read_text(encoding="utf-8"))
 
 
-def summarize(
-    runs: list[dict[str, object]], critical_ids: set[str], repeated_ids: set[str], quorum: int
-) -> dict[str, object]:
-    judgments = [judgment for run in runs for judgment in run["judgments"]]
-    failures = [judgment for judgment in judgments if not judgment["passed"]]
-    critical_failures = [judgment for judgment in failures if judgment["id"] in critical_ids]
-    critical_quorum_failed = []
-    critical_forbidden = []
-    for item_id in sorted(critical_ids):
-        item_judgments = [judgment for judgment in judgments if judgment["id"] == item_id]
-        required = quorum if item_id in repeated_ids else 1
-        if len([judgment for judgment in item_judgments if judgment["passed"]]) < required:
-            critical_quorum_failed.append(item_id)
-        forbidden_runs = len([judgment for judgment in item_judgments if judgment["violated_must_not"]])
-        if forbidden_runs >= required:
-            critical_forbidden.append(item_id)
-    return {
-        "judgments": len(judgments),
-        "passed": len(judgments) - len(failures),
-        "failed": len(failures),
-        "critical_failed": len(critical_failures),
-        "critical_quorum_failed": critical_quorum_failed,
-        "critical_forbidden": critical_forbidden,
-        "all_passed": bool(judgments) and not failures,
-        "release_ready": bool(judgments) and not failures and not critical_quorum_failed and not critical_forbidden,
-        "failed_ids": sorted({judgment["id"] for judgment in failures}),
-    }
-
-
 def validate_batch_output(
     items: list[dict[str, object]], responses: dict[str, object], judgments: dict[str, object]
 ) -> None:
@@ -400,9 +309,7 @@ def main() -> int:
                 parser.error(f"cannot merge {report_path}: skill or eval inputs changed")
             runs.extend(source.get("runs", []))
             source_commits.append(old_commit)
-        critical_ids = {str(item["id"]) for item in cases + journeys if item["critical"]}
-        repeated_ids = {str(item_id) for item_id in config["high_risk_case_ids"]}
-        repeated_ids.update(str(item["id"]) for item in journeys if item["critical"])
+        critical_ids, repeated_ids = full_sets(cases, journeys, config)
         report = {
             "schema_version": 1,
             "suite": "full",
@@ -414,7 +321,7 @@ def main() -> int:
             "critical_ids": sorted(critical_ids),
             "repeated_ids": sorted(repeated_ids),
             "runs": runs,
-            "summary": summarize(runs, critical_ids, repeated_ids, int(config["critical_pass_quorum"])),
+            "summary": full_summary(runs, cases, journeys, config),
         }
         json_path, md_path = write_report(report, args.artifacts_dir)
         print(f"wrote {json_path}")
@@ -431,17 +338,13 @@ def main() -> int:
         )
         if unchanged.returncode != 0:
             parser.error("cannot recompute: skill or eval inputs changed")
-        critical_ids = {str(item["id"]) for item in cases + journeys if item["critical"]}
-        repeated_ids = {str(item_id) for item_id in config["high_risk_case_ids"]}
-        repeated_ids.update(str(item["id"]) for item in journeys if item["critical"])
+        critical_ids, repeated_ids = full_sets(cases, journeys, config)
         source["recomputed_from"] = old_commit
         source["commit"] = current_commit
         source["generated_at"] = dt.datetime.now(dt.timezone.utc).isoformat()
         source["critical_ids"] = sorted(critical_ids)
         source["repeated_ids"] = sorted(repeated_ids)
-        source["summary"] = summarize(
-            source["runs"], critical_ids, repeated_ids, int(config["critical_pass_quorum"])
-        )
+        source["summary"] = full_summary(source["runs"], cases, journeys, config)
         json_path, md_path = write_report(source, args.artifacts_dir)
         print(f"wrote {json_path}")
         print(f"wrote {md_path}")

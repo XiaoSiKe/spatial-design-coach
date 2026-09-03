@@ -45,6 +45,8 @@
 
 产品事实只在 [产品需求](./product/prd.md) 维护，架构取舍只在 ADR 解释，项目共同术语以根目录 [CONTEXT.md](../CONTEXT.md) 为准。历史访谈仅供追溯，不是当前要求。GIS、CAD、建模、图像和演示实现保持为外部 Skill／MCP，不复制进核心。
 
+初始化和迁移脚本共用运行时内部模块 [`_project_paths.py`](../skills/spatial-design-coach/scripts/_project_paths.py)，统一检查沙盒路径、符号链接和文件类型。仓库评测执行器与发布检查共用 [`_eval_contract.py`](../scripts/_eval_contract.py) 的队列、覆盖关系和汇总规则；它不进入运行时 Skill。仓库验证器集中枚举源文件，排除本地报告、依赖和缓存目录。
+
 ## 维护规则
 
 1. 修改运行时行为时，同步更新相应单轮 case 或多轮 journey，并在涉及图纸时更新合成 studio packet。
