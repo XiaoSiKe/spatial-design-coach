@@ -77,7 +77,7 @@ When new information conflicts with the state:
 
 An external capability return is evidence, not an automatic state change. If it conflicts with a locked decision, surface the conflict before merging it.
 
-When the student selects one alternative, keep every other compared family as a rejected direction with its mechanism, evidence and rejection reason. Do not delete alternatives merely because the current design has moved on.
+When the student selects one of the compared alternatives, complete the choice record before advancing: **selected family + student confirmation/rationale; each other known family + not-selected/deferred status; retained comparison trade-offs; affected Artifacts and next test**. Explicitly name the non-selected families rather than leaving them implicitly unchosen in earlier conversation. Do not invent why the student rejected each one; use a supplied reason or retain its known trade-offs with the reason unconfirmed. These entries are history, not active directions, and can be revisited with new evidence and student confirmation.
 
 Apply partial choices as an explicit old → new change before summarizing the state. If one component of a bundled proposal is rejected or deferred, split the bundle: state the current retained components and move the paused part into the existing rejected/deferred history with its reason and reopening condition. Do not repeat the old bundle as an active provisional scheme after describing the new choice. Preserve unaffected decisions without reinstating the rejected component.
 

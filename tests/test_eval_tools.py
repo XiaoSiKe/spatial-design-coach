@@ -152,6 +152,40 @@ class EvalToolTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "exactly the required"):
                 RELEASE_CHECK.validate_eval(path, "abc123")
 
+    def test_explicit_release_allowance_preserves_failures_and_other_gates(self) -> None:
+        runs = [
+            {"name": name, "run": run, "judgments": [
+                {"id": item["id"], "passed": True, "missing_must": [], "violated_must_not": []}
+                for item in items
+            ]}
+            for name, run, items in RUN_EVALS.select_batches("full")
+        ]
+        config = RUN_EVALS.normalized_items()[2]
+        repeated = set(config["high_risk_case_ids"])
+        failures = [next(run["judgments"][0] for run in runs if run["judgments"][0]["id"] == item_id)
+                    for item_id in config["high_risk_case_ids"][:3]]
+        payload = {"suite": "full", "commit": "abc123", "runs": runs}
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "report.json"
+            for count, judgment in enumerate(failures, 1):
+                judgment.update(passed=False, missing_must=["required information omitted"])
+                payload["summary"] = RUN_EVALS.summarize(runs, repeated, repeated, 2)
+                path.write_text(json.dumps(payload), encoding="utf-8")
+                original = path.read_bytes()
+                with self.assertRaises(RuntimeError):
+                    RELEASE_CHECK.validate_eval(path, "abc123")
+                if count <= 2:
+                    summary = RELEASE_CHECK.validate_eval(path, "abc123", max_failed=2)
+                    self.assertFalse(summary["all_passed"])
+                else:
+                    with self.assertRaisesRegex(RuntimeError, "explicitly accepted maximum"):
+                        RELEASE_CHECK.validate_eval(path, "abc123", max_failed=2)
+                self.assertEqual(path.read_bytes(), original)
+            payload["summary"]["critical_quorum_failed"] = [failures[0]["id"]]
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "critical behavior"):
+                RELEASE_CHECK.validate_eval(path, "abc123", max_failed=3)
+
     def test_batch_output_requires_every_id_and_turn(self) -> None:
         items = [{"id": "x", "turns": [{"prompt": "a"}, {"prompt": "b"}]}]
         responses = {"responses": [{"id": "x", "turns": [{"turn": 1, "response": "a"}, {"turn": 2, "response": "b"}]}]}

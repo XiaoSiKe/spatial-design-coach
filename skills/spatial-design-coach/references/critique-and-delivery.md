@@ -8,7 +8,11 @@ Inspect the student's current brief, drawings, model views, diagrams, captions, 
 
 Describe whole-layout typology separately from named-room positions. Do not turn a general “rooms on both sides of a corridor” description into an unverified claim that two named rooms lie opposite one another. When a particular side or adjacency matters, check it in the source plan; otherwise omit that positional detail and discuss the verified interface or proposed change.
 
+Distinguish geometric connection, conditions for public access, and the experience or representation of shared use. A continuous drawn corridor can still leave publicness unresolved. Specify which layer a word such as “broken” or “disappears” describes; attribute a tutor's remark as feedback until checked. Missing access annotations or an unclear shared-use mechanism do not prove a physical gap in the plan.
+
 If an artifact cannot be inspected, do not invent its content. Ask for the smallest decisive item: often one plan plus one section at a stated scale, the current board at delivery size, or a two-minute project explanation.
+
+If the only input is a tutor's broad verdict, lead with the evidence gap. Say that the verdict has not been checked against the work; do not turn it into “your scheme lacks clear spatial judgment” or another observed defect. Any candidate diagnosis remains explicitly hypothetical from its first mention, even when a later sentence lists uncertainties.
 
 When the student asks where a section should cut, read [Choose a first section](design-reasoning.md#choose-a-first-section) before locating it. A plausible proposed section does not establish where its elements lie in the existing plan.
 
@@ -88,6 +92,8 @@ Start with a deliverable ledger:
 
 State confirmed brief requirements and student-locked choices separately from Artifact readiness. In the `confirmed / provisional / missing` groups, name a concrete plan, section, model, board or other deliverable. For example, “plan expressing the locked courtyard choice: provisional” preserves the choice; “courtyard choice: provisional because not drawn yet” does not. A delivered/inspected old file may need revision, but its state cannot downgrade the design decision.
 
+Populate required/missing entries only from an actual brief or a user-confirmed requirement and a supported absence. A known board count does not identify the drawings each board must contain. Keep unknown drawing types undetermined; you may propose a provisional narrative or test diagram, but do not promote it into “required and missing” through your own outline. When no specific missing required output can be established, say that directly instead of filling the category with conventional plans or sections.
+
 | Required item | Evidence status | Current state | Source file or model | Blocking dependency | Minimum complete state |
 | --- | --- | --- | --- | --- | --- |
 
@@ -122,7 +128,7 @@ A report of work taking longer is not a completion or inspection record. Keep �
 
 Use this overrun order: **known capacity or explicit capacity gap → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
 
-While capacity is unknown, include an executable conditional replan in this reply: **if remaining effort only covers required content plus QA/defense**, simplify representations, integrate diagrams that can share a checked source, and stop optional refinements; **if capacity remains after those needs**, restore one refinement that most strengthens the central claim. Each branch retains every required item's minimum content and the authoritative version. Asking for hours and promising to replan later, or only branching on whether a drawing is finished, does not express how capacity changes the plan. No numerical threshold is needed when effort is unknown.
+While capacity is unknown, give a conditional action now. For example: if the blocking drawing is ready for cross-check, update its dependent required drawings/model from the shared source; otherwise finish that minimum source first. In either case, stop optional polish, preserve every required item's content/version and QA, and state what to do if the remaining capacity cannot cover that minimum. Minimum-only / spare-time / infeasible tiers are one possible format, not a mandatory list. An extra refinement branch may wait until capacity is known. Merely requesting hours and promising to plan later is insufficient; no invented numerical threshold is needed.
 
 If even the minimum consistent set and QA cannot fit, say that full delivery is currently infeasible. Prioritize the blocking source and record the remaining required items as missing; ask the student to seek an explicit course-approved extension or requirement change. Continue helping with the feasible work, but do not invent a waiver, silently delete an item, or present an outdated artifact as a complete substitute.
 

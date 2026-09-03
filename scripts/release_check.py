@@ -40,15 +40,15 @@ def compare_trees(left: Path, right: Path) -> None:
         compare_trees(left / name, right / name)
 
 
-def validate_eval(path: Path, expected_commit: str) -> None:
+def validate_eval(path: Path, expected_commit: str, max_failed: int = 0) -> dict[str, object]:
+    if max_failed < 0:
+        raise RuntimeError("max-failed must be nonnegative")
     payload = json.loads(path.read_text(encoding="utf-8"))
     if payload.get("suite") != "full":
         raise RuntimeError("release requires a full eval report")
     if payload.get("commit") != expected_commit:
         raise RuntimeError("eval report commit does not match HEAD")
     summary = payload.get("summary", {})
-    if summary.get("release_ready") is not True or summary.get("all_passed") is not True or summary.get("failed") != 0:
-        raise RuntimeError(f"release requires every required behavior to pass: {summary}")
     names = {(run_item["name"], run_item["run"]) for run_item in payload.get("runs", [])}
     config = json.loads((EVAL_ROOT / "config.json").read_text(encoding="utf-8"))
     case_count = len(json.loads((EVAL_ROOT / "cases.json").read_text(encoding="utf-8"))["cases"])
@@ -69,10 +69,21 @@ def validate_eval(path: Path, expected_commit: str) -> None:
         raise RuntimeError("eval report must contain exactly the required isolated cases and reruns")
     judgments = [item for run_item in payload["runs"] for item in run_item.get("judgments", [])]
     if len(judgments) != len(required) or any(
-        item.get("passed") is not True or item.get("missing_must") or item.get("violated_must_not")
-        for item in judgments
+        type(item.get("passed")) is not bool or (
+            item["passed"] and (item.get("missing_must") or item.get("violated_must_not"))
+        ) for item in judgments
     ):
-        raise RuntimeError("eval judgments are incomplete or contain a required-behavior failure")
+        raise RuntimeError("eval judgments are incomplete or hide a required-behavior failure")
+    failures = [item for item in judgments if not item["passed"]]
+    if summary.get("failed") != len(failures):
+        raise RuntimeError("eval failure count does not match its judgments")
+    if len(failures) > max_failed:
+        raise RuntimeError(f"eval has {len(failures)} failures; explicitly accepted maximum is {max_failed}")
+    if summary.get("critical_quorum_failed") or summary.get("critical_forbidden"):
+        raise RuntimeError("critical behavior quorum or forbidden-behavior gate failed")
+    if max_failed == 0 and (summary.get("release_ready") is not True or summary.get("all_passed") is not True):
+        raise RuntimeError("release requires every required behavior to pass by default")
+    return summary
 
 
 def local_install_check() -> None:
@@ -127,6 +138,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--eval-report", type=Path, required=True)
     parser.add_argument("--local-only", action="store_true", help="skip commit-SHA remote install")
+    parser.add_argument("--max-failed", type=int, default=0,
+                        help="explicitly accepted failed judgments for this release (default: 0); does not alter the report")
     args = parser.parse_args()
 
     expected_commit = commit()
@@ -142,11 +155,12 @@ def main() -> int:
     run([sys.executable, str(plugin_validate), str(ROOT)])
     run(["npx", "--yes", "skills-ref", "validate", str(SKILL_DIR)])
     local_install_check()
-    validate_eval(args.eval_report.resolve(), expected_commit)
+    summary = validate_eval(args.eval_report.resolve(), expected_commit, args.max_failed)
     if not args.local_only:
         remote_install_check(expected_commit)
 
     print(f"Release qualification passed for {expected_commit}")
+    print(f"Behavior: {summary['passed']}/{summary['judgments']}; failed: {summary['failed']}; accepted maximum: {args.max_failed}")
     return 0
 
 

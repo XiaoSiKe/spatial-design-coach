@@ -47,7 +47,7 @@ GIS、CAD、BIM、参数化、图像生成、PPT 或 PDF 操作应优先作为�
 1. 按语义化版本判断 patch、minor 或 major，并同步 `SKILL.md`、Plugin manifest、产品基线和项目模板。
 2. 只有 `PROJECT.md` 结构不兼容时才递增项目状态格式；为每条迁移路径增加备份、幂等和未来 schema 拒绝测试。
 3. 更新 README 的安装／升级说明和中文 Release notes，明确旧任务是否需新建任务、旧项目是否需迁移。
-4. 运行仓库验证、单元测试、Skill／Plugin validators、安装比对和完整行为评测。
+4. 运行仓库验证、单元测试、Skill／Plugin validators、安装比对和完整行为评测；若维护者明确接受少量行为失败，在 Release 中披露实际结果、失败情境和验收额度，保留原始报告。
 5. 合并到 `main` 后创建对应 `vX.Y.Z` tag 与 GitHub Release；不要把未推送 commit 的本地报告当发布证据。
 
 提交贡献即表示你同意使其按本项目的 [MIT License](LICENSE) 发布。
