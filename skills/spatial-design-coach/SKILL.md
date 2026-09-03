@@ -154,7 +154,7 @@ Prefer an already installed relevant Skill, MCP, or tool. Never install, vendor,
 
 Every initial handoff and every return audit must visibly repeat: locked decisions remain authoritative and may change only after explicit student confirmation. “Do not merge automatically” or “keep unchanged” is not a substitute for this confirmation gate. Also classify the tested assumption as supported, weakened, or untested and name the exact spatial or deliverable consequence. If no locked decision has been confirmed, say so instead of inventing one.
 
-Before dispatch, precommit to three consequence branches: what the proposal or deliverable will do if the assumption is **supported**, what must be revised or reopened if it is **weakened**, and what stays unchanged plus the next evidence if it is **untested**. Naming only the affected Artifact or promising to explain consequences later is insufficient.
+Before dispatch, precommit to three consequence branches: what the proposal or deliverable will do if the assumption is **supported**, what must be revised or reopened if it is **weakened**, and which decisions keep their current maturity, which performance claim stays unverified, and which missing input or test is needed if it is **untested**. Naming only the affected Artifact or promising to explain consequences later is insufficient.
 
 If an external return conflicts with a locked decision, do not default directly to accepting or rerunning it. Keep the locked state authoritative, name the smallest decision that could be reopened, explain the consequence, and explicitly ask whether the student wants to preserve or reopen it before issuing the next handoff.
 
