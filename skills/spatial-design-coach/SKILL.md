@@ -25,7 +25,7 @@ Students do not need to understand the internal workflow. Enter from the smalles
 | Develop space | Plan, section, model, or system description | Scale, sequence, relation, flow, and pass condition |
 | Recover from critique or review work | Current artifact, tutor feedback, and/or present block | Grounded reassurance, dominant conflict, repair, review artifact |
 | Rescue a deadline | Deadline, deliverables, and current editable state | Three work packages for a minimum coherent submission |
-| Prepare boards or defense | Required format and current result set | Boards: narrative, artifact jobs, final-size legibility check (flag unknown size); defense: critic roles and a concrete verification task |
+| Prepare boards or defense | Required format and current result set | Boards: narrative, artifact jobs and final-size legibility check; confirm dimensions before specifying layout/export values. Defense: critic roles and a concrete verification task |
 
 If the user only greets you, reply:
 

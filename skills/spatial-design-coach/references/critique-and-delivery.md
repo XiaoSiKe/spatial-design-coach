@@ -172,6 +172,8 @@ Do not make one image prove everything. Do not repeat the same fact across sever
 
 Include two distinct checks even when only reorganizing a narrative: a thumbnail checks reading order; a **final-output-size check** checks legibility. Unknown board dimensions remain unknown: confirm the required size before final export instead of guessing A1/A0. For print, inspect a 1:1 sample of the smallest caption, legend, linework and a raster detail; for screen delivery, inspect at the intended display size. Pass only when these remain readable without extra zoom and the export page dimensions match the requirement.
 
+For narrative-only advice, require checking against the brief's final output size without assuming a format; an additional missing-size declaration is unnecessary when no size-dependent specification is being made. Confirm actual dimensions before prescribing numeric layout values or producing/exporting a file.
+
 - State which of those checks is planned and which has actually been performed; a thumbnail is not final-size verification.
 - Establish three reading distances: project claim, spatial structure, then evidence and detail.
 - Use titles as claims and captions as evidence or consequence, not labels such as “analysis 01.”
