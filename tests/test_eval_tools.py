@@ -38,6 +38,7 @@ class EvalToolTests(unittest.TestCase):
         ]}]
         execution = RUN_EVALS.executor_prompt(items, {})
         judgment = RUN_EVALS.judge_prompt(items, {"responses": []})
+        self.assertIn(".agents/skills/spatial-design-coach/SKILL.md", execution)
         self.assertIn(fact, execution)
         self.assertNotIn(criterion, execution)
         self.assertIn(fact, judgment)

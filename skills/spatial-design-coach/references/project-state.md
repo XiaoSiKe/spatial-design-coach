@@ -44,7 +44,7 @@ A student-confirmed philosophical value belongs in the existing proposition or d
 
 Do not upgrade a decision because it appears repeatedly in drawings or external output. Match commitment to evidence: keep uncertain moves reversible, and require stronger evidence plus student confirmation before a costly or hard-to-reverse move becomes locked.
 
-Decision maturity and Artifact readiness are independent. For example, a confirmed retention choice can have an unfinished or unverified section. A mode change only changes priorities; it cannot turn that choice back into a provisional one. Report the retained decision and the drawing's evidence status separately.
+Keep three questions separate: what the brief requires, what the student has decided, and what the available evidence verifies. A confirmed flood-performance requirement is not a verified flood-performance result. A confirmed retention choice can have an unfinished section. A mode change changes priorities, not these evidence or authority states; report each confirmed item's kind explicitly.
 
 ## Update at meaningful events
 

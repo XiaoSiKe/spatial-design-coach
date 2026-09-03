@@ -197,6 +197,8 @@ claim → evidence visible here → limitation or uncertainty → reasoned respo
 
 Do not bluff. “That requires verification by X; the current design reserves Y so the decision remains possible” is stronger than invented certainty.
 
+Give one concrete rehearsal test alongside the framework: for example, a user reviewer traces a proposed daily route on the plan while a technical reviewer checks the associated section's declared assumptions. Label this as an example when project details are absent. Do not leave the student's only verification plan as an ellipsis to fill in later.
+
 ## Close the assignment
 
 After submission or review, extract one reusable method:

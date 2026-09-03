@@ -167,8 +167,9 @@ def executor_prompt(items: list[dict[str, object]], manifests: dict[str, dict[st
             }
         )
     return (
-        "You are the blind executor for spatial-design-coach. Use the locally installed "
-        "$spatial-design-coach and its runtime references. Each item is independent; carry state only "
+        "You are the blind executor for spatial-design-coach. Use the test copy of "
+        "$spatial-design-coach at .agents/skills/spatial-design-coach/SKILL.md. Read that file first and "
+        "resolve its runtime references relative to the same test copy. Each item is independent; carry state only "
         "between turns of the same item. Inspect supplied fixture files and attached images before judging "
         "them. Do not read any eval criteria because none are provided. Reply as the coach would reply to "
         "the student. Follow the Skill's response contract and its explicit exceptions: only cover a "
