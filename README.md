@@ -85,6 +85,8 @@ cp -R spatial-design-coach/skills/spatial-design-coach ~/.agents/skills/
 
 放入任务书、评分表、场地资料、已有图纸和教师反馈。CAD、BIM、Rhino、GIS 原生文件最好同时提供 PDF、PNG 或 SVG 导出，便于实际检查内容。
 
+简单 SVG 中的源路径端点可用于核对剖切位置，避免凭画面猜坐标；图面定位与真实场地测量仍分别对待。
+
 ### 3. 在这个目录打开 Codex，开始对话
 
 ```text

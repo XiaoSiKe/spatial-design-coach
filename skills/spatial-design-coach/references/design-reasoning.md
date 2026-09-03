@@ -145,6 +145,8 @@ Do not ask an atmospheric rendering to prove access, dimensions, ecology, or fea
 
 ## Choose a first section
 
+When an SVG source is supplied, first run `python3 <skill-root>/scripts/svg_anchors.py <source.svg>`. This read-only [anchor inspector](../scripts/svg_anchors.py) reports endpoints of simple open path elements, IDs, source coordinates and limits using Python's standard library. Use a reported in-frame endpoint when the section relies on a path anchor; retain its start/end identity and reported image-relative position instead of relocating it beside an imagined feature. Name the selected source anchor IDs in the working record. The output does not verify intersections, visibility or real-world use. If transforms/styles or a lack of usable anchors prevent inspection, ask for a labeled export or route precise placement to a specialist; do not substitute a guess.
+
 Read the plan and its actual annotations before answering “where should I cut?” Separate **mapped existing features**, **brief requirements without mapped locations**, and **proposed design elements**. A brief requiring mature woodland preservation does not locate that woodland; do not invent it as a starting point.
 
 1. Select one primary use/process conflict, such as everyday access versus changing water levels. Leave other ecological processes for later tests.

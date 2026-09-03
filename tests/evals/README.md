@@ -33,6 +33,8 @@ SDC-026–030 验证哲学空间化、庄子误用、阅读范围与引文诚实
 
 修改合成 SVG 后，用 `python3 scripts/render_fixture_previews.py` 重新生成 PNG；需要 Node.js、`npx agent-browser` 和可用的 Chromium。脚本按 SVG 原生 viewport 尺寸渲染完整集合，全部成功后才替换预览；仓库验证器检查 PNG 与 SVG 尺寸一致。不要使用带缩放或留白的系统缩略图作为坐标证据。
 
+运行时的 `scripts/svg_anchors.py` 只读提取简单开放路径的源端点，并标明图幅范围与不支持的变换／样式。它不判断地物语义、现场真实性或剖线中间的全部交点。单元测试检查真实 fixture 的端点、相对路径、无效输入、变换、定义区和图幅外坐标；涉及剖面定位的行为测试同时检查如何使用这些事实。
+
 ```bash
 python3 scripts/validate_repo.py
 npx --yes skills-ref validate skills/spatial-design-coach
