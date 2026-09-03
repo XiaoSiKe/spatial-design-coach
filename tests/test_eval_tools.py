@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import struct
+import sys
 import tempfile
 import unittest
 from collections import Counter
@@ -11,6 +12,7 @@ from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 
 
 def load_module(name: str, path: Path):
@@ -82,6 +84,22 @@ class EvalToolTests(unittest.TestCase):
             finally:
                 VALIDATE_REPO.ERRORS.clear()
 
+    def test_repository_scans_ignore_generated_output_directories(self) -> None:
+        with tempfile.TemporaryDirectory() as temp, patch.object(VALIDATE_REPO, "ROOT", Path(temp)):
+            root = Path(temp)
+            (root / "README.md").write_text("# Readme\n")
+            for directory in ("artifacts", "node_modules", ".cache"):
+                ignored = root / directory / "report.md"
+                ignored.parent.mkdir(parents=True)
+                ignored.write_text("# Report\n\n![missing](missing.png)\n")
+            try:
+                VALIDATE_REPO.ERRORS.clear()
+                VALIDATE_REPO.check_text_files()
+                VALIDATE_REPO.markdown_structure_and_links()
+                self.assertEqual(VALIDATE_REPO.ERRORS, [])
+            finally:
+                VALIDATE_REPO.ERRORS.clear()
+
     def test_independent_cases_never_share_an_executor_context(self) -> None:
         cases, journeys, config = RUN_EVALS.normalized_items()
         by_id = {item["id"]: item for item in cases + journeys}
@@ -95,6 +113,18 @@ class EvalToolTests(unittest.TestCase):
         expected.update({item["id"]: 3 for item in journeys})
         self.assertEqual(counts, expected)
         self.assertEqual(sum(counts.values()), 93)
+
+    def test_full_queue_obeys_configured_run_counts(self) -> None:
+        cases, journeys, config = RUN_EVALS.normalized_items()
+        config = {**config, "critical_runs": 2, "journey_runs": 2}
+        with patch.object(RUN_EVALS, "normalized_items", return_value=(cases, journeys, config)):
+            batches = RUN_EVALS.select_batches("full")
+        counts = Counter(item["id"] for _, _, items in batches for item in items)
+        self.assertEqual(len(batches), 66)
+        for item in cases:
+            self.assertEqual(counts[item["id"]], 2 if item["id"] in config["high_risk_case_ids"] else 1)
+        for item in journeys:
+            self.assertEqual(counts[item["id"]], 2)
 
     def test_fixture_previews_reject_thumbnail_coordinate_frame(self) -> None:
         with tempfile.TemporaryDirectory() as temp, patch.object(VALIDATE_REPO, "ROOT", Path(temp)):
@@ -127,7 +157,6 @@ class EvalToolTests(unittest.TestCase):
         payload = {
             "suite": "full",
             "commit": "abc123",
-            "summary": {"failed": 0, "all_passed": True, "release_ready": True},
             "runs": [
                 {"name": name, "run": run, "judgments": [
                     {"id": item["id"], "passed": True, "missing_must": [], "violated_must_not": []}
@@ -136,6 +165,7 @@ class EvalToolTests(unittest.TestCase):
                 for name, run, items in RUN_EVALS.select_batches("full")
             ],
         }
+        payload["summary"] = RELEASE_CHECK.full_summary(payload["runs"], *RUN_EVALS.normalized_items())
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "report.json"
             path.write_text(json.dumps(payload), encoding="utf-8")
@@ -152,6 +182,32 @@ class EvalToolTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "exactly the required"):
                 RELEASE_CHECK.validate_eval(path, "abc123")
 
+    def test_release_report_rejects_wrong_ids_duplicate_runs_and_summary(self) -> None:
+        runs = [
+            {"name": name, "run": run, "judgments": [
+                {"id": items[0]["id"], "passed": True, "missing_must": [], "violated_must_not": []}
+            ]}
+            for name, run, items in RUN_EVALS.select_batches("full")
+        ]
+        payload = {"suite": "full", "commit": "abc123", "runs": runs,
+                   "summary": RELEASE_CHECK.full_summary(runs, *RUN_EVALS.normalized_items())}
+        mutations = (
+            lambda report: report["runs"][1]["judgments"][0].update(id="SDC-001"),
+            lambda report: report["runs"][1].update(name=report["runs"][0]["name"]),
+            lambda report: report["runs"][0].update(run=99),
+            lambda report: report["summary"].update(passed=0),
+            lambda report: report["summary"].update(critical_quorum_failed=["SDC-001"]),
+        )
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "report.json"
+            for index, mutate in enumerate(mutations):
+                with self.subTest(mutation=index):
+                    changed = json.loads(json.dumps(payload))
+                    mutate(changed)
+                    path.write_text(json.dumps(changed), encoding="utf-8")
+                    with self.assertRaises(RuntimeError):
+                        RELEASE_CHECK.validate_eval(path, "abc123")
+
     def test_explicit_release_allowance_preserves_failures_and_other_gates(self) -> None:
         runs = [
             {"name": name, "run": run, "judgments": [
@@ -161,7 +217,6 @@ class EvalToolTests(unittest.TestCase):
             for name, run, items in RUN_EVALS.select_batches("full")
         ]
         config = RUN_EVALS.normalized_items()[2]
-        repeated = set(config["high_risk_case_ids"])
         failures = [next(run["judgments"][0] for run in runs if run["judgments"][0]["id"] == item_id)
                     for item_id in config["high_risk_case_ids"][:3]]
         payload = {"suite": "full", "commit": "abc123", "runs": runs}
@@ -169,7 +224,7 @@ class EvalToolTests(unittest.TestCase):
             path = Path(temp) / "report.json"
             for count, judgment in enumerate(failures, 1):
                 judgment.update(passed=False, missing_must=["required information omitted"])
-                payload["summary"] = RUN_EVALS.summarize(runs, repeated, repeated, 2)
+                payload["summary"] = RELEASE_CHECK.full_summary(runs, *RUN_EVALS.normalized_items())
                 path.write_text(json.dumps(payload), encoding="utf-8")
                 original = path.read_bytes()
                 with self.assertRaises(RuntimeError):
@@ -185,6 +240,16 @@ class EvalToolTests(unittest.TestCase):
             path.write_text(json.dumps(payload), encoding="utf-8")
             with self.assertRaisesRegex(RuntimeError, "critical behavior"):
                 RELEASE_CHECK.validate_eval(path, "abc123", max_failed=3)
+            matching = [
+                run["judgments"][0]
+                for run in runs
+                if run["judgments"][0]["id"] == failures[0]["id"]
+            ]
+            matching[1].update(passed=False, missing_must=["required information omitted"])
+            payload["summary"] = RELEASE_CHECK.full_summary(runs, *RUN_EVALS.normalized_items())
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "critical behavior"):
+                RELEASE_CHECK.validate_eval(path, "abc123", max_failed=4)
 
     def test_batch_output_requires_every_id_and_turn(self) -> None:
         items = [{"id": "x", "turns": [{"prompt": "a"}, {"prompt": "b"}]}]

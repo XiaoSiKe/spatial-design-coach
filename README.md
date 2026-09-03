@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/studio-hero.png" width="1200" alt="从场地线稿、庭院建筑模型到城市街道与滨水景观的连续空间插画">
+  <img src="docs/assets/studio-hero.webp" width="1200" alt="昏暗的建筑设计工作室中，学生围绕图纸、模型和绘图桌协作">
 </p>
 
 # 设计课无敌教练
@@ -15,7 +15,7 @@ Skill 可以理解为给 AI 装上一套专门的工作方法。这个项目把�
 [![Quality](https://github.com/XiaoSiKe/spatial-design-coach/actions/workflows/quality.yml/badge.svg)](https://github.com/XiaoSiKe/spatial-design-coach/actions/workflows/quality.yml)
 [![MIT License](https://img.shields.io/badge/License-MIT-477368.svg)](LICENSE)
 
-当前发布版本：`0.6.1` · [版本记录](https://github.com/XiaoSiKe/spatial-design-coach/releases) · 封面为原创 AI 概念插画
+当前发布版本：`0.6.1` · [版本记录](https://github.com/XiaoSiKe/spatial-design-coach/releases) · 封面由项目维护者提供
 
 [能帮你做什么](#what) · [开始使用](#start) · [看一个例子](#example) · [哲学与书目](#readings) · [更新与答疑](#updates) · [验证与贡献](#quality)
 

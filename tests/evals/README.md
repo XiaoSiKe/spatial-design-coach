@@ -62,6 +62,8 @@ python3 scripts/run_evals.py --suite full
 
 完整队列为 93 次独立判定：30 个单轮案例、18 个高风险案例各额外两次、9 个多轮作业各三次。`all_passed` 表示实际判定全部通过，`release_ready` 还要求关键复跑达到门槛；默认发布检查要求这两项均为真。空报告、缺失批次和错误 commit 均不被接受。
 
+队列和汇总规则集中在仓库内部 [`_eval_contract.py`](../../scripts/_eval_contract.py)，执行器与发布检查共用，复跑次数来自 `config.json`。发布检查逐批核对案例 ID 与轮次，并从原始判定重新计算汇总；重复、错配或汇总不一致的报告均不被接受。
+
 完整评测通过且当前 commit 已推送后运行：
 
 ```bash

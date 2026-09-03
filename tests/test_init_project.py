@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import importlib.util
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "skills" / "spatial-design-coach" / "scripts" / "init_project.py"
+sys.path.insert(0, str(SCRIPT.parent))
 SPEC = importlib.util.spec_from_file_location("init_project", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
@@ -36,6 +38,35 @@ class InitProjectTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             with self.assertRaises(ValueError):
                 MODULE.initialize(Path(temp) / "missing")
+
+    def test_rejects_links_and_type_conflicts_in_managed_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            root, outside = base / "assignment", base / "outside"
+            root.mkdir()
+            outside.mkdir()
+            (root / "studio").symlink_to(outside, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "symbolic link"):
+                MODULE.initialize(root)
+            self.assertFalse((outside / "PROJECT.md").exists())
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            project = root / "studio" / "PROJECT.md"
+            project.mkdir(parents=True)
+            with self.assertRaisesRegex(ValueError, "not a file"):
+                MODULE.initialize(root)
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            working = root / "studio" / "outputs" / "working"
+            working.parent.mkdir(parents=True)
+            outside = root / "outside"
+            outside.mkdir()
+            working.symlink_to(outside, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "symbolic link"):
+                MODULE.initialize(root)
+            self.assertFalse((root / "studio" / "PROJECT.md").exists())
 
 
 if __name__ == "__main__":
