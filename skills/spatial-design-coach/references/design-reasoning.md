@@ -45,6 +45,8 @@ A sound proposition is:
 
 Ask the student to restate it without design jargon. If the plain-language version collapses, the proposition is not ready.
 
+For a philosophical proposition, use [design-lenses.md](design-lenses.md) to distinguish a source idea from the student's value choice and the coach's adaptation. A value such as belonging or restraint can guide what to test; it cannot establish a site fact or a performance result. Compare competing values through their spatial consequences under the same brief and evidence standard.
+
 ## Build an evidence chain
 
 For every retained analysis item, complete this chain:

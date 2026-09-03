@@ -1,9 +1,9 @@
 ---
 name: spatial-design-coach
-description: Coach architecture, urban planning, and landscape architecture students inside one assignment sandbox from brief interpretation through alternatives, spatial development, critique, deliverables, and defense. Use for spatial-design coursework, 建筑方案、城市设计、景观设计、任务书解读、概念落地、不会做设计、方案没设计感、评图受挫、教师反馈、交图救火、展板、汇报或答辩. Do not use for standalone GIS, CAD, slide-making, software architecture, graphic branding, or product UI unless it serves an active spatial-design assignment.
+description: Coach architecture, urban planning, and landscape architecture students inside one assignment sandbox from brief interpretation through alternatives, spatial development, critique, deliverables, and defense. Use for spatial-design coursework, 建筑方案、城市设计、景观设计、任务书解读、概念落地、设计哲学、不会做设计、评图受挫、交图救火、展板或答辩. Do not use for standalone philosophy, life advice, GIS, CAD, slide-making, software architecture, graphic branding, or product UI unless it serves an active spatial-design assignment.
 license: MIT
 metadata:
-  version: "0.5.0"
+  version: "0.6.0"
 ---
 
 # Spatial Design Coach
@@ -87,7 +87,7 @@ Read [studio-workflow.md](references/studio-workflow.md) for brief intake, low-i
 ## Route to the right reference
 
 - Read [design-reasoning.md](references/design-reasoning.md) for propositions, evidence chains, existing datasets, precedents, alternative families, comparison, spatial translation, or AI-supported exploration.
-- Read [design-lenses.md](references/design-lenses.md) only when theory or a productive counterpoint can change a live decision; select no more than 2–3 lenses.
+- Read [design-lenses.md](references/design-lenses.md) when a book, design philosophy, Zhuangzi, or a productive counterpoint can change a live design decision; select no more than 2–3 lenses.
 - Read [contemporary-challenges.md](references/contemporary-challenges.md) only when reuse, carbon, climate, justice, access, participation, care, maintenance, phasing, or uncertainty materially affects the project.
 - Read [studio-standard.md](references/studio-standard.md) when mapping a brief or rubric, checking a stage gate, calibrating disciplinary depth, or deciding whether the assignment is complete.
 - Read [critique-and-delivery.md](references/critique-and-delivery.md) for artifact review, discouraging or actionable tutor-feedback decoding, deadline rescue, deliverables, boards, presentations, defense, or AI-use disclosure.
@@ -123,6 +123,16 @@ When supplied evidence exposes a conflict between a concept and a plan, section,
 Match commitment to evidence. Keep pivotal moves open, provisional, locked, or superseded; do not let a hypothesis silently become a decision. Prefer reversible tests while uncertainty is high. Before a costly or hard-to-reverse move becomes locked, require relevant evidence or an Artifact, make the trade-off visible, and obtain the student's confirmation.
 
 Use AI as a sparring partner: offer a counterproposal or challenge, ask what the student accepts, rejects, and changes, then preserve that authorship in the decision record. End a completed assignment with one reusable method or transfer test.
+
+## Connect philosophy to a design decision
+
+For standalone philosophy or life advice outside a design assignment, return to the host's general conversation without requesting drawings or creating project state.
+
+When philosophy is relevant, connect **source idea → project tension → value choice → spatial move → evidence/test**. Separate the author's argument, the material actually inspected, and the coach's teaching adaptation. The selected reading cards include both public excerpts and limited catalogue/introductory evidence; never describe that as full-book reading or invent quotations, editions, or pages.
+
+Use reflection to ask whose life the proposal supports, what it leaves out, and what the student learned from a move. Offer at most one optional reflective question within the existing question budget; the student may decline it without blocking practical help. Do not request private life stories or create a philosophical/personality profile. Keep any student-confirmed project value in the existing proposition or decision rationale, with its trade-off and next test; no new state schema is needed.
+
+Zhuangzi can prompt perspective changes, attention to situated limits, and reconsideration of usefulness. These are teaching adaptations, not evidence that all judgments are equally valid, that inaction is always best, or that an unverified design is sound. Keep factual checks, safety, brief requirements, and student-confirmed locks authoritative. In rescue mode, shorten reflection to what changes the next action and continue the existing delivery contract.
 
 ## Route specialist capabilities safely
 

@@ -8,7 +8,7 @@
 
 **English summary:** An open-source design-studio coach that helps architecture, urban planning, and landscape architecture students move from the project brief to a coherent, defensible submission.
 
-当前发布版本：`0.5.0`
+当前发布版本：`0.6.0`
 
 ## 当你觉得“我不会做设计”
 
@@ -19,6 +19,80 @@
 ```text
 $spatial-design-coach 老师说我不会做设计，我现在也不知道从哪开始。请先帮我拆开评价和真实问题，再带我完成一个最小、可验证的下一步。
 ```
+
+## 设计哲学与核心著作
+
+本轮从维护者提供的 50 本专业参考书中甄选 **24 本**（建筑、城乡规划、风景园林各 8 本），另加入 **《庄子》选篇**。教练把著作中的问题意识连接到具体作业：怎样生活、为谁设计、如何对待环境，以及怎样在不确定中学习。
+
+使用路径是：**来源观点 → 当前矛盾 → 学生的价值取舍 → 空间动作 → 验证与复盘**。例如，保留一处未规定用途的庭院，需要说明谁会使用、允许哪些变化、谁维护，以及与另一方案相比付出了什么代价。学生可以选择是否展开个人反思。
+
+以下 25 项已形成[首轮原创方法卡](skills/spatial-design-coach/references/design-lenses.md)。**E** 表示已核读标明的原文节选或前言；**M** 表示依据书介、目录、书目或相关导读形成的方法原型，原著具体章节仍待核读。两者都不表示已读完整部著作，行为测试也不证明文献解释正确。具体版本、阅读范围与缺口见[来源地图](docs/research/source-map.md#selected-readings)。
+
+| 编号 | 甄选著作 | 作者／主编 | 本轮记录 |
+| --- | --- | --- | --- |
+| B02 | [《建筑：形式、空间和秩序》](skills/spatial-design-coach/references/design-lenses.md#b02) | 程大锦 | 核心·M |
+| B03 | [《建筑空间组合论》](skills/spatial-design-coach/references/design-lenses.md#b03) | 彭一刚 | 核心·M |
+| B04 | [《建筑学教程1：设计原理》](skills/spatial-design-coach/references/design-lenses.md#b04) | 赫尔曼·赫茨伯格 | 核心·M |
+| B06 | [《公共建筑设计原理》](skills/spatial-design-coach/references/design-lenses.md#b06) | 张文忠 | 核心·M |
+| B10 | [《图解建筑结构：模式、体系与设计》](skills/spatial-design-coach/references/design-lenses.md#b10) | 程大锦等 | 核心·M |
+| B17 | [《建筑的复杂性与矛盾性》](skills/spatial-design-coach/references/design-lenses.md#b17) | 罗伯特·文丘里 | 核心·E |
+| B18 | [《建筑模式语言》](skills/spatial-design-coach/references/design-lenses.md#b18) | 克里斯托弗·亚历山大等 | 核心·M |
+| B19 | [《场所精神：迈向建筑现象学》](skills/spatial-design-coach/references/design-lenses.md#b19) | 诺伯舒兹 | 核心·M |
+| B21 | [《城市规划原理》](skills/spatial-design-coach/references/design-lenses.md#b21) | 吴志强、李德华 | 核心·M |
+| B25 | [《城市设计》](skills/spatial-design-coach/references/design-lenses.md#b25) | 王建国 | 核心·M |
+| B26 | [《详细规划》](skills/spatial-design-coach/references/design-lenses.md#b26) | 阳建强 | 核心·M |
+| B27 | [《乡村规划原理》](skills/spatial-design-coach/references/design-lenses.md#b27) | 李京生 | 核心·M |
+| B31 | [《城市意象》](skills/spatial-design-coach/references/design-lenses.md#b31) | 凯文·林奇 | 核心·M |
+| B32 | [《美国大城市的死与生》](skills/spatial-design-coach/references/design-lenses.md#b32) | 简·雅各布斯 | 核心·M |
+| B33 | [《交往与空间》](skills/spatial-design-coach/references/design-lenses.md#b33) | 扬·盖尔 | 核心·E |
+| B35 | [《历史城市保护学导论》](skills/spatial-design-coach/references/design-lenses.md#b35) | 张松 | 核心·M |
+| B37 | [《景观设计学：场地规划与设计手册》](skills/spatial-design-coach/references/design-lenses.md#b37) | 约翰·O·西蒙兹、巴里·W·斯塔克 | 核心·M |
+| B39 | [《从概念到形式》](skills/spatial-design-coach/references/design-lenses.md#b39) | 格兰特·W·里德 | 核心·M |
+| B41 | [《中国古典园林分析》](skills/spatial-design-coach/references/design-lenses.md#b41) | 彭一刚 | 核心·M |
+| B42 | [《园冶注释》](skills/spatial-design-coach/references/design-lenses.md#b42) | 计成著，陈植注释 | 核心·M |
+| B45 | [《设计结合自然》](skills/spatial-design-coach/references/design-lenses.md#b45) | 伊恩·麦克哈格 | 核心·M |
+| B47 | [《植物造景》](skills/spatial-design-coach/references/design-lenses.md#b47) | 苏雪痕 | 核心·M |
+| B49 | [《风景园林工程》](skills/spatial-design-coach/references/design-lenses.md#b49) | 孟兆祯 | 核心·M |
+| B50 | [《城市绿地系统规划》](skills/spatial-design-coach/references/design-lenses.md#b50) | 许浩 | 核心·E |
+| Z01 | [《庄子》选篇](skills/spatial-design-coach/references/design-lenses.md#z01) | 传统归于庄周及后学 | 哲学·E |
+
+《庄子》选篇用于转换观察立场、认识实践中的限度、重新思考“有用”的评价标准；这些是本项目的教学转译。事实、任务书要求、技术验证和学生已确认的决定仍须成立。
+
+<details>
+<summary>其余 26 本专题参考书</summary>
+
+保留原清单编号。以下尚未列入本轮核心蒸馏，按项目需要核验版本并选章研究；作者／主编沿用维护者提供的书目，具体版次另行核对。
+
+| 编号 | 参考著作 | 作者／主编 | 本轮记录 |
+| --- | --- | --- | --- |
+| B01 | 《建筑初步》 | 田学哲、郭逊 | 专题参考 |
+| B05 | 《图解思考：建筑表现技法》 | 保罗·拉索 | 专题参考 |
+| B07 | 《住宅建筑设计原理》 | 龙灏等 | 专题参考 |
+| B08 | 《建筑构造》上、下册 | 覃琳、翁季等 | 专题参考 |
+| B09 | 《建筑物理》 | 柳孝图 | 专题参考 |
+| B11 | 《建筑设计资料集》 | 中国建筑学会、中国建筑工业出版社组织编写 | 专题参考 |
+| B12 | 《中国建筑史》 | 潘谷西 | 专题参考 |
+| B13 | 《外国建筑史：十九世纪末叶以前》 | 陈志华 | 专题参考 |
+| B14 | 《外国近现代建筑史》 | 罗小未 | 专题参考 |
+| B15 | 《华夏意匠：中国古典建筑设计原理分析》 | 李允鉌 | 专题参考 |
+| B16 | 《走向新建筑》 | 勒·柯布西耶 | 专题参考 |
+| B20 | 《总体设计》 | 凯文·林奇、加里·海克 | 专题参考 |
+| B22 | 《国土空间规划原理》 | 吴志强 | 专题参考 |
+| B23 | 《中国城市建设史》 | 董鉴泓 | 专题参考 |
+| B24 | 《外国城市建设史》 | 沈玉麟 | 专题参考 |
+| B28 | 《城市道路与交通规划》上、下册 | 徐循初 | 专题参考 |
+| B29 | 《城市工程系统规划》 | 戴慎志 | 专题参考 |
+| B30 | 《城市与区域规划空间分析实验教程》 | 尹海伟、孔繁花 | 专题参考 |
+| B34 | 《城市更新理论与方法》 | 阳建强 | 专题参考 |
+| B36 | 《风景园林概论》 | 丁绍刚 | 专题参考 |
+| B38 | 《风景园林设计要素》 | 诺曼·K·布思 | 专题参考 |
+| B40 | 《中国古典园林史》 | 周维权 | 专题参考 |
+| B43 | 《西方园林史：19世纪之前》 | 朱建宁、赵晶 | 专题参考 |
+| B44 | 《西方现代景观设计的理论与实践》 | 王向荣、林箐 | 专题参考 |
+| B46 | 《景观生态学：格局、过程、尺度与等级》 | 邬建国 | 专题参考 |
+| B48 | 《园林树木学》 | 陈有民 | 专题参考 |
+
+</details>
 
 ## 最简单的安装方式：把这句话发给 Codex
 

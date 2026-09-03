@@ -7,7 +7,7 @@
 - Skill slug：`spatial-design-coach`
 - 中文显示名：设计课无敌教练
 - 英文显示名：Spatial Design Coach
-- 版本：`0.5.0`
+- 版本：`0.6.0`
 - 许可证：MIT
 - 服务对象：建筑学、城乡规划、风景园林及相关空间设计学习者
 
@@ -22,10 +22,10 @@
 | [ADR-0003：单作业沙盒与文件化项目状态](./adr/0003-assignment-sandbox-and-file-backed-state.md) | 解释 `studio/PROJECT.md`、原始文件保护和只读降级 |
 | [ADR-0004：Skill 更新与项目状态迁移](./adr/0004-skill-updates-and-project-state-migration.md) | 解释本地更新、版本源、任务刷新和显式项目迁移 |
 | [开源先例](./research/open-source-prior-art.md) | 同类项目比较和吸收／调用策略 |
-| [来源地图](./research/source-map.md) | 专业标准、教材、理论、当代议题和案例研究池 |
+| [来源地图](./research/source-map.md) | 专业标准、25 项入选来源的阅读范围、当代议题与案例研究 |
 | [来源与许可记录](./research/provenance.md) | 上游版本、许可证、审阅范围和使用方式 |
-| [验收情境](./testing/acceptance-scenarios.md) | 25 个端到端行为的可观察验收标准 |
-| [`tests/evals/`](../tests/evals/) | 25 个单轮案例、8 个 journey、6 个 studio packet 与运行方法 |
+| [验收情境](./testing/acceptance-scenarios.md) | 30 个端到端行为的可观察验收标准 |
+| [`tests/evals/`](../tests/evals/) | 30 个单轮案例、9 个 journey、6 个 studio packet 与运行方法 |
 | [首轮需求访谈](./archive/discovery-questions.md) | 30 个问题及其决策轨迹，仅供追溯 |
 
 项目共同术语以根目录 [CONTEXT.md](../CONTEXT.md) 为准。
@@ -39,7 +39,7 @@
 | 项目状态与决定 | [`project-state.md`](../skills/spatial-design-coach/references/project-state.md) | 项目模板、ADR-0002／0003、状态 journey |
 | Skill 更新与项目迁移 | `SKILL.md` 元数据、`migrate_project.py` | Plugin 版本、项目模板、ADR-0004、README 与迁移单测 |
 | 阶段、推理与交付 | `studio-workflow.md`、`design-reasoning.md`、`studio-standard.md`、`critique-and-delivery.md` | 产品需求与对应行为评测 |
-| 理论与当代议题 | `design-lenses.md`、`contemporary-challenges.md` | 来源地图与 provenance；只在真实缺口出现时扩展 |
+| 理论与当代议题 | `design-lenses.md`、`contemporary-challenges.md` | README 书目选择、来源地图的实际阅读范围、provenance 与行为评测 |
 | 外部专业能力 | [`capability-routing.md`](../skills/spatial-design-coach/references/capability-routing.md) | ADR-0001 与 Adapter case／journey |
 | 发布与测试 | `tests/evals/`、`scripts/`、CI | [验收情境](./testing/acceptance-scenarios.md) 与版本元数据 |
 

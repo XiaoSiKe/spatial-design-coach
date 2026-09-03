@@ -33,6 +33,8 @@ Keep the state proportional. Omit irrelevant fields rather than printing `unknow
 
 Do not turn temporary distress, confidence, personality, teacher tone, or inferred ability into project-state fields or a student profile. Record only project-relevant feedback criteria, requested support preferences, decisions, and next actions that the student wants preserved.
 
+A student-confirmed philosophical value belongs in the existing proposition or decision rationale, together with the trade-off, source status, affected Artifact, and next test. Record the project choice rather than a life story or belief profile. Declining reflection does not prevent ordinary project work and does not authorize any schema migration.
+
 ## Control decision maturity
 
 - **Open:** a choice is still being framed or compared.
