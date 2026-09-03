@@ -1,14 +1,14 @@
+# 设计课无敌教练
+
 <p align="center">
   <img src="docs/assets/studio-hero.webp" width="1200" alt="昏暗的建筑设计工作室中，学生围绕图纸、模型和绘图桌协作">
 </p>
-
-# 设计课无敌教练
 
 **把想法画清楚，把判断讲明白。**
 
 面向 **建筑学 · 城乡规划 · 风景园林** 学生的开源 Agent Skill。从任务书和已有成果出发，陪你走过概念、方案、深化、评图、交图与答辩，逐渐形成自己的设计判断。
 
-Skill 可以理解为给 AI 装上一套专门的工作方法。这个项目把设计课里的提问、推演、比较和检查整理成一套可持续使用的辅导流程，主要通过 Codex 使用。
+Skill 可以理解为给 AI 装上一套专门的工作方法。这个项目把设计课里的提问、推演、比较和检查整理成一套可持续使用的辅导流程，面向所有支持 [Agent Skills 开放规范](https://agentskills.io/specification) 或能够加载自定义 Skill 目录的 Agent，不绑定特定模型或客户端。
 
 <sub>Spatial Design Coach — From the project brief to a coherent, defensible design.</sub>
 
@@ -44,32 +44,36 @@ Skill 可以理解为给 AI 装上一套专门的工作方法。这个项目把�
 
 ### 1. 安装完整 Skill
 
-本机已有 Node.js 时，在终端运行：
+本机已有 Node.js 时，在终端运行以下命令，按提示选择你使用的 Agent：
 
 ```bash
 npx skills add XiaoSiKe/spatial-design-coach \
-  --skill spatial-design-coach --global --agent codex --yes
+  --skill spatial-design-coach --global
 ```
 
-安装后**新建一个 Codex 任务**；如果没有出现，完全重启 Codex。在 `/skills` 中选择“设计课无敌教练”，或直接在消息中写 `$spatial-design-coach`。
+也可追加 `--agent codex --yes`、`--agent claude-code --yes` 等参数，直接指定 Agent；`--agent '*' --yes` 表示安装到安装器支持的所有 Agent。安装器未支持的 Agent，可按其文档手动导入完整 Skill 目录。
+
+安装后**在所用 Agent 中新建会话或任务**，通过它的技能入口选择“设计课无敌教练”，或明确要求使用 `spatial-design-coach`。调用语法由宿主决定；例如 Codex 可使用 `/skills` 或 `$spatial-design-coach`。
 
 <details>
-<summary><strong>不熟悉终端？把这段话发给 Codex</strong></summary>
+<summary><strong>不熟悉终端？把这段话发给你的 Agent</strong></summary>
 
 ```text
-请使用 $skill-installer 从下面的 GitHub 地址安装 spatial-design-coach：
+请从下面的 GitHub 地址安装 spatial-design-coach Skill，放到你支持的技能目录：
 https://github.com/XiaoSiKe/spatial-design-coach/tree/main/skills/spatial-design-coach
 
 请安装完整 Skill 目录，保留 agents/、references/、scripts/ 和 assets/。
-完成后告诉我安装路径，并提醒我在新任务中用 $spatial-design-coach 验证。
+完成后告诉我安装路径、重新加载方式，以及如何在新会话中调用和验证。
 ```
 
-适用于带 GitHub Skill 安装能力的 Codex。其他客户端的安装方式取决于其对 [Agent Skills 规范](https://agentskills.io/specification) 或专用安装器的支持。
+这段话适用于具备文件访问或 Skill 安装能力的 Agent；具体导入位置和加载方式以所用 Agent 的文档为准。
 
 </details>
 
 <details>
 <summary>手动安装</summary>
+
+先取得完整仓库。以下示例使用 `~/.agents/skills` 共享目录；若你的 Agent 使用其他技能目录，请替换目标路径。
 
 ```bash
 git clone https://github.com/XiaoSiKe/spatial-design-coach.git
@@ -87,10 +91,10 @@ cp -R spatial-design-coach/skills/spatial-design-coach ~/.agents/skills/
 
 简单 SVG 中的源路径端点可用于核对剖切位置，避免凭画面猜坐标；图面定位与真实场地测量仍分别对待。
 
-### 3. 在这个目录打开 Codex，开始对话
+### 3. 在这个目录打开你的 Agent，开始对话
 
 ```text
-$spatial-design-coach 开始这个设计作业。
+请使用 spatial-design-coach Skill，开始这个设计作业。
 请读取任务书和已有成果，建立项目状态。
 指出当前最关键的设计矛盾，
 并告诉我下一张图要验证什么。
@@ -122,7 +126,7 @@ $spatial-design-coach 开始这个设计作业。
 **规划 · 分析如何改变一个空间决定**
 
 ```text
-$spatial-design-coach 我做了人口、POI 和热力分析，老师说只有数据没有策略。
+请使用 spatial-design-coach Skill。我做了人口、POI 和热力分析，老师说只有数据没有策略。
 请从现有材料中挑一条有效证据，示范它如何影响一个具体空间动作，
 并说明什么新证据会推翻这个动作。
 ```
@@ -132,7 +136,7 @@ $spatial-design-coach 我做了人口、POI 和热力分析，老师说只有数
 **景观 · 生态过程怎样改变人的体验**
 
 ```text
-$spatial-design-coach 我的方案叫“生态共生”，但现在只有绿地和曲线路网。
+请使用 spatial-design-coach Skill。我的方案叫“生态共生”，但现在只有绿地和曲线路网。
 请帮我选择一个真实过程，把它连接到地形、路径、季节使用与维护，
 并给出一张能检查这个机制的图。
 ```
@@ -165,7 +169,7 @@ $spatial-design-coach 我的方案叫“生态共生”，但现在只有绿地�
 | **如何确认** | 学生说明接受、拒绝或修改的理由 | 关键决定仍由学生确认；未知或未完成项如实记录 |
 
 ```text
-$spatial-design-coach 还有 36 小时交图。
+请使用 spatial-design-coach Skill。还有 36 小时交图。
 请读取必交成果与当前源文件，进入救火模式，
 按依赖排出必须完成、可降级、应停止的工作，并保留检查和答辩时间。
 ```
@@ -304,7 +308,7 @@ studio/
 只读环境会用会话状态继续工作，并给出可复制的续航快照。换任务前可以这样说：
 
 ```text
-$spatial-design-coach 请导出项目续航快照，
+请使用 spatial-design-coach Skill，导出项目续航快照，
 保留已确认的要求、决定、证据缺口和下一张图的通过条件，让我在新任务继续。
 ```
 
@@ -322,7 +326,7 @@ GitHub 仓库、本地安装副本、正在使用的任务上下文和作业状�
 <details>
 <summary><strong>如何更新已安装的 Skill</strong></summary>
 
-用户级安装：
+通过 `npx skills` 安装的副本，可按安装范围更新。用户级安装：
 
 ```bash
 npx skills update spatial-design-coach --global --yes
@@ -334,7 +338,7 @@ npx skills update spatial-design-coach --global --yes
 npx skills update spatial-design-coach --project --yes
 ```
 
-使用 `npx skills list --global --json` 查看安装范围和 GitHub 来源；实际版本以完整 Skill 中 `SKILL.md` 的 `metadata.version` 为准。更新后新建任务，仍未发现新版时完全重启 Codex。
+通过 `npx skills` 安装的副本，可用 `npx skills list --global --json` 查看安装范围和 GitHub 来源；实际版本以完整 Skill 中 `SKILL.md` 的 `metadata.version` 为准。更新后新建会话或任务，仍未发现新版时按所用 Agent 的方式重新加载技能或重启客户端。
 
 手动安装的副本没有可靠来源记录：先备份原目录，再用最新 Release 的完整 `skills/spatial-design-coach/` 替换，随后新建任务。
 
@@ -357,7 +361,7 @@ python3 ~/.agents/skills/spatial-design-coach/scripts/migrate_project.py \
   --root . --apply --json
 ```
 
-迁移前会备份 `studio/PROJECT.md`，保留已有内容，不修改学生原始资料。安装位置不同时，请使用 `npx skills list --global --json` 返回的实际路径。
+迁移前会备份 `studio/PROJECT.md`，保留已有内容，不修改学生原始资料。安装位置不同时，请使用实际 Skill 路径；通过 `npx skills` 安装的副本可用 `npx skills list --global --json` 查询，其他安装方式请查看所用 Agent 的技能设置。
 
 `legacy` 表示缺少状态格式标记，可先检查；`future-schema` 表示当前 Skill 不支持较新的状态格式，应先更新 Skill，暂不写入项目状态。本次 `0.6.1` 沿用 schema 1。
 
@@ -366,10 +370,10 @@ python3 ~/.agents/skills/spatial-design-coach/scripts/migrate_project.py \
 <details>
 <summary><strong>安装后如何做一次最小验证</strong></summary>
 
-新建 Codex 任务，在一个可写的临时空目录输入：
+在所用 Agent 中新建会话或任务，在一个可写的临时空目录输入：
 
 ```text
-$spatial-design-coach 开始这个设计作业。
+请使用 spatial-design-coach Skill，开始这个设计作业。
 当前目录是可写测试沙盒，请初始化项目状态，不改动目录外的文件。
 ```
 
@@ -382,13 +386,13 @@ $spatial-design-coach 开始这个设计作业。
 
 | 现象 | 处理方式 |
 | --- | --- |
-| 安装或更新后当前对话仍没变化 | 新建任务；必要时完全重启 Codex |
+| 安装或更新后当前对话仍没变化 | 新建会话或任务；按所用 Agent 的方式重新加载技能或重启客户端 |
 | 更新命令找不到来源 | 常见于手动复制安装；备份后用 `npx skills add` 重新安装完整目录 |
 | 只有 `SKILL.md` | 补装完整目录，包括 `agents/`、`references/`、`scripts/` 与 `assets/` |
-| `/spatial-design-coach` 无效 | 使用 `/skills` 选择，或在消息中写 `$spatial-design-coach` |
+| 技能命令无效 | 使用所用 Agent 的技能入口或明确指定 Skill 名称；斜杠命令和 `$` 语法并非所有 Agent 通用 |
 | 同名 Skill 出现两次 | 检查项目级与用户级是否都安装了副本；它们不会自动合并 |
 
-仓库包含 Codex Plugin manifest，目前未提交公共 Plugin Directory。学生使用优先选择本页的独立 Skill 安装方式。
+仓库中的 Codex Plugin manifest 是额外的平台安装适配；核心 Skill 不依赖它。各类 Agent 均以完整 `skills/spatial-design-coach/` 目录为安装内容，按宿主支持的方式加载。
 
 </details>
 
