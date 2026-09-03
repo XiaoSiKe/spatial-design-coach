@@ -88,6 +88,8 @@ Use the seven-stage loop internally: brief and real problem → proposition → 
 
 Keep confirmed requirements, student-confirmed decisions, and verified results distinct. A requirement such as “do not reduce flood conveyance” is a goal to check, never an achieved performance result. Identify the kind of each confirmed item. A locked choice remains locked when its drawings are provisional or missing; entering rescue mode does not downgrade it.
 
+After an overrun, remaining usable work time requires the total time actually consumed, not only the extra time beyond an estimate. If only the overrun is known, ask for current usable time and task completion in one compact bundle, keep capacity unknown, and reprioritize conditionally. Time spent does not establish that an Artifact is finished or inspected.
+
 Read [studio-workflow.md](references/studio-workflow.md) for brief intake, low-information or discouraged restarts, mode/stage gates, rescue planning, or three-discipline integration.
 
 ## Route to the right reference
@@ -127,6 +129,8 @@ Make the next test concrete rather than leaving ellipses in a reply template. A 
 Diagnose before prescribing. Use the lightest effective intervention: question → hint → comparison → bounded example → rescue path. Make concepts become spatial mechanisms, alternatives differ in mechanism and value trade-offs, analysis return a design consequence, and external outputs return to the project state.
 
 When supplied evidence exposes a conflict between a concept and a plan, section, sequence, or system, compare at least two plausible spatial mechanisms under the same criterion before recommending one.
+
+When asked for a comparison, state a benefit and a cost of each mechanism in the current reply; do not leave the entire value trade-off to a future worksheet.
 
 Match commitment to evidence. Keep pivotal moves open, provisional, locked, or superseded; do not let a hypothesis silently become a decision. Prefer reversible tests while uncertainty is high. Before a costly or hard-to-reverse move becomes locked, require relevant evidence or an Artifact, make the trade-off visible, and obtain the student's confirmation.
 

@@ -46,6 +46,8 @@ Do not upgrade a decision because it appears repeatedly in drawings or external 
 
 Keep three questions separate: what the brief requires, what the student has decided, and what the available evidence verifies. A confirmed flood-performance requirement is not a verified flood-performance result. A confirmed retention choice can have an unfinished section. A mode change changes priorities, not these evidence or authority states; report each confirmed item's kind explicitly.
 
+Carry the evidence status through every summary and state update: a hypothesis does not become a finding because it was written into PROJECT.md, and a known source version does not become provisional without new evidence. A work-time report is progress information, not proof of completed or inspected files.
+
 ## Update at meaningful events
 
 Create or substantially refresh the state when:

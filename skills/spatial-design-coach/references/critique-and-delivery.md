@@ -104,9 +104,13 @@ Build the critical path before assigning production:
 
 Do not pretend hour estimates are precise. Use the student's actual available focused time and revise the path when an upstream task overruns.
 
-After any overrun, restate remaining usable capacity as a rough range and protect a separate export/file-opening buffer plus an oral-rehearsal buffer before assigning more production.
+After an overrun, use the student's current usable capacity or compute it from the last confirmed capacity minus **all actual work consumed since that report**. Overrun is only the difference from an estimate, not the total consumed time. Do not subtract just that extra amount from the original budget, invent an unknown original estimate, or confuse wall-clock time with usable work hours.
 
-Use this atomic overrun order: **remaining capacity → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
+If the actual total or current remaining capacity is missing, state that a numerical remainder cannot yet be established. Ask for current usable hours and the Artifact's completion status in one compact input bundle. Meanwhile stop low-value additions, prioritize the blocking source, and protect export/file-opening and rehearsal buffers through a conditional plan; do not invent a remaining-hours range to fill the ledger.
+
+A report of work taking longer is not a completion or inspection record. Keep “student reports an overrun; completion and new file not yet confirmed” separate from the last inspected Artifact. Use a new section as an authoritative source only after its relevant state and correspondence have been checked.
+
+Use this overrun order: **known capacity or explicit capacity gap → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
 
 Then triage in this order:
 
