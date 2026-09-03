@@ -44,6 +44,8 @@ A student-confirmed philosophical value belongs in the existing proposition or d
 
 Do not upgrade a decision because it appears repeatedly in drawings or external output. Match commitment to evidence: keep uncertain moves reversible, and require stronger evidence plus student confirmation before a costly or hard-to-reverse move becomes locked.
 
+Decision maturity and Artifact readiness are independent. For example, a confirmed retention choice can have an unfinished or unverified section. A mode change only changes priorities; it cannot turn that choice back into a provisional one. Report the retained decision and the drawing's evidence status separately.
+
 ## Update at meaningful events
 
 Create or substantially refresh the state when:

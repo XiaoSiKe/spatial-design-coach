@@ -30,6 +30,19 @@ class EvalToolTests(unittest.TestCase):
         self.assertEqual(VALIDATE_REPO.first_blockquote_after(text, "marker"), "first\nsecond")
         self.assertEqual(VALIDATE_REPO.first_blockquote_after(text, "missing"), "")
 
+    def test_judge_sees_original_input_while_executor_remains_blind(self) -> None:
+        fact = "Student reports a report exists, but provides no file."
+        criterion = "Private rubric: distinguish reported receipt from inspection."
+        items = [{"id": "case", "critical": True, "fixture": None, "turns": [
+            {"prompt": fact, "must": [criterion], "must_not": ["invent a returned result"]}
+        ]}]
+        execution = RUN_EVALS.executor_prompt(items, {})
+        judgment = RUN_EVALS.judge_prompt(items, {"responses": []})
+        self.assertIn(fact, execution)
+        self.assertNotIn(criterion, execution)
+        self.assertIn(fact, judgment)
+        self.assertIn(criterion, judgment)
+
     def test_reading_registry_rejects_selection_and_evidence_drift(self) -> None:
         read = VALIDATE_REPO.read
         mutations = (

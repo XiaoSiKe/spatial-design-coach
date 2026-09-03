@@ -20,7 +20,9 @@ SKILL_DIR = ROOT / "skills" / "spatial-design-coach"
 EXECUTOR_SCHEMA = EVAL_ROOT / "schemas" / "executor-output.schema.json"
 JUDGE_SCHEMA = EVAL_ROOT / "schemas" / "judge-output.schema.json"
 BEHAVIOR_PATHS = [
+    "scripts/run_evals.py",
     "skills/spatial-design-coach",
+    "tests/evals/config.json",
     "tests/evals/cases.json",
     "tests/evals/journeys.json",
     "tests/evals/fixtures",
@@ -184,20 +186,29 @@ def judge_prompt(items: list[dict[str, object]], responses: dict[str, object]) -
         {
             "id": item["id"],
             "critical": item["critical"],
+            "fixture_directory": f"fixtures/{item['fixture']}" if item["fixture"] else None,
             "turns": [
-                {"turn": index, "must": turn["must"], "must_not": turn["must_not"]}
+                {"turn": index, "prompt": turn["prompt"], "must": turn["must"], "must_not": turn["must_not"]}
                 for index, turn in enumerate(item["turns"], 1)
             ],
         }
         for item in items
     ]
     return (
-        "You are an independent behavior judge. Evaluate only observable response text against every must "
-        "and must_not criterion. Do not infer hidden reasoning and do not reward fixed headings or wording. "
+        "You are an independent behavior judge. Evaluate observable response text against the original user "
+        "prompts, supplied fixtures/images, and every must and must_not criterion. Do not infer hidden "
+        "reasoning and do not reward fixed headings or wording. "
         "Accept semantically equivalent wording rather than requiring a literal phrase. Respect explicit "
         "hypothetical facts in the user prompt, and let later journey turns inherit visible constraints from "
         "earlier turns. Updating the status of an inspected technical Artifact is not the same as changing a "
-        "locked design decision. "
+        "locked design decision. Decision maturity and Artifact readiness are independent: a locked choice "
+        "may have an unfinished drawing, but a mode change cannot downgrade the choice itself. "
+        "The execution sandbox is read-only: accept a concrete, visible intended state update when writing "
+        "is unavailable, even if the response explicitly says it cannot write. A vague promise to update "
+        "later is insufficient. If no technical return or inspectable file was supplied, evaluate the "
+        "required handoff, conditional consequences, and explicit missing-evidence audit; do not demand or "
+        "reward an invented actual result or inspection. When a return was supplied, require reconciliation "
+        "of that real result. Distinguish user-reported receipt from coach inspection or technical acceptance. "
         "Mark passed only when all must criteria are observable and no must_not behavior appears. Evidence "
         "must be short excerpts or precise references to visible response content. Return only JSON matching "
         "the output schema; provide concise reasons, not chain-of-thought.\n\nCRITERIA:\n"
