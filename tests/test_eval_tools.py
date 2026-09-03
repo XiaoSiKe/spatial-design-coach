@@ -4,6 +4,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+from collections import Counter
 from pathlib import Path
 from unittest.mock import patch
 
@@ -64,57 +65,47 @@ class EvalToolTests(unittest.TestCase):
         finally:
             VALIDATE_REPO.ERRORS.clear()
 
-    def test_expected_batch_shapes(self) -> None:
-        self.assertEqual([(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("smoke")], [("smoke", 1, 5)])
-        self.assertEqual(len(RUN_EVALS.select_batches("cases")), 4)
-        high_risk_shapes = [
-            (name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("high-risk")
-        ]
-        self.assertEqual(len(high_risk_shapes), 18)
-        self.assertTrue(all(size == 3 for _, _, size in high_risk_shapes))
-        journey_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("journeys")]
-        self.assertEqual(len(journey_shapes), 27)
-        self.assertTrue(all(size == 1 for _, _, size in journey_shapes))
+    def test_readme_images_must_resolve_for_markdown_and_html(self) -> None:
+        with tempfile.TemporaryDirectory() as temp, patch.object(VALIDATE_REPO, "ROOT", Path(temp)):
+            root = Path(temp)
+            (root / "README.md").write_text('# Readme\n\n![Demo](demo.svg)\n<img src="hero.png" alt="Hero">\n')
+            try:
+                VALIDATE_REPO.ERRORS.clear()
+                VALIDATE_REPO.markdown_structure_and_links()
+                self.assertEqual(len(VALIDATE_REPO.ERRORS), 2)
+                (root / "demo.svg").touch()
+                (root / "hero.png").touch()
+                VALIDATE_REPO.ERRORS.clear()
+                VALIDATE_REPO.markdown_structure_and_links()
+                self.assertEqual(VALIDATE_REPO.ERRORS, [])
+            finally:
+                VALIDATE_REPO.ERRORS.clear()
 
-        full_shapes = [(name, run, len(items)) for name, run, items in RUN_EVALS.select_batches("full")]
-        self.assertEqual(
-            full_shapes[:4],
-            [("cases-1", 1, 8), ("cases-2", 1, 8), ("cases-3", 1, 8), ("cases-4", 1, 6)],
-        )
-        self.assertEqual(
-            [(name, run, size) for name, run, size in full_shapes if name.startswith("high-risk-")],
-            [
-                (f"high-risk-{index}", run, 3)
-                for run in (2, 3)
-                for index in range(1, 7)
-            ],
-        )
-        self.assertEqual(
-            {(name, run) for name, run, _ in full_shapes if name.startswith("journeys-")},
-            {(f"journeys-{index}", run) for run in (1, 2, 3) for index in range(1, 10)},
-        )
-        self.assertTrue(all(size == 1 for name, _, size in full_shapes if name.startswith("journeys-")))
+    def test_independent_cases_never_share_an_executor_context(self) -> None:
+        cases, journeys, config = RUN_EVALS.normalized_items()
+        by_id = {item["id"]: item for item in cases + journeys}
+        for suite in ("smoke", "cases", "high-risk", "journeys", "full"):
+            with self.subTest(suite=suite):
+                for _, _, items in RUN_EVALS.select_batches(suite):
+                    self.assertEqual(len(items), 1)
+                    self.assertEqual(items[0]["turns"], by_id[items[0]["id"]]["turns"])
+        counts = Counter(item["id"] for _, _, items in RUN_EVALS.select_batches("full") for item in items)
+        expected = {item["id"]: 3 if item["id"] in config["high_risk_case_ids"] else 1 for item in cases}
+        expected.update({item["id"]: 3 for item in journeys})
+        self.assertEqual(counts, expected)
+        self.assertEqual(sum(counts.values()), 93)
 
     def test_release_report_requires_full_current_clean_runs(self) -> None:
         payload = {
             "suite": "full",
             "commit": "abc123",
-            "summary": {"failed": 3, "critical_failed": 1, "release_ready": True},
+            "summary": {"failed": 0, "all_passed": True, "release_ready": True},
             "runs": [
-                {"name": "cases-1", "run": 1},
-                {"name": "cases-2", "run": 1},
-                {"name": "cases-3", "run": 1},
-                {"name": "cases-4", "run": 1},
-                *[
-                    {"name": f"high-risk-{index}", "run": run}
-                    for run in (2, 3)
-                    for index in range(1, 7)
-                ],
-                *[
-                    {"name": f"journeys-{index}", "run": run}
-                    for run in (1, 2, 3)
-                    for index in range(1, 10)
-                ],
+                {"name": name, "run": run, "judgments": [
+                    {"id": item["id"], "passed": True, "missing_must": [], "violated_must_not": []}
+                    for item in items
+                ]}
+                for name, run, items in RUN_EVALS.select_batches("full")
             ],
         }
         with tempfile.TemporaryDirectory() as temp:
@@ -123,6 +114,15 @@ class EvalToolTests(unittest.TestCase):
             RELEASE_CHECK.validate_eval(path, "abc123")
             with self.assertRaises(RuntimeError):
                 RELEASE_CHECK.validate_eval(path, "different")
+            payload["runs"][0]["judgments"][0]["missing_must"] = ["final-size legibility check"]
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "required-behavior failure"):
+                RELEASE_CHECK.validate_eval(path, "abc123")
+            payload["runs"][0]["judgments"][0]["missing_must"] = []
+            payload["runs"].pop()
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "exactly the required"):
+                RELEASE_CHECK.validate_eval(path, "abc123")
 
     def test_batch_output_requires_every_id_and_turn(self) -> None:
         items = [{"id": "x", "turns": [{"prompt": "a"}, {"prompt": "b"}]}]
@@ -132,7 +132,7 @@ class EvalToolTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             RUN_EVALS.validate_batch_output(items, {"responses": []}, judgments)
 
-    def test_quorum_only_applies_to_repeated_critical_ids(self) -> None:
+    def test_critical_quorum_does_not_hide_a_required_omission(self) -> None:
         runs = [
             {"judgments": [
                 {"id": "single", "passed": True, "violated_must_not": []},
@@ -142,7 +142,11 @@ class EvalToolTests(unittest.TestCase):
             {"judgments": [{"id": "repeat", "passed": True, "violated_must_not": []}]},
         ]
         summary = RUN_EVALS.summarize(runs, {"single", "repeat"}, {"repeat"}, 2)
-        self.assertTrue(summary["release_ready"])
+        self.assertEqual(summary["critical_quorum_failed"], [])
+        self.assertFalse(summary["all_passed"])
+        self.assertFalse(summary["release_ready"])
+        runs[0]["judgments"][1]["passed"] = True
+        self.assertTrue(RUN_EVALS.summarize(runs, {"single", "repeat"}, {"repeat"}, 2)["release_ready"])
 
 
 if __name__ == "__main__":

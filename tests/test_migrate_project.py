@@ -36,7 +36,7 @@ class MigrateProjectTests(unittest.TestCase):
             backup = Path(str(migrated["backup"]))
             self.assertEqual(backup.read_text(encoding="utf-8"), original)
             updated = project.read_text(encoding="utf-8")
-            self.assertIn("- Skill 版本：0.6.0", updated)
+            self.assertIn("- Skill 版本：0.6.1", updated)
             self.assertIn("- 项目状态格式：1", updated)
             self.assertIn("- 决定：保留旧树", updated)
 
@@ -59,7 +59,7 @@ class MigrateProjectTests(unittest.TestCase):
 
             migrated = MODULE.apply(root)
             self.assertTrue(migrated["changed"])
-            self.assertIn("- Skill 版本：0.6.0", project.read_text(encoding="utf-8"))
+            self.assertIn("- Skill 版本：0.6.1", project.read_text(encoding="utf-8"))
             self.assertIn("- 决定：保留公共路径", project.read_text(encoding="utf-8"))
             self.assertEqual(Path(str(migrated["backup"])).read_text(encoding="utf-8"), original)
 

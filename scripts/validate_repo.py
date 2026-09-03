@@ -55,7 +55,8 @@ def check_text_files() -> None:
 
 
 def markdown_structure_and_links() -> None:
-    link_pattern = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
+    link_pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+    html_link_pattern = re.compile(r'<(?:img|a)\b[^>]*\b(?:src|href)="([^"]+)"', re.IGNORECASE)
     for path in sorted(ROOT.rglob("*.md")):
         if ".git" in path.parts:
             continue
@@ -80,7 +81,7 @@ def markdown_structure_and_links() -> None:
         for (prev_line, prev), (line, level) in zip(headings, headings[1:]):
             if level > prev + 1:
                 fail(f"heading level jumps from H{prev} to H{level}: {rel}:{prev_line}->{line}")
-        for target in link_pattern.findall(text):
+        for target in link_pattern.findall(text) + html_link_pattern.findall(text):
             target = target.strip().split()[0].strip("<>")
             if target.startswith(("http://", "https://", "mailto:", "#")):
                 continue
@@ -271,12 +272,6 @@ def check_journeys_and_fixtures() -> None:
                     fail(f"journey turn missing {key}: {journey_id}")
 
     config = json.loads(read(eval_root / "config.json") or "{}")
-    high_risk_batch_size = config.get("high_risk_batch_size")
-    if not isinstance(high_risk_batch_size, int) or high_risk_batch_size < 1:
-        fail("eval config high_risk_batch_size must be a positive integer")
-    journey_batch_size = config.get("journey_batch_size")
-    if not isinstance(journey_batch_size, int) or journey_batch_size < 1:
-        fail("eval config journey_batch_size must be a positive integer")
     case_ids = {
         case["id"]
         for case in json.loads(read(eval_root / "cases.json") or "{}").get("cases", [])

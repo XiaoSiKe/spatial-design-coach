@@ -55,6 +55,7 @@ In a writable assignment sandbox, add the assigned output directory and require 
 
 - Capability and task:
 - Inputs and authoritative project version:
+- Data provenance (owner/source, date/version, transformations):
 - Method and tools:
 - Returned files:
 - Verification evidence:
@@ -96,7 +97,8 @@ Every handoff must also state how the return will be translated into a concrete 
 ### `cad-modeling`
 
 - Enumerate the selected design scheme and authoritative version as locked decisions alongside boundary, north, datum and levels; define how the returned model version will be named and compared.
-- Lock units, origin, axes, levels, tolerances, naming, and file version before exchange.
+- Define a usable exchange rule in the handoff: inherit the authoritative file's unit, origin/control point, axes, north and vertical datum unchanged; identify that file/version and the point's coordinates. If any value is unavailable, explicitly mark it **pending confirmation before modeling**, request the source metadata/control-point record in one bundle, and limit current work to preparation. Never silently choose metres, millimetres, `(0,0,0)`, or a scheme name.
+- Record any necessary conversion as a proposed scale/rotation/translation, verify it against a known dimension/control point, and obtain confirmation before exchange. Lock levels, tolerances, naming and file version at the same gate; merely asking the return to “explain units and origin” is insufficient.
 - State which geometry is authoritative and which is exploratory.
 - Keep parameters and layers legible; avoid unexplained destructive conversion.
 - Check open edges, overlaps, normals, solids, dimensions, quantities, or interoperability as relevant.
@@ -130,6 +132,8 @@ Before presenting an external result to the student, answer:
 
 Use a visible return-audit checklist: **actual files inspected → method → source/data → verification → limitations → design consequence → student confirmation**. A hypothetical or merely promised return cannot be marked accepted.
 
+For a reported return without inspectable content, state the current gaps separately: **files not inspected; method unknown; data provenance unknown; validation evidence unavailable; scope/limitations unassessed**. Source provenance means where the input data came from, its owner and date/version; unknown north or elevation alone is not a source audit. Name the affected hypothesis as untested and a conditional spatial consequence, without asserting that a merely reported file actually exists or passed.
+
 State at least one concrete spatial or deliverable consequence, even when the technical result passes. Technical consistency alone is not a design conclusion. Before proposing any locked-decision update, say explicitly that the current locked state remains authoritative until the student confirms the change.
 
 For every inspected return, include at least one visible row:
@@ -142,6 +146,8 @@ Do not leave the assumption-status column implicit in surrounding prose.
 If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
 
 ## Degrade honestly when no capability exists
+
+Lead with the operation's actual status, for example: **“本次尚未运行日照模拟，未生成或核查模拟结果；依赖模拟的判断仍待验证。”** Use the true operation and distinguish any prior user-supplied results. A future handoff, manual approximation, or “if untested” branch does not report what happened in this session.
 
 Return three things:
 

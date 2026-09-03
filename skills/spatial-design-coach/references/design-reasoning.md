@@ -62,6 +62,8 @@ observed or sourced condition
 
 Label the first link as supplied fact, direct observation, external source, inference, or assumption. A heat map, precedent image, quotation, or site photo is not a conclusion by itself.
 
+Complete one chain in the current reply, including an actual spatial move and its matching test. If no finding was supplied, use one explicitly hypothetical condition instead of inventing a site fact or returning only arrow labels. Example: **if** a verified observation shows residents detouring around a closed edge to reach a park → test whether the edge, rather than service demand, is the obstacle → provisionally open one pedestrian connection → compare before/after walking routes on a 1:2000 plan. Keep the opening unconfirmed; an existing usable entrance or an access restriction could overturn it.
+
 Use precedents as transfer cases:
 
 ```text
@@ -81,6 +83,12 @@ When the student already has census, POI, mobility, remote-sensing, survey, or s
 - **causality:** whether a correlation is being used as an explanation without evidence.
 
 Choose one live decision and complete one full evidence chain before making another map. A heat or density pattern cannot become a node, axis, program, or demolition decision until the affected group, spatial consequence, scale, and falsifying evidence are named.
+
+## Connect ecological processes to lived space
+
+Ask which process is decisive, then demonstrate one conditional mechanism without waiting for a complete dataset. Trace **process → spatial arrangement → use or bodily experience → test**. Naming water, plants, or a human-use point alone leaves the last link unresolved.
+
+For example, **if seasonal ponding is the issue**, compare a planted low area beside an elevated walking route with a route through the low area. The first may keep a daily walk continuous while water levels change; the second may permit closer contact but require seasonal closure. Draw one indexed section showing water-level assumptions, walking surface, access and maintenance. Test whether the route remains usable in the stated scenario; storage capacity and actual water levels still need measurement or calculation. Do not claim the provisional arrangement has already reduced flooding.
 
 ## Generate genuinely different alternatives
 

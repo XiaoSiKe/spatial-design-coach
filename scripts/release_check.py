@@ -47,33 +47,32 @@ def validate_eval(path: Path, expected_commit: str) -> None:
     if payload.get("commit") != expected_commit:
         raise RuntimeError("eval report commit does not match HEAD")
     summary = payload.get("summary", {})
-    if summary.get("release_ready") is not True:
-        raise RuntimeError(f"eval report does not satisfy critical quorum: {summary}")
+    if summary.get("release_ready") is not True or summary.get("all_passed") is not True or summary.get("failed") != 0:
+        raise RuntimeError(f"release requires every required behavior to pass: {summary}")
     names = {(run_item["name"], run_item["run"]) for run_item in payload.get("runs", [])}
     config = json.loads((EVAL_ROOT / "config.json").read_text(encoding="utf-8"))
     case_count = len(json.loads((EVAL_ROOT / "cases.json").read_text(encoding="utf-8"))["cases"])
     journey_count = len(json.loads((EVAL_ROOT / "journeys.json").read_text(encoding="utf-8"))["journeys"])
     high_risk_count = len(config["high_risk_case_ids"])
-    case_batches = (case_count + int(config["batch_size"]) - 1) // int(config["batch_size"])
-    high_risk_batches = (
-        high_risk_count + int(config["high_risk_batch_size"]) - 1
-    ) // int(config["high_risk_batch_size"])
-    journey_batches = (
-        journey_count + int(config["journey_batch_size"]) - 1
-    ) // int(config["journey_batch_size"])
-    required = {(f"cases-{index}", 1) for index in range(1, case_batches + 1)}
+    required = {(f"cases-{index}", 1) for index in range(1, case_count + 1)}
     required.update(
         (f"high-risk-{index}", run)
-        for run in (2, 3)
-        for index in range(1, high_risk_batches + 1)
+        for run in range(2, int(config["critical_runs"]) + 1)
+        for index in range(1, high_risk_count + 1)
     )
     required.update(
         (f"journeys-{index}", run)
         for run in range(1, int(config["journey_runs"]) + 1)
-        for index in range(1, journey_batches + 1)
+        for index in range(1, journey_count + 1)
     )
-    if not required.issubset(names):
-        raise RuntimeError("eval report is missing required case, journey, or independent rerun batches")
+    if required != names or len(payload.get("runs", [])) != len(required):
+        raise RuntimeError("eval report must contain exactly the required isolated cases and reruns")
+    judgments = [item for run_item in payload["runs"] for item in run_item.get("judgments", [])]
+    if len(judgments) != len(required) or any(
+        item.get("passed") is not True or item.get("missing_must") or item.get("violated_must_not")
+        for item in judgments
+    ):
+        raise RuntimeError("eval judgments are incomplete or contain a required-behavior failure")
 
 
 def local_install_check() -> None:

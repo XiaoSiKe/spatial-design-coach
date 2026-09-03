@@ -22,7 +22,7 @@ class InitProjectTests(unittest.TestCase):
 
             self.assertEqual(first["status"], "created")
             self.assertTrue(project.is_file())
-            self.assertIn("- Skill 版本：0.6.0", project.read_text(encoding="utf-8"))
+            self.assertIn("- Skill 版本：0.6.1", project.read_text(encoding="utf-8"))
             self.assertIn("- 项目状态格式：1", project.read_text(encoding="utf-8"))
             self.assertTrue((root / "studio" / "outputs" / "working").is_dir())
             self.assertTrue((root / "studio" / "outputs" / "final").is_dir())
