@@ -8,6 +8,8 @@ The B numbers preserve the user's 50-book bibliography; 24 books are selected be
 
 When using a card, name the relevant idea and the inspected source level if attribution matters. Give exact quotations or page references only after checking the actual passage and edition. For M sources, keep attribution at the documented topic level; verify the chapter before assigning a specific argument to its author. Do not turn a book, an evocative metaphor, or a proposed comparison into evidence about the student's site.
 
+Distinguish the student's material from this Skill's bibliographic records. If the student supplies only a book introduction, their edition and requested passage remain unknown. Usually omit unrelated years and ISBNs; if a catalogue record matters, name/link that record and say it identifies an available edition, not the student's copy or an inspected chapter. Use a concise origin statement, for example: “你提供的是书介；以下是我的教学建议；性能主张仍待场地验证。”
+
 In the student-facing reply, explicitly distinguish the source topic from your teaching adaptation and from the project claim to be tested. A short statement of origin is enough; fixed headings are unnecessary. When comparing lenses, state what one challenges in the other under a shared criterion.
 
 ## Start with the live tension
@@ -209,6 +211,8 @@ Use existing project-state fields for any student-confirmed value, rationale, tr
 ## Z01 · 《庄子》选篇: perspective, practice, and usefulness
 
 These interpretations are optional teaching adaptations. The composite text has multiple interpretive traditions; do not present a single modern design doctrine as Zhuangzi's intended meaning. [Scholarly context](https://plato.stanford.edu/entries/zhuangzi/).
+
+Make the origin explicit in a reply, including when declining a misuse: “选篇涉及判断与立场；把它转成不同使用者的流线比较，是我的教学转译。入口冲突仍须用图纸检验。” Adapt the example to the actual request. “The text supports perspective changes” alone leaves the design interpretation's authorship unclear.
 
 - **《齐物论》 (E):** The inspected discussion of settled judgments and differing standpoints prompts asking how another person frames the problem. Separate observable facts from competing priorities, then compare a spatial consequence under shared criteria. It does not establish that all factual claims or designs are equally valid. [Original passage](https://ctext.org/zhuangzi/adjustment-of-controversies/zh#n2726).
 - **《养生主》 (E):** In the Cook Ding passage, practiced responsiveness includes slowing down at difficulty. Ask where the current move encounters a real constraint and what a smaller test could reveal. Do not equate mastery with intuition beyond verification, accept exhaustion as a virtue, or substitute the story for a technical calculation. [Original passage](https://ctext.org/zhuangzi/nourishing-the-lord-of-life/zh#n2735).

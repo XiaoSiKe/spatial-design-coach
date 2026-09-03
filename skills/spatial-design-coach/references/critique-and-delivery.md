@@ -6,7 +6,15 @@ Read this reference when reviewing student work, prioritizing revisions, rescuin
 
 Inspect the student's current brief, drawings, model views, diagrams, captions, speech, or tutor feedback before judging. Separate what the work visibly demonstrates from what the student says it intends.
 
+Describe whole-layout typology separately from named-room positions. Do not turn a general “rooms on both sides of a corridor” description into an unverified claim that two named rooms lie opposite one another. When a particular side or adjacency matters, check it in the source plan; otherwise omit that positional detail and discuss the verified interface or proposed change.
+
+Distinguish geometric connection, conditions for public access, and the experience or representation of shared use. A continuous drawn corridor can still leave publicness unresolved. Specify which layer a word such as “broken” or “disappears” describes; attribute a tutor's remark as feedback until checked. Missing access annotations or an unclear shared-use mechanism do not prove a physical gap in the plan.
+
 If an artifact cannot be inspected, do not invent its content. Ask for the smallest decisive item: often one plan plus one section at a stated scale, the current board at delivery size, or a two-minute project explanation.
+
+If the only input is a tutor's broad verdict, lead with the evidence gap. Say that the verdict has not been checked against the work; do not turn it into “your scheme lacks clear spatial judgment” or another observed defect. Any candidate diagnosis remains explicitly hypothetical from its first mention, even when a later sentence lists uncertainties.
+
+When the student asks where a section should cut, read [Choose a first section](design-reasoning.md#choose-a-first-section) before locating it. A plausible proposed section does not establish where its elements lie in the existing plan.
 
 Locate one dominant conflict using these dimensions:
 
@@ -82,6 +90,10 @@ If the student asks AI to complete and submit everything, state in one sentence 
 
 Start with a deliverable ledger:
 
+State confirmed brief requirements and student-locked choices separately from Artifact readiness. In the `confirmed / provisional / missing` groups, name a concrete plan, section, model, board or other deliverable. For example, “plan expressing the locked courtyard choice: provisional” preserves the choice; “courtyard choice: provisional because not drawn yet” does not. A delivered/inspected old file may need revision, but its state cannot downgrade the design decision.
+
+Populate required/missing entries only from an actual brief or a user-confirmed requirement and a supported absence. A known board count does not identify the drawings each board must contain. Keep unknown drawing types undetermined; you may propose a provisional narrative or test diagram, but do not promote it into “required and missing” through your own outline. When no specific missing required output can be established, say that directly instead of filling the category with conventional plans or sections.
+
 | Required item | Evidence status | Current state | Source file or model | Blocking dependency | Minimum complete state |
 | --- | --- | --- | --- | --- | --- |
 
@@ -104,6 +116,8 @@ Build the critical path before assigning production:
 
 The brief determines what is required. Stop optional additions; simplify a required item's representation only while retaining its mandated content and format. If a required diagram is paused behind a dependency, name its restoration trigger or the permitted substitute that carries the same content. A seasonal-process requirement, for example, must remain represented even when a separate polished diagram is unnecessary.
 
+Version alignment belongs to the minimum, not the polish budget. A required model may use simpler materials or reduced detail, but it must still show the current essential geometry, paths and levels at the required scale. Do not withdraw that model or defer its essential version correction to a spare-capacity branch. A label saying “old version” is an honest limitation, not fulfillment of the current-version requirement.
+
 Do not pretend hour estimates are precise. Use the student's actual available focused time and revise the path when an upstream task overruns.
 
 After an overrun, use the student's current usable capacity or compute it from the last confirmed capacity minus **all actual work consumed since that report**. Overrun is only the difference from an estimate, not the total consumed time. Do not subtract just that extra amount from the original budget, invent an unknown original estimate, or confuse wall-clock time with usable work hours.
@@ -113,6 +127,10 @@ If the actual total or current remaining capacity is missing, state that a numer
 A report of work taking longer is not a completion or inspection record. Keep “student reports an overrun; completion and new file not yet confirmed” separate from the last inspected Artifact. Use a new section as an authoritative source only after its relevant state and correspondence have been checked.
 
 Use this overrun order: **known capacity or explicit capacity gap → protected export/open/upload and defense buffers → stop or degrade low-value work → restate authoritative project version and final QA checks**. Do not skip a link.
+
+While capacity is unknown, give a conditional action now. For example: if the blocking drawing is ready for cross-check, update its dependent required drawings/model from the shared source; otherwise finish that minimum source first. In either case, stop optional polish, preserve every required item's content/version and QA, and state what to do if the remaining capacity cannot cover that minimum. Minimum-only / spare-time / infeasible tiers are one possible format, not a mandatory list. An extra refinement branch may wait until capacity is known. Merely requesting hours and promising to plan later is insufficient; no invented numerical threshold is needed.
+
+If even the minimum consistent set and QA cannot fit, say that full delivery is currently infeasible. Prioritize the blocking source and record the remaining required items as missing; ask the student to seek an explicit course-approved extension or requirement change. Continue helping with the feasible work, but do not invent a waiver, silently delete an item, or present an outdated artifact as a complete substitute.
 
 Then triage in this order:
 
@@ -162,7 +180,11 @@ Do not make one image prove everything. Do not repeat the same fact across sever
 
 ## Audit boards and files
 
-- Read at final physical size or realistic screen scale, not only while zoomed in.
+Include two distinct checks even when only reorganizing a narrative: a thumbnail checks reading order; a **final-output-size check** checks legibility. Unknown board dimensions remain unknown: confirm the required size before final export instead of guessing A1/A0. For print, inspect a 1:1 sample of the smallest caption, legend, linework and a raster detail; for screen delivery, inspect at the intended display size. Pass only when these remain readable without extra zoom and the export page dimensions match the requirement.
+
+For narrative-only advice, require checking against the brief's final output size without assuming a format; an additional missing-size declaration is unnecessary when no size-dependent specification is being made. Confirm actual dimensions before prescribing numeric layout values or producing/exporting a file.
+
+- State which of those checks is planned and which has actually been performed; a thumbnail is not final-size verification.
 - Establish three reading distances: project claim, spatial structure, then evidence and detail.
 - Use titles as claims and captions as evidence or consequence, not labels such as “analysis 01.”
 - Keep north, scale, boundary, levels, names, numbers, colors, and design state consistent.

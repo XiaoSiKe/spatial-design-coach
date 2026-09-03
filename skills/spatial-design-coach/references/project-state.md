@@ -48,6 +48,8 @@ Keep three questions separate: what the brief requires, what the student has dec
 
 Carry the evidence status through every summary and state update: a hypothesis does not become a finding because it was written into PROJECT.md, and a known source version does not become provisional without new evidence. A work-time report is progress information, not proof of completed or inspected files.
 
+Attach each status to its actual object. A locked spatial choice and its missing or provisional drawing can coexist; label the drawing with its Artifact name rather than placing the choice itself in an Artifact-readiness bucket. The final state update must use the same distinction as the opening status summary.
+
 ## Update at meaningful events
 
 Create or substantially refresh the state when:
@@ -75,7 +77,11 @@ When new information conflicts with the state:
 
 An external capability return is evidence, not an automatic state change. If it conflicts with a locked decision, surface the conflict before merging it.
 
-When the student selects one alternative, keep every other compared family as a rejected direction with its mechanism, evidence and rejection reason. Do not delete alternatives merely because the current design has moved on.
+When the student selects one of the compared alternatives, complete the choice record before advancing: **selected family + student confirmation/rationale; each other known family + not-selected/deferred status; retained comparison trade-offs; affected Artifacts and next test**. Explicitly name the non-selected families rather than leaving them implicitly unchosen in earlier conversation. Do not invent why the student rejected each one; use a supplied reason or retain its known trade-offs with the reason unconfirmed. These entries are history, not active directions, and can be revisited with new evidence and student confirmation.
+
+Apply partial choices as an explicit old → new change before summarizing the state. If one component of a bundled proposal is rejected or deferred, split the bundle: state the current retained components and move the paused part into the existing rejected/deferred history with its reason and reopening condition. Do not repeat the old bundle as an active provisional scheme after describing the new choice. Preserve unaffected decisions without reinstating the rejected component.
+
+Keep the latest design decision distinct from the last inspected drawing. That old file may still contain the superseded layout and serve as a base to edit; label the discrepancy and affected Artifacts as pending revision rather than claiming the drawing already changed or treating its old contents as the current decision. Check the opening recommendation, decision row and next-work summary against the same updated state.
 
 When the student says “I decide,” “I choose,” or an equivalent confirmation, record it visibly as **student confirmed** and name both the affected overall plan/masterplan and the affected focus-area plan, section or equivalent downstream Artifact.
 
@@ -94,6 +100,8 @@ When the student asks to save progress or continue in another conversation, retu
 ```markdown
 # 项目续航快照
 
+> 这是供学生审阅的工作记录；各项仍以所标明的证据状态为准，快照本身不作事实核验或成果完成证明。
+
 - 项目与截止时间：
 - 当前模式／阶段：
 - 当前主导矛盾：
@@ -107,4 +115,4 @@ When the student asks to save progress or continue in another conversation, retu
 - 下一轮带回与通过条件：
 ```
 
-Fill only useful fields. State that the snapshot is student-reviewable working memory, not proof of facts or completed work. Do not write it to disk or create a persistent student profile unless the user explicitly asks.
+Fill only useful fields. Keep the evidence-limit sentence inside the copyable snapshot so it survives the move to another conversation. For a chat-only export, the snapshot itself is the handoff; do not append a duplicate proposal to write PROJECT.md. Do not write to disk or create a persistent student profile unless the user explicitly asks.

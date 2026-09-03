@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">从共享口号，到共享界面，再到平面与剖面验证</title>
+  <desc id="desc">原创合成教学示意。左图为沿走廊排列的三个房间，与庭院联系不明；右图把其中一处界面打开供人选择停留，并保留通往安静房间的独立路径。下方列出条件、动作和验证；图示不代表真实项目或合规结论。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1 1L6 4L1 7" fill="none" stroke="#477368" stroke-width="1.4"/></marker>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#d8cbbb" stroke-width="2"/></pattern>
+    <style>
+      text{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#253b35}
+      .small{font-size:19px;fill:#64736b}.label{font-size:24px}.heading{font-size:29px;font-weight:600}
+      .wall{stroke:#52645b;stroke-width:4;fill:#fffdf8}.route{stroke:#477368;stroke-width:4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="620" rx="12" fill="#f6f3eb"/>
+  <text x="46" y="43" class="small" letter-spacing="3">STUDIO NOTE / 01</text>
+  <text x="46" y="94" font-size="34" font-weight="600">把“共享”变成一个可检验的关系</text>
+  <text x="1154" y="43" text-anchor="end" class="small">合成练习 · 非真实项目</text>
+  <line x1="46" y1="116" x2="1154" y2="116" stroke="#d7ddd3"/>
+  <text x="46" y="159" class="heading">01 先识别断点</text>
+  <text x="646" y="159" class="heading">02 只改变一个关系</text>
+  <line x1="600" y1="149" x2="600" y2="443" stroke="#d7ddd3"/>
+  <rect x="80" y="198" width="442" height="74" fill="#e8e5dd"/>
+  <rect x="80" y="198" width="138" height="74" class="wall"/>
+  <rect x="232" y="198" width="138" height="74" class="wall"/>
+  <rect x="384" y="198" width="138" height="74" class="wall"/>
+  <text x="149" y="245" text-anchor="middle" class="label">活动室</text>
+  <text x="301" y="245" text-anchor="middle" class="label">活动室</text>
+  <text x="453" y="245" text-anchor="middle" class="label">静室</text>
+  <path d="M80 296H522" stroke="#a2aca4" stroke-width="3" stroke-dasharray="8 6"/>
+  <text x="81" y="326" class="small">走廊</text>
+  <rect x="187" y="340" width="232" height="78" rx="4" fill="url(#hatch)" stroke="#c8c2b4"/>
+  <text x="303" y="387" text-anchor="middle" class="label">庭院</text>
+  <text x="449" y="383" font-size="34" fill="#a8704e">?</text>
+  <text x="646" y="429" class="small">选择相遇，也保留安静经过的可能。</text>
+  <rect x="669" y="198" width="138" height="74" class="wall"/>
+  <path d="M821 272V198H959V272" class="wall"/>
+  <rect x="973" y="198" width="138" height="74" class="wall"/>
+  <text x="738" y="245" text-anchor="middle" class="label">活动室</text>
+  <text x="890" y="245" text-anchor="middle" class="label">活动室</text>
+  <text x="1042" y="245" text-anchor="middle" class="label">静室</text>
+  <rect x="813" y="278" width="154" height="61" rx="4" fill="#d8e4d7"/>
+  <text x="890" y="316" text-anchor="middle" font-size="23">共享界面</text>
+  <rect x="813" y="345" width="154" height="51" rx="4" fill="#e7ecdf"/>
+  <circle cx="891" cy="371" r="18" fill="#9bad8e"/>
+  <path d="M662 307H782V373H805" class="route"/>
+  <path d="M1000 379H1135V288H1040" class="route"/>
+  <circle cx="764" cy="305" r="5" fill="#a8704e"/>
+  <circle cx="1135" cy="354" r="5" fill="#a8704e"/>
+  <text x="46" y="455" class="small">图面上的绿色与房间数量，尚不能证明共享怎样发生。</text>
+  <rect x="0" y="490" width="1200" height="130" rx="12" fill="#294b40"/>
+  <rect x="0" y="490" width="1200" height="15" fill="#294b40"/>
+  <g style="fill:#f6f3eb">
+    <text x="46" y="530" style="fill:#b8cfbf;font-size:19px">条件 · 先标清依据</text>
+    <text x="46" y="574" style="fill:#f6f3eb;font-size:24px">谁需要相遇？谁需要安静？</text>
+    <text x="440" y="530" style="fill:#b8cfbf;font-size:19px">动作 · 先做一个改变</text>
+    <text x="440" y="574" style="fill:#f6f3eb;font-size:24px">打开界面，比较两条路径。</text>
+    <text x="829" y="530" style="fill:#b8cfbf;font-size:19px">验证 · 再决定是否保留</text>
+    <text x="829" y="574" style="fill:#f6f3eb;font-size:24px">平剖对齐，使用仍待观察。</text>
+  </g>
+</svg>

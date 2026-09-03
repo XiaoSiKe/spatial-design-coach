@@ -7,7 +7,7 @@
 - Skill slug：`spatial-design-coach`
 - 中文显示名：设计课无敌教练
 - 英文显示名：Spatial Design Coach
-- 版本：`0.6.0`
+- 版本：`0.6.1`
 - 许可证：MIT
 - 服务对象：建筑学、城乡规划、风景园林及相关空间设计学习者
 

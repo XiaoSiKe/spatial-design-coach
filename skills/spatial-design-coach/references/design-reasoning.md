@@ -62,6 +62,8 @@ observed or sourced condition
 
 Label the first link as supplied fact, direct observation, external source, inference, or assumption. A heat map, precedent image, quotation, or site photo is not a conclusion by itself.
 
+Complete one chain in the current reply, including an actual spatial move and its matching test. If no finding was supplied, use one explicitly hypothetical condition instead of inventing a site fact or returning only arrow labels. Example: **if** a verified observation shows residents detouring around a closed edge to reach a park → test whether the edge, rather than service demand, is the obstacle → provisionally open one pedestrian connection → compare before/after walking routes on a 1:2000 plan. Keep the opening unconfirmed; an existing usable entrance or an access restriction could overturn it.
+
 Use precedents as transfer cases:
 
 ```text
@@ -81,6 +83,12 @@ When the student already has census, POI, mobility, remote-sensing, survey, or s
 - **causality:** whether a correlation is being used as an explanation without evidence.
 
 Choose one live decision and complete one full evidence chain before making another map. A heat or density pattern cannot become a node, axis, program, or demolition decision until the affected group, spatial consequence, scale, and falsifying evidence are named.
+
+## Connect ecological processes to lived space
+
+Ask which process is decisive, then demonstrate one conditional mechanism without waiting for a complete dataset. Trace **process → spatial arrangement → use or bodily experience → test**. Naming water, plants, or a human-use point alone leaves the last link unresolved.
+
+For example, **if seasonal ponding is the issue**, compare a planted low area beside an elevated walking route with a route through the low area. The first may keep a daily walk continuous while water levels change; the second may permit closer contact but require seasonal closure. Draw one indexed section showing water-level assumptions, walking surface, access and maintenance. Test whether the route remains usable in the stated scenario; storage capacity and actual water levels still need measurement or calculation. Do not claim the provisional arrangement has already reduced flooding.
 
 ## Generate genuinely different alternatives
 
@@ -134,6 +142,19 @@ Select the cheapest representation that can falsify the move:
 - change over time → phased plan, seasonal set, timeline, or stewardship protocol.
 
 Do not ask an atmospheric rendering to prove access, dimensions, ecology, or feasibility. An image can testify to experience; it is not an alibi for unresolved space.
+
+## Choose a first section
+
+When an SVG source is supplied, first run `python3 <skill-root>/scripts/svg_anchors.py <source.svg>`. This read-only [anchor inspector](../scripts/svg_anchors.py) reports endpoints of simple open path elements, IDs, source coordinates and limits using Python's standard library. Use a reported in-frame endpoint when the section relies on a path anchor; retain its start/end identity and reported image-relative position instead of relocating it beside an imagined feature. Name the selected source anchor IDs in the working record. The output does not verify intersections, visibility or real-world use. If transforms/styles or a lack of usable anchors prevent inspection, ask for a labeled export or route precise placement to a specialist; do not substitute a guess.
+
+Read the plan and its actual annotations before answering “where should I cut?” Separate **mapped existing features**, **brief requirements without mapped locations**, and **proposed design elements**. A brief requiring mature woodland preservation does not locate that woodland; do not invent it as a starting point.
+
+1. Select one primary use/process conflict, such as everyday access versus changing water levels. Leave other ecological processes for later tests.
+2. Name two visibly locatable existing anchors: start and end. If a path is essential, start at a visible point on it rather than assuming it lies between a lawn and the waterfront. Use image-left/right when geographic orientation is absent.
+3. Check any crossing that the proposed test relies on. A concise answer need not list every intermediate graphic; name only the relevant, supported relationships, and do not describe a partial account as an exhaustive inventory. If a crossing is uncertain, choose a simpler cut between verifiable anchors. A stock “lawn → path → wetland → river” recipe is not evidence of plan topology.
+4. Return those anchors, the primary question, a working scale or view, and an observable pass condition. A general “where” question does not request numerical coordinates: do not append image x/y values or an unsupported claim that the line was geometrically verified.
+
+Describe proposed swales, habitat bands or relocated paths separately as design hypotheses; locate them on a proposed layer before using them for drawing alignment. Coordinate-level editing belongs to a specialist handoff with a declared frame and an actual geometry check. Never give guessed coordinates followed by “verify later.”
 
 ## Escalate help without taking over
 

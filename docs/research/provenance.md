@@ -41,6 +41,18 @@
 | [tt-a1i/archify](https://github.com/tt-a1i/archify) | `5de7275f` | MIT | `README.md`、Skill 结构、`LICENSE` | 系统关系图外援候选 | 未复制；不把软件架构语义机械转为空间语义 |
 | [vercel-labs/skills](https://github.com/vercel-labs/skills) | `435076e7` | MIT | `README.md`、安装发现逻辑、`LICENSE` | `npx skills` 安装、发现与 smoke test | 未复制实现；README 只引用公开命令 Interface |
 
+## README 信息组织参考
+
+2026-09-03 为 README 重排查阅以下根文档。参考用途介绍、章节导航、安装示例与进阶内容分层；中文正文、空间插画和教学示意均由本项目重新制作，未复制上游文本、图像或 Skill instructions。
+
+| 来源与快照 | 本次查看范围 | 许可状态 | 吸收方式 |
+| --- | --- | --- | --- |
+| [obra/superpowers](https://github.com/obra/superpowers/blob/b36e0829c6d0140e93cfef2ca599b1b07d4a7797/README.md) | 根 README、LICENSE | MIT | 借鉴“怎样工作—怎样开始—工作流—理念”的阅读层次，独立编写本项目内容 |
+| [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/README.md) | 根 README 和 GitHub 实际排版 | README 声明 MIT；本次未核到单独许可文件 | 参考用途描述与可复制命令的组织，无文本或资产复用 |
+| [anthropics/skills](https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/README.md) | 根 README | 文件级混合许可，README 区分开放与 source-available 内容 | 参考先解释 Skill 再介绍使用方式的顺序，无文件内容复用 |
+
+本地排版预览使用 Marked 与 `github-markdown-css`，只用于检查 GitHub 风格下的正文、表格和图片，不作为产品依赖或随仓库分发。视觉资产的来源和生成提示词见 [README 视觉资产](../assets/README.md)。
+
 ## 产品文档
 
 | 来源 | 复核日期 | 范围 | 本项目使用方式 | 复制情况 |
