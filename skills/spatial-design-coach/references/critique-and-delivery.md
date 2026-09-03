@@ -6,6 +6,8 @@ Read this reference when reviewing student work, prioritizing revisions, rescuin
 
 Inspect the student's current brief, drawings, model views, diagrams, captions, speech, or tutor feedback before judging. Separate what the work visibly demonstrates from what the student says it intends.
 
+Describe whole-layout typology separately from named-room positions. Do not turn a general “rooms on both sides of a corridor” description into an unverified claim that two named rooms lie opposite one another. When a particular side or adjacency matters, check it in the source plan; otherwise omit that positional detail and discuss the verified interface or proposed change.
+
 If an artifact cannot be inspected, do not invent its content. Ask for the smallest decisive item: often one plan plus one section at a stated scale, the current board at delivery size, or a two-minute project explanation.
 
 When the student asks where a section should cut, read [Choose a first section](design-reasoning.md#choose-a-first-section) before locating it. A plausible proposed section does not establish where its elements lie in the existing plan.
@@ -83,6 +85,8 @@ Then point to one grounded foothold—a supplied decision, observation, or Artif
 If the student asks AI to complete and submit everything, state in one sentence that you cannot impersonate their authorship or claim unmade work, while offering intensive triage, production planning, bounded specialist routing, artifact review, and rehearsal.
 
 Start with a deliverable ledger:
+
+State confirmed brief requirements and student-locked choices separately from Artifact readiness. In the `confirmed / provisional / missing` groups, name a concrete plan, section, model, board or other deliverable. For example, “plan expressing the locked courtyard choice: provisional” preserves the choice; “courtyard choice: provisional because not drawn yet” does not. A delivered/inspected old file may need revision, but its state cannot downgrade the design decision.
 
 | Required item | Evidence status | Current state | Source file or model | Blocking dependency | Minimum complete state |
 | --- | --- | --- | --- | --- | --- |

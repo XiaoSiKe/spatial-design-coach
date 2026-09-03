@@ -48,6 +48,8 @@ Keep three questions separate: what the brief requires, what the student has dec
 
 Carry the evidence status through every summary and state update: a hypothesis does not become a finding because it was written into PROJECT.md, and a known source version does not become provisional without new evidence. A work-time report is progress information, not proof of completed or inspected files.
 
+Attach each status to its actual object. A locked spatial choice and its missing or provisional drawing can coexist; label the drawing with its Artifact name rather than placing the choice itself in an Artifact-readiness bucket. The final state update must use the same distinction as the opening status summary.
+
 ## Update at meaningful events
 
 Create or substantially refresh the state when:
