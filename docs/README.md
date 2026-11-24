@@ -7,7 +7,7 @@
 - Skill slug：`spatial-design-coach`
 - 中文显示名：设计课无敌教练
 - 英文显示名：Spatial Design Coach
-- 版本：`0.6.1`
+- 版本：`0.7.0`
 - 许可证：MIT
 - 服务对象：建筑学、城乡规划、风景园林及相关空间设计学习者
 
@@ -22,7 +22,8 @@
 | [ADR-0003：单作业沙盒与文件化项目状态](./adr/0003-assignment-sandbox-and-file-backed-state.md) | 解释 `studio/PROJECT.md`、原始文件保护和只读降级 |
 | [ADR-0004：Skill 更新与项目状态迁移](./adr/0004-skill-updates-and-project-state-migration.md) | 解释本地更新、版本源、任务刷新和显式项目迁移 |
 | [开源先例](./research/open-source-prior-art.md) | 同类项目比较和吸收／调用策略 |
-| [来源地图](./research/source-map.md) | 专业标准、25 项入选来源的阅读范围、当代议题与案例研究 |
+| [来源地图](./research/source-map.md) | 专业标准、原选书与扩展方法卡的实际阅读范围、当代议题与案例研究 |
+| [建筑学长公开目录覆盖](./research/jianzhu-xuezhang-coverage.md) | 101 个公开工具到 19 套教练工作流的对应关系 |
 | [来源与许可记录](./research/provenance.md) | 上游版本、许可证、审阅范围和使用方式 |
 | [验收情境](./testing/acceptance-scenarios.md) | 30 个端到端行为的可观察验收标准 |
 | [`tests/evals/`](../tests/evals/) | 30 个单轮案例、9 个 journey、6 个 studio packet 与运行方法 |

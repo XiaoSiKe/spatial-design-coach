@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import importlib.util
+import json
+import os
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -58,6 +62,52 @@ class SvgAnchorTests(unittest.TestCase):
             self.assertEqual(result["paths"][0]["id"], "path[2]")
             self.assertFalse(result["paths"][0]["start"]["within_viewbox"])
             self.assertTrue(result["paths"][0]["end"]["within_viewbox"])
+
+    def test_named_path_returns_only_requested_anchors_with_inherited_style(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "plan.svg"
+            path.write_text(
+                '<svg viewBox="0 0 100 100"><g stroke="black">'
+                '<path id="west" d="M0 0L50 50"/><path id="east" d="M20 0L90 50"/>'
+                '<g transform="translate(10 0)"><path id="unsafe" d="M0 0L20 20"/></g>'
+                '</g></svg>'
+            )
+            full = MODULE.inspect_svg(path)
+            focus = MODULE.inspect_svg(path, path_ids=("east", "unsafe"))
+            self.assertEqual(focus["paths"], [full["paths"][1]])
+            self.assertIn("unsafe", focus["warnings"][0])
+            with self.assertRaisesRegex(ValueError, "absent"):
+                MODULE.inspect_svg(path, path_ids=("absent",))
+            path.write_text(path.read_text().replace('id="west"', 'id="east"'))
+            with self.assertRaisesRegex(ValueError, "duplicate"):
+                MODULE.inspect_svg(path, path_ids=("east",))
+
+    def test_cli_json_is_portable_with_non_ascii_workspace_and_path(self) -> None:
+        scripts = Path(MODULE.__file__).parent
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "中文作业"
+            root.mkdir()
+            svg = root / "平面.svg"
+            svg.write_text(
+                '<svg viewBox="0 0 100 100"><path id="路线" stroke="black" d="M0 0L20 30"/></svg>',
+                encoding="utf-8",
+            )
+
+            def run(script, *args):
+                result = subprocess.check_output(
+                    [sys.executable, "-B", str(scripts / script), *args],
+                    env={**os.environ, "PYTHONIOENCODING": "ascii"},
+                )
+                result.decode("ascii")
+                return json.loads(result)
+
+            anchors = run("svg_anchors.py", str(svg), "--path-id", "路线")
+            self.assertEqual(anchors["paths"][0]["end"]["point"], [20, 30])
+            self.assertEqual(anchors["source"], str(svg))
+            project = run("init_project.py", "--root", str(root), "--json")
+            self.assertEqual(project["status"], "created")
+            self.assertTrue(Path(project["project"]).is_file())
+            self.assertEqual(run("migrate_project.py", "--root", str(root), "--check", "--json")["status"], "current")
 
     def test_stylesheet_and_invalid_frames_report_limits_instead_of_coordinates(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

@@ -164,7 +164,7 @@ def main() -> int:
         parser.error(str(exc))
 
     if args.json:
-        print(json.dumps(result, ensure_ascii=False))
+        print(json.dumps(result, separators=(",", ":")))
     else:
         print(f"{result['status']}: {result['project']}")
     return 0

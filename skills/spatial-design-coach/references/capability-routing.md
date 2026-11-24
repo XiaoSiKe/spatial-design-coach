@@ -1,6 +1,6 @@
 # Capability Routing
 
-Read this reference when a design decision requires specialist research, analysis, modeling, visualization, or document production beyond the lightweight coaching core.
+Read this reference when a design decision requires specialist research, analysis, modeling, visualization, or document production beyond the lightweight coaching core. The [architectural workflows](architectural-workflows.md) give operation-specific inputs and checks for CAD, rendering, terrain, plans, reports, and related production.
 
 ## Route by capability, not vendor
 
@@ -74,7 +74,7 @@ Locked decisions protect authorship and consistency. They may include site bound
 
 Acceptance criteria should be observable: file type, scale, units, coordinate system, required layers, viewpoint, editable structure, comparison set, source date, export size, or the question the artifact must answer.
 
-Every handoff must also state how the return will be translated into a concrete spatial or deliverable consequence; do not postpone that responsibility until after the tool runs.
+On initial handoff, visibly state that student-confirmed locks remain authoritative and require explicit student confirmation to change. Copy them only from the current project. Name the largest decision impact for supported, weakened and untested outcomes before running a tool. For untested, name the unchanged decision maturity, unverified claim and missing evidence. Reserve a fresh output directory using the next unused `-vN` and name it in the initial and rework handoff.
 
 ## Apply capability-specific checks
 
@@ -145,7 +145,7 @@ For every inspected return, include at least one visible row about the returned 
 
 Phrase the claim as something the return can establish, such as “does the returned layer retain the locked public path?” Keep “retain the public path” separately identified as the unchanged locked decision. Brief requirements and student choices do not belong in this evidence-status column: a row saying “the boundary/path must be retained — untested” confuses authority with compliance. A reported conflict may remain uninspected while the decision stays locked. Make both states explicit and consistent with the final project-state update.
 
-If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
+On every return audit, visibly repeat the locked-decision confirmation gate. If the result conflicts with locked decisions, do not silently merge it. Surface the conflict and consequence, name exactly the smallest locked decision that could be reopened, and explicitly ask the student whether to reopen it. Keep the old state until the student confirms the change.
 
 ## Degrade honestly when no capability exists
 

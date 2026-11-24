@@ -1,23 +1,26 @@
-# 设计课无敌教练
+<h1 align="center">📐 设计课无敌教练</h1>
 
 <p align="center">
   <img src="docs/assets/studio-hero.webp" width="1200" alt="昏暗的建筑设计工作室中，学生围绕图纸、模型和绘图桌协作">
 </p>
 
-**把想法画清楚，把判断讲明白。**
+<p align="center"><strong>把想法画清楚，把判断讲明白。</strong></p>
 
-面向 **建筑学 · 城乡规划 · 风景园林** 学生的开源 Agent Skill。从任务书和已有成果出发，陪你走过概念、方案、深化、评图、交图与答辩，逐渐形成自己的设计判断。
+<p align="center">面向 <strong>建筑学 · 城乡规划 · 风景园林</strong> 学生的开源 Agent Skill。从任务书和已有成果出发，推进概念、深化、评图、交图与答辩。</p>
 
-Skill 可以理解为给 AI 装上一套专门的工作方法。这个项目把设计课里的提问、推演、比较和检查整理成一套可持续使用的辅导流程，面向所有支持 [Agent Skills 开放规范](https://agentskills.io/specification) 或能够加载自定义 Skill 目录的 Agent，不绑定特定模型或客户端。
+<p align="center">
+  <a href="https://github.com/XiaoSiKe/spatial-design-coach/actions/workflows/quality.yml"><img src="https://github.com/XiaoSiKe/spatial-design-coach/actions/workflows/quality.yml/badge.svg" alt="Quality"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-477368.svg" alt="MIT License"></a>
+</p>
 
-<sub>Spatial Design Coach — From the project brief to a coherent, defensible design.</sub>
+<p align="center">源码版本：<code>0.7.0</code> · <a href="https://github.com/XiaoSiKe/spatial-design-coach/releases">已发布版本</a></p>
 
-[![Quality](https://github.com/XiaoSiKe/spatial-design-coach/actions/workflows/quality.yml/badge.svg)](https://github.com/XiaoSiKe/spatial-design-coach/actions/workflows/quality.yml)
-[![MIT License](https://img.shields.io/badge/License-MIT-477368.svg)](LICENSE)
+<p align="center">
+  <a href="#what">能帮你做什么</a> · <a href="#start">开始使用</a> · <a href="#example">看一个例子</a> · <a href="#readings">哲学与书目</a> · <a href="#specialist-workflows">专项工作流</a> · <a href="#updates">更新与答疑</a> · <a href="#quality">验证与贡献</a>
+</p>
 
-当前发布版本：`0.6.1` · [版本记录](https://github.com/XiaoSiKe/spatial-design-coach/releases) · 封面由项目维护者提供
-
-[能帮你做什么](#what) · [开始使用](#start) · [看一个例子](#example) · [哲学与书目](#readings) · [更新与答疑](#updates) · [验证与贡献](#quality)
+> [!IMPORTANT]
+> 请在支持 [Agent Skills 开放规范](https://agentskills.io/specification)或可加载自定义 Skill 目录的 Agent 中安装完整目录。安装或更新后新建会话，使专项参考、脚本和模板一并加载。
 
 ---
 
@@ -53,7 +56,7 @@ npx skills add XiaoSiKe/spatial-design-coach \
 
 也可追加 `--agent codex --yes`、`--agent claude-code --yes` 等参数，直接指定 Agent；`--agent '*' --yes` 表示安装到安装器支持的所有 Agent。安装器未支持的 Agent，可按其文档手动导入完整 Skill 目录。
 
-安装后**在所用 Agent 中新建会话或任务**，通过它的技能入口选择“设计课无敌教练”，或明确要求使用 `spatial-design-coach`。调用语法由宿主决定；例如 Codex 可使用 `/skills` 或 `$spatial-design-coach`。
+安装后**在所用 Agent 中新建会话或任务**，选中“设计课无敌教练”，或直接说“请使用 spatial-design-coach 帮我推进这个设计作业”。带 Python 3.9+ 和工作区权限的宿主可调用 SVG 检查与作业脚本。仅支持对话或附件时，教练根据可见材料提供下一张图的任务和验收条件。
 
 <details>
 <summary><strong>不熟悉终端？把这段话发给你的 Agent</strong></summary>
@@ -193,9 +196,13 @@ cp -R spatial-design-coach/skills/spatial-design-coach ~/.agents/skills/
 
 人生思考可以通过“这个方案支持怎样的生活”“这次尝试让我学会什么”展开。个人反思是可选项；学生可以只通过图纸、情境和项目例子回答。
 
-### 本轮甄选：24 本专业著作 +《庄子》选篇
+### 60 本专业书籍方法卡与《庄子》选篇
 
-保留维护者给出的 **50 本专业参考书**，从中选出建筑、城乡规划、风景园林各 **8 本**，另加入《庄子》。以下书名均可点击进入相应的[原创方法卡](skills/spatial-design-coach/references/design-lenses.md)，查看教学动作、反例与验证边界。
+原有 **24 本核心书目**覆盖建筑、城乡规划和风景园林，每类 8 本。现新增 **36 本专业方法卡**，其中 13 本来自原书单，23 本为新增书目。每张卡都给出适用问题、教练动作和图纸验收条件。[新增专业方法卡](skills/spatial-design-coach/references/professional-book-methods.md)
+
+例如，住房布局可以按《住宅建筑设计原理》比较两种家庭使用情境，西晒问题可以按《建筑物理》和 *Sun, Wind, and Light* 构造同基准遮阳比较，滨水剖面可借 *River.Space.Design* 同时检查水位、淹没边界与替代通行。
+
+以下是原有[核心方法卡](skills/spatial-design-coach/references/design-lenses.md)及其研读范围。
 
 **阅读记录须按实际深度理解：**
 
@@ -256,38 +263,38 @@ cp -R spatial-design-coach/skills/spatial-design-coach ~/.agents/skills/
 | Z01 | [《庄子》选篇](skills/spatial-design-coach/references/design-lenses.md#z01) | 传统归于庄周及后学 | 哲学·E |
 
 <details>
-<summary><strong>完整书目续表 · 其余 26 本专题参考书</strong></summary>
+<summary><strong>原书单续表 · 其余 26 本</strong></summary>
 
-以下保留原清单编号，尚未列入本轮核心蒸馏。作者／主编沿用维护者提供的书目；后续按项目需要核验版次并选章研究。
+保留原清单编号。其中 13 本已形成专项方法卡，其他条目可按课题选读。
 
 | 编号 | 甄选著作 | 作者／主编 | 阅读记录 |
 | --- | --- | --- | --- |
-| B01 | 《建筑初步》 | 田学哲、郭逊 | 专题参考 |
-| B05 | 《图解思考：建筑表现技法》 | 保罗·拉索 | 专题参考 |
-| B07 | 《住宅建筑设计原理》 | 龙灏等 | 专题参考 |
-| B08 | 《建筑构造》上、下册 | 覃琳、翁季等 | 专题参考 |
-| B09 | 《建筑物理》 | 柳孝图 | 专题参考 |
-| B11 | 《建筑设计资料集》 | 中国建筑学会、中国建筑工业出版社组织编写 | 专题参考 |
+| B01 | 《建筑初步》 | 田学哲、郭逊 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
+| B05 | 《图解思考：建筑表现技法》 | 保罗·拉索 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
+| B07 | 《住宅建筑设计原理》 | 龙灏等 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
+| B08 | 《建筑构造》上、下册 | 覃琳、翁季等 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
+| B09 | 《建筑物理》 | 柳孝图 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
+| B11 | 《建筑设计资料集》 | 中国建筑学会、中国建筑工业出版社组织编写 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
 | B12 | 《中国建筑史》 | 潘谷西 | 专题参考 |
 | B13 | 《外国建筑史：十九世纪末叶以前》 | 陈志华 | 专题参考 |
 | B14 | 《外国近现代建筑史》 | 罗小未 | 专题参考 |
-| B15 | 《华夏意匠：中国古典建筑设计原理分析》 | 李允鉌 | 专题参考 |
+| B15 | 《华夏意匠：中国古典建筑设计原理分析》 | 李允鉌 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
 | B16 | 《走向新建筑》 | 勒·柯布西耶 | 专题参考 |
-| B20 | 《总体设计》 | 凯文·林奇、加里·海克 | 专题参考 |
+| B20 | 《总体设计》 | 凯文·林奇、加里·海克 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
 | B22 | 《国土空间规划原理》 | 吴志强 | 专题参考 |
 | B23 | 《中国城市建设史》 | 董鉴泓 | 专题参考 |
 | B24 | 《外国城市建设史》 | 沈玉麟 | 专题参考 |
-| B28 | 《城市道路与交通规划》上、下册 | 徐循初 | 专题参考 |
+| B28 | 《城市道路与交通规划》上、下册 | 徐循初 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
 | B29 | 《城市工程系统规划》 | 戴慎志 | 专题参考 |
 | B30 | 《城市与区域规划空间分析实验教程》 | 尹海伟、孔繁花 | 专题参考 |
-| B34 | 《城市更新理论与方法》 | 阳建强 | 专题参考 |
+| B34 | 《城市更新理论与方法》 | 阳建强 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
 | B36 | 《风景园林概论》 | 丁绍刚 | 专题参考 |
 | B38 | 《风景园林设计要素》 | 诺曼·K·布思 | 专题参考 |
-| B40 | 《中国古典园林史》 | 周维权 | 专题参考 |
+| B40 | 《中国古典园林史》 | 周维权 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
 | B43 | 《西方园林史：19世纪之前》 | 朱建宁、赵晶 | 专题参考 |
 | B44 | 《西方现代景观设计的理论与实践》 | 王向荣、林箐 | 专题参考 |
-| B46 | 《景观生态学：格局、过程、尺度与等级》 | 邬建国 | 专题参考 |
-| B48 | 《园林树木学》 | 陈有民 | 专题参考 |
+| B46 | 《景观生态学：格局、过程、尺度与等级》 | 邬建国 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
+| B48 | 《园林树木学》 | 陈有民 | [方法卡 · M](skills/spatial-design-coach/references/professional-book-methods.md) |
 
 </details>
 
@@ -312,7 +319,12 @@ studio/
 保留已确认的要求、决定、证据缺口和下一张图的通过条件，让我在新任务继续。
 ```
 
-### 需要专业工具时，带着问题移交
+<a id="specialist-workflows"></a>
+### 从专业操作到可验收的成果
+
+参考建筑学长 AI 的 101 项官网公开工具，教练可以按需加载 19 套专项工作流。从规划强排、地形和日照，到草图转 CAD、平立剖、白模、彩平、渲染、多视角、展板和汇报，每套都给出源文件要求、操作步骤与可观察的通过条件。[专项工作流](skills/spatial-design-coach/references/architectural-workflows.md) · [101 项公开用途对应表](docs/research/jianzhu-xuezhang-coverage.md)
+
+例如，可以问「这是我的 1:500 彩平，帮我按建筑学长式流程转鸟瞰，并核对入口、公共路径和保留建筑」。教练会把源图作为比对依据，按当前环境的工具能力推进。
 
 需要 GIS、CAD／BIM、日照分析、图像生成、展板或 PDF 制作时，教练会发现当前环境已有的专门能力，并移交设计目的、源文件、锁定决定、输出目录和验收标准。返回后再检查来源、方法、验证证据及其空间后果。
 
@@ -363,7 +375,7 @@ python3 ~/.agents/skills/spatial-design-coach/scripts/migrate_project.py \
 
 迁移前会备份 `studio/PROJECT.md`，保留已有内容，不修改学生原始资料。安装位置不同时，请使用实际 Skill 路径；通过 `npx skills` 安装的副本可用 `npx skills list --global --json` 查询，其他安装方式请查看所用 Agent 的技能设置。
 
-`legacy` 表示缺少状态格式标记，可先检查；`future-schema` 表示当前 Skill 不支持较新的状态格式，应先更新 Skill，暂不写入项目状态。本次 `0.6.1` 沿用 schema 1。
+`legacy` 表示缺少状态格式标记，可先检查；`future-schema` 表示当前 Skill 不支持较新的状态格式，应先更新 Skill，暂不写入项目状态。源码 `0.7.0` 沿用 schema 1。
 
 </details>
 

@@ -4,7 +4,9 @@ Read only when a source or philosophical question can change the current design 
 
 ## Use sources at their actual depth
 
-The B numbers preserve the user's 50-book bibliography; 24 books are selected below, eight per discipline. Z01 adds selected Zhuangzi passages. **E** means an identified original excerpt or preface was inspected; **M** means introductory, catalogue, or bibliographic material only. Neither means a whole book was read. All **Teaching move** and **Test / limit** statements are this project's adaptations, not quotations or empirical findings attributed to an author.
+The B numbers preserve the user's 50-book bibliography; 24 books are selected below, eight per discipline. Z01 adds selected Zhuangzi passages. For practical topics such as construction, climate, grading, and drawing, consult the [additional book methods](professional-book-methods.md) within the same lens budget. **E** means an identified original excerpt or preface was inspected; **M** means introductory, catalogue, or bibliographic material only. Neither means a whole book was read. All **Teaching move** and **Test / limit** statements are this project's adaptations, not quotations or empirical findings attributed to an author.
+
+Use the chain source idea → project tension → student value choice → spatial move → evidence/test. For experiential values, name who is doing what and which observation would support or weaken the claim.
 
 When using a card, name the relevant idea and the inspected source level if attribution matters. Give exact quotations or page references only after checking the actual passage and edition. For M sources, keep attribution at the documented topic level; verify the chapter before assigning a specific argument to its author. Do not turn a book, an evocative metaphor, or a proposed comparison into evidence about the student's site.
 

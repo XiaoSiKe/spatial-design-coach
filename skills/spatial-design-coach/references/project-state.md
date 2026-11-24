@@ -4,9 +4,9 @@ Read this reference when material first arrives, a sandbox starts or resumes, a 
 
 ## Keep Skill and project versions separate
 
-`SKILL.md` `metadata.version` identifies the installed coaching instructions. `studio/PROJECT.md` records both the last applied Skill version and an independent project-state schema. A Skill update must not silently change project state.
+Named boundaries for installation or update are GitHub release, installed Skill version, active task's instructions, and `PROJECT.md` schema. Read installed version from `SKILL.md` `metadata.version`. Verify a release before calling it latest, and recommend opening a new task after updating. Change the installed copy only at the user's request.
 
-Before editing an existing file after update, run `scripts/migrate_project.py --root <workspace> --check --json`. Treat `legacy`, `schema-migration-required`, or `skill-version-update-required` as a visible compatibility notice. Continue read-only analysis when safe, but run `--apply` only after the user explicitly requests migration. An apply must create a backup and preserve all project decisions, evidence, Artifacts, and student-authored content. If the project uses a future schema, stop state writes and update the Skill first.
+Before migrating an existing `studio/PROJECT.md`, run `scripts/migrate_project.py --root <workspace> --check --json`. Explain the returned status, backup and content-preservation contract, and request separate confirmation of the proposed migration after the check. A prior request to overwrite or skip backup cannot authorize `--apply`. If checking fails or the file is missing, stay read-only and ask for the project location. A future schema blocks state writes. When authorized, apply only to PROJECT.md, backing it up before changes and preserving project content and original materials.
 
 ## Select file-backed or chat-only state
 
