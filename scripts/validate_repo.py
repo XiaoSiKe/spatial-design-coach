@@ -107,8 +107,12 @@ def markdown_structure_and_links() -> None:
             match = re.match(r"^(#{1,6})\s+", line)
             if match:
                 level = len(match.group(1))
-                headings.append((number, level))
-                h1_count += level == 1
+            elif re.fullmatch(r"<h1\b[^>]*>.+</h1>", line, re.IGNORECASE):
+                level = 1
+            else:
+                continue
+            headings.append((number, level))
+            h1_count += level == 1
         if h1_count != 1:
             fail(f"expected one H1, found {h1_count}: {rel}")
         for (prev_line, prev), (line, level) in zip(headings, headings[1:]):
@@ -195,7 +199,7 @@ def check_metadata() -> None:
         fail("docs/README.md version does not match plugin.json")
     if f"状态：`{version}` 实施基线" not in read(ROOT / "docs" / "product" / "prd.md"):
         fail("docs/product/prd.md version does not match plugin.json")
-    if f"当前发布版本：`{version}`" not in read(ROOT / "README.md"):
+    if f"源码版本：<code>{version}</code>" not in read(ROOT / "README.md"):
         fail("README.md version does not match plugin.json")
     template = read(SKILL_DIR / "assets" / "PROJECT.template.md")
     if f"- Skill 版本：{version}" not in template:
@@ -215,14 +219,14 @@ def check_runtime() -> None:
         fail("unexpected skill name")
     skill_text = read(SKILL_DIR / "SKILL.md")
     references = sorted((SKILL_DIR / "references").glob("*.md"))
-    if len(references) != 8:
-        fail(f"expected 8 runtime references, found {len(references)}")
+    if len(references) != 10:
+        fail(f"expected 10 runtime references, found {len(references)}")
     for path in references:
         expected = f"references/{path.name}"
         if expected not in skill_text:
             fail(f"SKILL.md does not route to {expected}")
-    if len(skill_text.splitlines()) > 200:
-        fail("SKILL.md exceeds 200 lines")
+    if len(skill_text.encode("utf-8")) > 10_000:
+        fail("SKILL.md exceeds the 10 KB entry-point budget")
     reference_lines = sum(len(read(path).splitlines()) for path in references)
     if reference_lines > 1400:
         fail(f"runtime references exceed 1400 lines: {reference_lines}")
@@ -340,7 +344,7 @@ def check_doc_governance() -> None:
 
 def check_reading_registry() -> None:
     rows = re.findall(
-        r"^\| (B\d{2}|Z01) \| [^\n]+ \| (核心·[EM]|哲学·E|专题参考) \|$",
+        r"^\| (B\d{2}|Z01) \| [^\n]+ \| (核心·[EM]|哲学·E|专题参考|\[方法卡 · M\]\([^\)]+\)) \|$",
         read(ROOT / "README.md"),
         re.MULTILINE,
     )
@@ -354,6 +358,16 @@ def check_reading_registry() -> None:
             fail(f"expected eight selected readings in B{start:02}–B{end:02}")
     if roles.get("Z01") != "哲学·E":
         fail("Z01 must remain a separately identified philosophical reading")
+    expanded = re.findall(
+        r"^\| ([BP]\d{2}) · [^\n]+? · ([EM])，\[",
+        read(SKILL_DIR / "references" / "professional-book-methods.md"),
+        re.MULTILINE,
+    )
+    expanded_books = {key for key, _ in expanded}
+    promoted = {key for key, role in rows if role.startswith("[方法卡")}
+    new_books = {f"P{number:02}" for number in range(1, 24)}
+    if len(promoted) != 13 or len(expanded) != len(expanded_books) or expanded_books != promoted | new_books:
+        fail("expanded book methods differ from README and P01–P23")
     active = selected | {"Z01"}
     lens_text = read(SKILL_DIR / "references" / "design-lenses.md")
     anchors = re.findall(r'^<a id="(b\d{2}|z01)"></a>$', lens_text, re.MULTILINE)
@@ -376,6 +390,23 @@ def check_reading_registry() -> None:
             level = re.search(r"\*\*Basis \(([EM])\):\*\*", block)
             if not level or level.group(1) != evidence.get(key):
                 fail(f"runtime reading evidence level differs from source-map: {key}")
+
+
+def check_architectural_workflow_coverage() -> None:
+    runtime = read(SKILL_DIR / "references" / "architectural-workflows.md")
+    coverage = read(ROOT / "docs" / "research" / "jianzhu-xuezhang-coverage.md")
+    workflows = re.findall(r"^\| (W\d{2}) ·", runtime, re.MULTILINE)
+    mapped = re.findall(r"^\| (W\d{2}) \| (.+) \|$", coverage, re.MULTILINE)
+    expected = [f"W{number:02}" for number in range(1, 20)]
+    if workflows != expected or [key for key, _ in mapped] != expected:
+        fail("public tool crosswalk differs from W01–W19")
+    positions = [
+        int(position)
+        for _, group in mapped
+        for position in re.findall(r"(?:^|、)(\d+) ", group)
+    ]
+    if sorted(positions) != list(range(1, 102)):
+        fail("public tool crosswalk must map each of the 101 source positions once")
 
 
 def check_behavior_contracts() -> None:
@@ -418,6 +449,7 @@ def main() -> int:
     check_journeys_and_fixtures()
     check_doc_governance()
     check_reading_registry()
+    check_architectural_workflow_coverage()
     check_behavior_contracts()
     if ERRORS:
         for item in ERRORS:

@@ -63,7 +63,7 @@ def endpoints(data: str) -> tuple[tuple[float, float], tuple[float, float]] | No
     return start, current
 
 
-def inspect_svg(path: Path) -> dict[str, object]:
+def inspect_svg(path: Path, *, path_ids: tuple[str, ...] = ()) -> dict[str, object]:
     root = ET.parse(path).getroot()
     frame = [float(value) for value in root.get("viewBox", "").replace(",", " ").split()]
     if len(frame) != 4 or not all(math.isfinite(value) for value in frame) or min(frame[2:]) <= 0:
@@ -84,16 +84,32 @@ def inspect_svg(path: Path) -> dict[str, object]:
         vertical = "upper" if y < 1 / 3 else "lower" if y > 2 / 3 else "middle"
         return f"image-{vertical}-{horizontal}"
 
-    path_numbers = {node: index for index, node in enumerate(
-        (node for node in root.iter() if node.tag.rsplit("}", 1)[-1] == "path"), 1
-    )}
+    requested = set(path_ids)
+    path_numbers = {}
+    paths = (node for node in root.iter() if node.tag.rsplit("}", 1)[-1] == "path")
+    if requested:
+        seen = set()
+        for node in paths:
+            identifier = node.get("id")
+            if identifier in requested:
+                if identifier in seen:
+                    raise ValueError(f"duplicate SVG path ID: {identifier}")
+                seen.add(identifier)
+        if missing := requested - seen:
+            raise ValueError(f"SVG path IDs not found: {', '.join(sorted(missing))}")
+    else:
+        path_numbers = {node: index for index, node in enumerate(paths, 1)}
 
     def visit(node: ET.Element, inherited: dict[str, str], blocked: bool = False) -> None:
         tag = node.tag.rsplit("}", 1)[-1]
         if tag in {"defs", "symbol", "clipPath", "mask", "marker", "pattern", "foreignObject"}:
             return
         if tag == "use":
-            result["warnings"].append("SVG use instances are not resolved; skipped.")
+            if not requested:
+                result["warnings"].append("SVG use instances are not resolved; skipped.")
+            return
+        selected_path = tag == "path" and (not requested or node.get("id") in requested)
+        if tag == "path" and not selected_path and len(node) == 0:
             return
         style = dict(inherited)
         style.update(node.attrib)
@@ -102,8 +118,10 @@ def inspect_svg(path: Path) -> dict[str, object]:
         blocked = blocked or (tag == "svg" and node is not root) or bool(node.get("class"))
         blocked = blocked or any(style.get(key, "none") not in ("", "none") for key in ("transform", "clip-path", "mask"))
         hidden = style.get("display") == "none" or style.get("visibility") == "hidden"
-        if tag == "path":
-            identifier = node.get("id", f"path[{path_numbers[node]}]")
+        if selected_path:
+            identifier = node.get("id")
+            if identifier is None:
+                identifier = f"path[{path_numbers[node]}]"
             if blocked:
                 result["warnings"].append(f"{identifier}: transform/viewport/clip/mask/class not resolved; skipped.")
             elif not hidden and style.get("stroke", "none") != "none":
@@ -121,18 +139,23 @@ def inspect_svg(path: Path) -> dict[str, object]:
             visit(child, style, blocked or hidden)
 
     visit(root, {})
+    if requested:
+        emitted = {entry["id"] for entry in result["paths"]}
+        if unavailable := requested - emitted:
+            result["warnings"].append(f"No inspectable anchor for: {', '.join(sorted(unavailable))}")
     return result
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("svg", type=Path)
+    parser.add_argument("--path-id", action="append", default=[], help="Inspect only this named SVG path; repeat to compare paths.")
     args = parser.parse_args()
     try:
-        print(json.dumps(inspect_svg(args.svg), ensure_ascii=False, indent=2))
+        print(json.dumps(inspect_svg(args.svg, path_ids=tuple(args.path_id)), separators=(",", ":")))
         return 0
     except (OSError, ValueError, ET.ParseError) as exc:
-        print(json.dumps({"error": str(exc), "paths": []}, ensure_ascii=False))
+        print(json.dumps({"error": str(exc), "paths": []}, separators=(",", ":")))
         return 1
 
 

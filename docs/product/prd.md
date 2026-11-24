@@ -1,6 +1,6 @@
 # 设计课无敌教练产品需求
 
-> 状态：`0.6.1` 实施基线
+> 状态：`0.7.0` 实施基线
 >
 > 更新日期：2026-09-03
 
@@ -294,6 +294,6 @@ presentation-document
 
 ## Acceptance
 
-实现通过 30 个单轮情境、9 个多轮 journey、6 个合成 studio packet、沙盒初始化与迁移单元测试和发布资格检查验收。测试关注真实 Artifact、项目状态、更新兼容、原始文件保护、阶段门、救火关键路径、Adapter 对账、哲学转译、来源诚实和最终成果完整性；固定措辞和模型内部推理不作为通过条件。
+验收使用 30 个单轮情境、9 个多轮 journey、6 个合成 studio packet、沙盒初始化与迁移单元测试和发布资格检查验收。测试关注真实 Artifact、项目状态、更新兼容、原始文件保护、阶段门、救火关键路径、Adapter 对账、哲学转译、来源诚实和最终成果完整性；固定措辞和模型内部推理不作为通过条件。
 
 架构取舍与影响见 [ADR-0001](../adr/0001-lightweight-core-and-capability-routing.md)、[ADR-0002](../adr/0002-deep-project-state-and-eval-driven-evolution.md) 与 [ADR-0003](../adr/0003-assignment-sandbox-and-file-backed-state.md)，研究依据见 [开源先例](../research/open-source-prior-art.md) 和 [来源地图](../research/source-map.md)。
